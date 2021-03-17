@@ -1,16 +1,35 @@
-# vocabulary_learning_app
+# Vocabulary Learning App
 
-A new Flutter project.
+A Flutter progressive web app for building vocabulary.
 
-## Getting Started
+## Live Demo
 
-This project is a starting point for a Flutter application.
+(TODO)
 
-A few resources to get you started if this is your first Flutter project:
+## Installation and Setup
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
+* Install essential tools
+    * Git
+    * VS Code
+    * Flutter extension for VS Code
 
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+* Install dev tools
+    * Android Studio (no emulator needed)
+    * Node.js
+    * Flutter
+
+* Sign up Firebase account and create a project
+
+* Init and configure the project for Firebase
+
+## Testing
+
+* For frontend app
+    * flutter build web
+    * firebase deploy
+
+* For backend app / API: Use Heroku (TODO) + API client (Postman)
+
+## App features
+
+(TODO)

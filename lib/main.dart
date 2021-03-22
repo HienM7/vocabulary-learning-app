@@ -16,7 +16,6 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-<<<<<<< HEAD
       
       initialRoute: '/',
       routes: {
@@ -27,9 +26,6 @@ class MyApp extends StatelessWidget {
       home: LoginScreen(),
       // home: MyHomePage(title: 'Flutter Demo Home Page'),
         
-=======
-      home: LoginPage(),
->>>>>>> Login and register (nhat and luan)
     );
   }
 }

@@ -23,9 +23,14 @@ class MyApp extends StatelessWidget {
       '/signup': (context) => RegisterScreen(),
       '/my_profile': (context) => MainProfile(),
       },
+<<<<<<< HEAD
       home: LoginScreen(),
+=======
+
+      home: LoginPage(),
+>>>>>>> Login and register (nhat and luan)
       // home: MyHomePage(title: 'Flutter Demo Home Page'),
-        
+
     );
   }
 }

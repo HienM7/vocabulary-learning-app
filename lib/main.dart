@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:vocabulary_learning_app/Screens/login/login.dart';
+
+import 'Login/login.dart';
+import 'Register/register.dart';
+// import 'package:vocabulary_learning_app/Screens/login/login.dart';
 import 'package:vocabulary_learning_app/Screens/profile/mainProfile.dart';
-import 'package:vocabulary_learning_app/Screens/register/register.dart';
 
 void main() {
   runApp(MyApp());
@@ -20,17 +22,13 @@ class MyApp extends StatelessWidget {
       initialRoute: '/',
       routes: {
       '/login': (context) => LoginPage(),
-      '/signup': (context) => RegisterScreen(),
+      '/signup': (context) => RegisterPage(),
       '/my_profile': (context) => MainProfile(),
       },
-<<<<<<< HEAD
-      home: LoginScreen(),
-=======
 
       home: LoginPage(),
->>>>>>> Login and register (nhat and luan)
       // home: MyHomePage(title: 'Flutter Demo Home Page'),
-
+      
     );
   }
 }

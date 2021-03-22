@@ -15,6 +15,7 @@ class MainProfile extends StatelessWidget {
         child: Builder(
           builder: (context) {
             return MaterialApp(
+              initialRoute: '/my_profile',
               debugShowCheckedModeBanner: false,
               theme: ThemeProvider.of(context),
               home: ProfileScreen(),

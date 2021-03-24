@@ -105,10 +105,10 @@ class _LoginPageState extends State<LoginPage> {
                 children: <Widget>[
                   GestureDetector(
                     onTap: () => {
-                      Navigator.push(
+                      Navigator.pushNamed(
                           context,
-                          MaterialPageRoute(
-                              builder: (context) => RegisterPage()))
+                          '/signup'
+                      )
                     },
                     child: Text(
                       "NEW USER ? SIGN UP",

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:animated_theme_switcher/animated_theme_switcher.dart';
-import 'package:vocabulary_learning_app/constants/constants.dart';
 import 'package:vocabulary_learning_app/Screens/profile/profile.dart';
+import 'package:vocabulary_learning_app/constants/constants.dart';
 
 class MainProfile extends StatelessWidget {
   // This widget is the root of your application.
@@ -12,7 +12,6 @@ class MainProfile extends StatelessWidget {
         child: Builder(
           builder: (context) {
             return MaterialApp(
-              initialRoute: '/my_profile',
               debugShowCheckedModeBanner: false,
               theme: ThemeProvider.of(context),
               home: ProfileScreen(),

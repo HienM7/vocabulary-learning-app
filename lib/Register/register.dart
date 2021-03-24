@@ -115,8 +115,10 @@ class _RegisterPage extends State<RegisterPage> {
               width: double.infinity,
               child: GestureDetector(
                 onTap: () => {
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => LoginPage()))
+                  Navigator.pushNamed(
+                    context,
+                    '/login'
+                  )
                 },
                 child: Text(
                   " YOU HAVE AN ACCOUNT ? SIGN IN",

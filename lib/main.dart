@@ -10,9 +10,11 @@ import 'package:vocabulary_learning_app/Screens/vocab_list/vocab_list.dart';
 import 'package:vocabulary_learning_app/Home/home.dart';
 import 'package:vocabulary_learning_app/Home/home_page.dart';
 import 'package:vocabulary_learning_app/Screens/course/course.dart';
+import 'package:vocabulary_learning_app/Home/home.dart';
+import 'package:vocabulary_learning_app/Home/home_page.dart';
+import 'Home/home.dart';
 
-void main() {
-  // SystemChrome.setEnabledSystemUIOverlays([]);
+void main(){
   WidgetsFlutterBinding.ensureInitialized();
   runApp(MyApp());
 }

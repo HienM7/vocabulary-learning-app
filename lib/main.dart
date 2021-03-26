@@ -8,10 +8,13 @@ import 'package:vocabulary_learning_app/Login/login.dart';
 // import 'package:vocabulary_learning_app/Screens/login/login.dart';
 import 'package:vocabulary_learning_app/Register/register.dart';
 import 'package:vocabulary_learning_app/Screens/vocab_list/vocab_list.dart';
+import 'package:vocabulary_learning_app/Home/home.dart';
+import 'package:vocabulary_learning_app/Home/home_page.dart';
 
 
 void main() {
   // SystemChrome.setEnabledSystemUIOverlays([]);
+  WidgetsFlutterBinding.ensureInitialized();
   runApp(MyApp());
 }
 
@@ -33,7 +36,9 @@ class MyApp extends StatelessWidget {
               '/signup': (context) => RegisterPage(),
               '/my-profile': (context) => ProfileScreen(),
               '/list': (context) => TablePage(),
-              '/todo-test': (context) => Home()
+              '/todo-test': (context) => Home(),
+              '/home': (context) => HomePage(),
+              '/home-page': (context) => HomePageUser(),
             },
 
             home: LoginPage(),

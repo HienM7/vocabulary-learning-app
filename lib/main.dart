@@ -9,6 +9,7 @@ import 'package:vocabulary_learning_app/Login/login.dart';
 import 'package:vocabulary_learning_app/Register/register.dart';
 import 'package:vocabulary_learning_app/Screens/vocab_list/vocab_list.dart';
 
+import 'package:vocabulary_learning_app/Screens/course/course.dart';
 
 void main() {
   // SystemChrome.setEnabledSystemUIOverlays([]);

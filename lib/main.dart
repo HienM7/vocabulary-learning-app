@@ -6,13 +6,15 @@ import 'package:vocabulary_learning_app/constants/constants.dart';
 import 'package:vocabulary_learning_app/Login/login.dart';
 // import 'package:vocabulary_learning_app/Screens/login/login.dart';
 import 'package:vocabulary_learning_app/Register/register.dart';
+import 'package:vocabulary_learning_app/Screens/vocab_list/vocab_list.dart';
+import 'package:vocabulary_learning_app/Screens/course/course.dart';
 
 void main() {
+  // SystemChrome.setEnabledSystemUIOverlays([]);
   runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return ThemeProvider(
@@ -29,6 +31,7 @@ class MyApp extends StatelessWidget {
               '/login': (context) => LoginPage(),
               '/signup': (context) => RegisterPage(),
               '/my-profile': (context) => ProfileScreen(),
+              '/list': (context) => TablePage(),
             },
 
             home: LoginPage(),

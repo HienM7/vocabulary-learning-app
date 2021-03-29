@@ -39,6 +39,8 @@ class MyApp extends StatelessWidget {
               '/todo-test': (context) => Home(),
               '/home': (context) => HomePage(),
               '/home-page': (context) => HomePageUser(),
+              '/list': (context) => TablePage(),
+              '/todo-test': (context) => Home()
             },
 
             home: LoginPage(),

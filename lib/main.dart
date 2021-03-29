@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:animated_theme_switcher/animated_theme_switcher.dart';
 import 'package:vocabulary_learning_app/Screens/profile/profile.dart';
+import 'package:vocabulary_learning_app/Screens/testCRUD/home.dart';
 
 import 'package:vocabulary_learning_app/constants/constants.dart';
 import 'package:vocabulary_learning_app/Login/login.dart';
 // import 'package:vocabulary_learning_app/Screens/login/login.dart';
 import 'package:vocabulary_learning_app/Register/register.dart';
 import 'package:vocabulary_learning_app/Screens/vocab_list/vocab_list.dart';
-import 'package:vocabulary_learning_app/Screens/course/course.dart';
+
 
 void main() {
   // SystemChrome.setEnabledSystemUIOverlays([]);
@@ -32,6 +33,7 @@ class MyApp extends StatelessWidget {
               '/signup': (context) => RegisterPage(),
               '/my-profile': (context) => ProfileScreen(),
               '/list': (context) => TablePage(),
+              '/todo-test': (context) => Home()
             },
 
             home: LoginPage(),

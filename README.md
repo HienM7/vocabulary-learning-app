@@ -32,4 +32,12 @@ A Flutter progressive web app for building vocabulary.
 
 ## App features
 
-(TODO)
+* CRUD vocabulary lists
+
+* CRUD words in lists
+
+* Share lists
+
+* View and Update profile
+
+* Learn vocabulary with games

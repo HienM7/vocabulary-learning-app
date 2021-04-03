@@ -10,7 +10,7 @@ class HomePageUser extends StatefulWidget {
 
 class _HomePageStateUser extends State<HomePageUser> {
   List<Map<dynamic, dynamic>> lists = [];
-  CollectionReference firebaseinstance = FirebaseFirestore.instance.collection('list');
+  CollectionReference firebaseinstance = Firestore.instance.collection('list');
   final TextEditingController _controller = TextEditingController();
   bool change = false;
   int limits = 9;
@@ -24,11 +24,11 @@ class _HomePageStateUser extends State<HomePageUser> {
     {
       setState(() {
         lists.clear();
-        firebaseinstance.get().then((querySnapshot)
+        firebaseinstance.getDocuments().then((querySnapshot)
         {
           int i = 0;
-          for (var document in querySnapshot.docs) {
-            lists.add(document.data());
+          for (var document in querySnapshot.documents) {
+            lists.add(document.data);
             i++;
             if(i==limits) break;
           }
@@ -44,20 +44,20 @@ class _HomePageStateUser extends State<HomePageUser> {
     {
       setState(() {
         lists.clear();
-        firebaseinstance.get().then((querySnapshot)
+        firebaseinstance.getDocuments().then((querySnapshot)
         {
-          querySnapshot.docs.forEach((document) {
+          querySnapshot.documents.forEach((document) {
             List<String> strs = [];
             String str = "";
-            for(int i=0;i<document.data()["name"].toString().length; i++)
+            for(int i=0;i<document.data["name"].toString().length; i++)
             {
-              str += document.data()["name"][i];
+              str += document.data["name"][i];
               strs.add(str);
             }
             strs.forEach((element) {
               if(element==value.toString())
               {
-                lists.add(document.data());
+                lists.add(document.data);
               }
             });
           });
@@ -171,7 +171,7 @@ class _HomePageStateUser extends State<HomePageUser> {
                       minHeight: 500,
                     ),
                     child: FutureBuilder<QuerySnapshot>(
-                      future: firebaseinstance.get(),
+                      future: firebaseinstance.getDocuments(),
                       builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot){
                         if(snapshot.hasError)
                         {
@@ -186,8 +186,8 @@ class _HomePageStateUser extends State<HomePageUser> {
                         {
                           lists.clear();
                           int i = 0;
-                          for (var document in snapshot.data.docs) {
-                            lists.add(document.data());
+                          for (var document in snapshot.data.documents) {
+                            lists.add(document.data);
                             i++;
                             if(i==limits) break;
                           }

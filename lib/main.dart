@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:animated_theme_switcher/animated_theme_switcher.dart';
 import 'package:vocabulary_learning_app/Screens/profile/profile.dart';
 import 'package:vocabulary_learning_app/Screens/testCRUD/home.dart';

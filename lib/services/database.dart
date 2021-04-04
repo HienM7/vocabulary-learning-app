@@ -7,7 +7,7 @@ class DatabaseServices {
         .document(userId)
         .collection("tasks")
         .document(documentId)
-        .setData(taskMap, merge: true);
+        .setData(taskMap);
   }
 
   createTask(String userId, Map taskMap) {

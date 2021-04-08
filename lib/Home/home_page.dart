@@ -84,7 +84,7 @@ class _HomePageStateUser extends State<HomePageUser> {
         child: Column(
           children: [
             Padding(
-              padding: EdgeInsets.symmetric(horizontal: 180, vertical: 20),
+              padding: EdgeInsets.symmetric(horizontal: screenSize.width*0.12, vertical: 20),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.center,
@@ -101,12 +101,12 @@ class _HomePageStateUser extends State<HomePageUser> {
                           fontWeight: FontWeight.bold
                         ),
                       ),
-                      SizedBox(width: 500),
+                      SizedBox(width: screenSize.width*0.30),
                       TextButton(
                         onPressed: (){},
                         child: Text('Create a list', style: TextStyle(color: Colors.white, fontSize: 18),),
                         style: ButtonStyle(
-                          padding: MaterialStateProperty.all<EdgeInsets>(EdgeInsets.symmetric(horizontal: 25, vertical: 15)),
+                          padding: MaterialStateProperty.all<EdgeInsets>(EdgeInsets.symmetric(horizontal: screenSize.width*0.015, vertical: screenSize.width*0.01)),
                           backgroundColor: MaterialStateProperty.all<Color>(Colors.greenAccent[700]),
                           shape: MaterialStateProperty.all<RoundedRectangleBorder>(
                             RoundedRectangleBorder(
@@ -116,10 +116,10 @@ class _HomePageStateUser extends State<HomePageUser> {
                           )
                         ),
                       ),
-                      SizedBox(width: 50),
+                      SizedBox(width: screenSize.width*0.05),
                       Container(
                         padding: EdgeInsets.all(10),
-                        width: 350,
+                        width: screenSize.width*0.21,
                         child: TextField(
                           controller: _controller,
                           onSubmitted: (value) {

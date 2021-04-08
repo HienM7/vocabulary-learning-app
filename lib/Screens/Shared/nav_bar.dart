@@ -9,10 +9,11 @@ class _NavBar extends State<NavBar> {
   List _isHovering = [false, false, false];
   @override
   Widget build(BuildContext context) {
+    var screenSize = MediaQuery.of(context).size;
     return Container(
       color: Colors.blueGrey[700],
       child: Padding(
-        padding: EdgeInsets.symmetric(horizontal: 180, vertical: 5),
+        padding: EdgeInsets.symmetric(horizontal: screenSize.width*0.12, vertical: 5),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [

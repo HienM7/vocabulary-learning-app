@@ -18,7 +18,7 @@ class _HomePageState extends State<HomePage> {
         child: Container(
           color: Theme.of(context).bottomAppBarColor.withOpacity(0),
           child: Padding(
-            padding: EdgeInsets.symmetric(horizontal: 40, vertical: 20),
+            padding: EdgeInsets.symmetric(horizontal: screenSize.width*0.028, vertical: 20),
             child: Row(
               children: [
                 Text(' LEARNING',
@@ -229,124 +229,126 @@ class _HomePageState extends State<HomePage> {
                 )
               ],
             ),
-            Row(
-              mainAxisSize: MainAxisSize.max,
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                SizedBox(width: 160),
-                Container( // image below the top bar
-                  child: SizedBox(
-                    width: screenSize.width*0.17,
-                    child: Image.network(
-                      'https://scontent.fdad3-1.fna.fbcdn.net/v/t1.15752-9/164180007_1976118652529234_6551206714448134323_n.png?_nc_cat=102&ccb=1-3&_nc_sid=ae9488&_nc_ohc=ACg6WyDi8PgAX9zTVq1&_nc_ht=scontent.fdad3-1.fna&oh=9304c138c2adabd22626e2a590715f50&oe=60828E6D',
-                      fit: BoxFit.contain,
-                    ),
-                  ),
-                ),
-                Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Padding(
-                      padding: EdgeInsets.fromLTRB(140, 50, 0, 50),
-                      child: Text(
-                      'Why learn with Learning',
-                      style: TextStyle(
-                        fontSize: 44,
-                        fontWeight: FontWeight.bold,
+            Container(
+              width: screenSize.width*0.85,
+              child: Row(
+                mainAxisSize: MainAxisSize.min,
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Container( // image below the top bar
+                    child: SizedBox(
+                      width: screenSize.width*0.17,
+                      child: Image.network(
+                        'https://scontent.fdad3-1.fna.fbcdn.net/v/t1.15752-9/164180007_1976118652529234_6551206714448134323_n.png?_nc_cat=102&ccb=1-3&_nc_sid=ae9488&_nc_ohc=ACg6WyDi8PgAX9zTVq1&_nc_ht=scontent.fdad3-1.fna&oh=9304c138c2adabd22626e2a590715f50&oe=60828E6D',
+                        fit: BoxFit.contain,
                       ),
                     ),
-                    ),
-                    Text(
-                        'Learning is a software learn english has interface friendly with user, easy to use and its own charaterristics different',
+                  ),
+                  Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Padding(
+                        padding: EdgeInsets.fromLTRB(140, 50, 0, 50),
+                        child: Text(
+                        'Why learn with Learning',
                         style: TextStyle(
-                          fontSize: 18
+                          fontSize: 44,
+                          fontWeight: FontWeight.bold,
                         ),
-                        textAlign: TextAlign.left,
-                    ),
-                    Text(
-                        'with another softwares. Learning supply the feature necessary help for user learn english way easier',
-                        style: TextStyle(
-                          fontSize: 18,
-                        ),
-                        textAlign: TextAlign.left,
-                    ),
-                    Padding(
-                      padding: EdgeInsets.fromLTRB(0, 25, 0, 0),
-                      child: Row(
-                      children: [
-                        Icon(
-                          Icons.share_outlined,
-                          color: Colors.orange[600],
-                          size: 35,
-                        ),
-                        SizedBox(width: 20),
-                        Text('Share list for another users',
+                      ),
+                      ),
+                      Text(
+                          'Learning is a software learn english has interface friendly with user, easy to use and its own charaterristics different',
+                          style: TextStyle(
+                            fontSize: 18
+                          ),
+                          textAlign: TextAlign.left,
+                      ),
+                      Text(
+                          'with another softwares. Learning supply the feature necessary help for user learn english way easier',
                           style: TextStyle(
                             fontSize: 18,
                           ),
-                        )
-                      ],
-                    )
-                    ),
-                    Padding(
-                      padding: EdgeInsets.fromLTRB(0, 25, 0, 0),
-                      child: Row(
-                      children: [
-                        Icon(
-                          Icons.create_new_folder,
-                          color: Colors.orange[600],
-                          size: 35,
-                        ),
-                        SizedBox(width: 20),
-                        Text('Create new list and addition word',
-                          style: TextStyle(
-                            fontSize: 18,
+                          textAlign: TextAlign.left,
+                      ),
+                      Padding(
+                        padding: EdgeInsets.fromLTRB(0, 25, 0, 0),
+                        child: Row(
+                        children: [
+                          Icon(
+                            Icons.share_outlined,
+                            color: Colors.orange[600],
+                            size: 35,
                           ),
-                        )
-                      ],
-                    )
-                    ),
-                    Padding(
-                      padding: EdgeInsets.fromLTRB(0, 25, 0, 0),
-                      child: Row(
-                      children: [
-                        Icon(
-                          Icons.public,
-                          color: Colors.orange[600],
-                          size: 35,
-                        ),
-                        SizedBox(width: 20),
-                        Text('Review lists published',
-                          style: TextStyle(
-                            fontSize: 18,
+                          SizedBox(width: 20),
+                          Text('Share list for another users',
+                            style: TextStyle(
+                              fontSize: 18,
+                            ),
+                          )
+                        ],
+                      )
+                      ),
+                      Padding(
+                        padding: EdgeInsets.fromLTRB(0, 25, 0, 0),
+                        child: Row(
+                        children: [
+                          Icon(
+                            Icons.create_new_folder,
+                            color: Colors.orange[600],
+                            size: 35,
                           ),
-                        )
-                      ],
-                    )
-                    ),
-                    Padding(
-                      padding: EdgeInsets.fromLTRB(0, 25, 0, 0),
-                      child: Row(
-                      children: [
-                        Icon(
-                          Icons.save,
-                          color: Colors.orange[600],
-                          size: 35,
-                        ),
-                        SizedBox(width: 20),
-                        Text('Storage words learned today into repository',
-                          style: TextStyle(
-                            fontSize: 18,
+                          SizedBox(width: 20),
+                          Text('Create new list and addition word',
+                            style: TextStyle(
+                              fontSize: 18,
+                            ),
+                          )
+                        ],
+                      )
+                      ),
+                      Padding(
+                        padding: EdgeInsets.fromLTRB(0, 25, 0, 0),
+                        child: Row(
+                        children: [
+                          Icon(
+                            Icons.public,
+                            color: Colors.orange[600],
+                            size: 35,
                           ),
-                        )
-                      ],
-                    )
-                    )
-                  ],
-                )
-              ],
+                          SizedBox(width: 20),
+                          Text('Review lists published',
+                            style: TextStyle(
+                              fontSize: 18,
+                            ),
+                          )
+                        ],
+                      )
+                      ),
+                      Padding(
+                        padding: EdgeInsets.fromLTRB(0, 25, 0, 0),
+                        child: Row(
+                        children: [
+                          Icon(
+                            Icons.save,
+                            color: Colors.orange[600],
+                            size: 35,
+                          ),
+                          SizedBox(width: 20),
+                          Text('Storage words learned today into repository',
+                            style: TextStyle(
+                              fontSize: 18,
+                            ),
+                          )
+                        ],
+                      )
+                      )
+                    ],
+                  )
+                ],
+              ),
             ),
             // Home footer
             Footer(),

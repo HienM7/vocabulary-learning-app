@@ -80,7 +80,82 @@ class _ListWord extends State<ListWord> {
                           keys.add(document.documentID);
                           lists.add(document.data);
                         }
-                        return buildtable(lists, screenSize);
+                        return Column(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            buildtable(lists, screenSize),
+                            Padding(
+                              padding: EdgeInsets.only(top: 35, left: 20),
+                              child: Text("Add words", style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),),
+                            ),
+                            SizedBox(height: 20,),
+                            Wrap(
+                              spacing: screenSize.width*0.015,
+                              children: [
+                                Container(
+                                  width: screenSize.width*0.2,
+                                  child: TextFormField(
+                                    controller: addword,
+                                    keyboardType: TextInputType.text,
+                                    decoration: InputDecoration(
+                                      hintText: "Word",
+                                      labelText: "Word",
+                                      labelStyle: TextStyle(color: Colors.black),
+                                      border: OutlineInputBorder(borderRadius: BorderRadius.circular(4)),
+                                    ),
+                                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.w400),
+                                  ),
+                                ),
+                                Container(
+                                  width: screenSize.width*0.2,
+                                  child: TextFormField(
+                                    controller: adddefine,
+                                    keyboardType: TextInputType.text,
+                                    decoration: InputDecoration(
+                                      hintText: "Definition",
+                                      labelText: "Definition",
+                                      labelStyle: TextStyle(color: Colors.black),
+                                      border: OutlineInputBorder(borderRadius: BorderRadius.circular(4)),
+                                    ),
+                                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.w400),
+                                  ),
+                                ),
+                                Container(
+                                  width: screenSize.width*0.2,
+                                  child: TextFormField(
+                                    controller: addlevel,
+                                    keyboardType: TextInputType.text,
+                                    decoration: InputDecoration(
+                                      hintText: "Level",
+                                      labelText: "Level",
+                                      labelStyle: TextStyle(color: Colors.black),
+                                      border: OutlineInputBorder(borderRadius: BorderRadius.circular(4)),
+                                    ),
+                                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.w400),
+                                  ),
+                                ),
+                                SizedBox(width: screenSize.width*0.015,),
+                                FloatingActionButton(
+                                  child: Icon(Icons.add, size: 28, color: Colors.white,),
+                                  onPressed: () {
+                                    setState(() {
+                                      if(addword.text != "" && adddefine.text != "" && addlevel.text != "")
+                                      {
+                                        firebaseinstance.add({
+                                          "word": addword.text,
+                                          "definition": adddefine.text,
+                                          "level": int.parse(addlevel.text), "created_at": Timestamp.now()
+                                        });
+                                      }
+                                    });
+                                  },
+                                  backgroundColor: Colors.blue[300],
+                                ),
+                              ],
+                            )
+                          ],
+                        );
                       },
                     ),
                   ),
@@ -188,72 +263,6 @@ class _ListWord extends State<ListWord> {
                 ),
               ),
             ]),
-          DataRow(cells: <DataCell>[
-            DataCell(
-              Padding(
-                padding: EdgeInsets.symmetric(vertical: 2),
-                child: TextFormField(
-                  controller: addword,
-                  keyboardType: TextInputType.text,
-                  decoration: InputDecoration(
-                    hintText: "Add word",
-                    border: OutlineInputBorder(borderRadius: BorderRadius.circular(4)),
-                  ),
-                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.w400),
-                ),
-              )
-            ),
-            DataCell(
-              Padding(
-                padding: EdgeInsets.symmetric(vertical: 2),
-                child: TextFormField(
-                  controller: adddefine,
-                  keyboardType: TextInputType.text,
-                  decoration: InputDecoration(
-                    hintText: "Add definition",
-                    border: OutlineInputBorder(borderRadius: BorderRadius.circular(4)),
-                  ),
-                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.w400),
-                ),
-              )
-            ),
-            DataCell(
-              Padding(
-                padding: EdgeInsets.symmetric(vertical: 2),
-                child: TextFormField(
-                  controller: addlevel,
-                  keyboardType: TextInputType.text,
-                  decoration: InputDecoration(
-                    hintText: "Add level",
-                    border: OutlineInputBorder(borderRadius: BorderRadius.circular(4)),
-                  ),
-                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.w400),
-                ),
-              )
-            ),
-            DataCell(
-              FlatButton(
-                child: Text("Add",style: TextStyle(fontSize: 16,),),
-                onPressed: () {
-                  setState(() {
-                    if(addword.text != "" && adddefine.text != "" && addlevel.text != "")
-                    {
-                      firebaseinstance.add({
-                        "word": addword.text,
-                        "definition": adddefine.text,
-                        "level": int.parse(addlevel.text), "created_at": Timestamp.now()
-                      });
-                    }
-                  });
-                },
-                color: Colors.blue,
-                textColor: Colors.white,
-              ),
-            ),
-            DataCell(
-              Text(""),
-            ),
-          ]),
         ]
       ),
     );

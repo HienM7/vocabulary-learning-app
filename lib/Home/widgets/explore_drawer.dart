@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:vocabulary_learning_app/constants/router_constants.dart';
+import 'package:vocabulary_learning_app/models/app_router.dart';
 
 class ExploreDrawer extends StatefulWidget {
   const ExploreDrawer({
@@ -24,13 +26,26 @@ class _ExploreDrawerState extends State<ExploreDrawer> {
             children: [
               Container(
                 width: double.maxFinite,
-                child: FlatButton(
-                  color: Colors.black,
-                  hoverColor: Colors.blueGrey[800],
-                  highlightColor: Colors.blueGrey[700],
-                  onPressed: () {},
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(15),
+                child: TextButton(
+                  onPressed: () => AppRouter.router.navigateTo(
+                    context, AppRoutes.login.route),
+                  style: ButtonStyle(
+                    backgroundColor: MaterialStateProperty.all<Color>(Colors.black),
+                    overlayColor: MaterialStateProperty.resolveWith<Color>(
+                      (Set<MaterialState> states) {
+                        if (states.contains(MaterialState.hovered))
+                          return Colors.blueGrey[800].withOpacity(0.8);
+                        if (states.contains(MaterialState.focused) ||
+                            states.contains(MaterialState.pressed))
+                          return Colors.blueGrey[800];
+                        return null; // Defer to the widget's default.
+                      },
+                    ),
+                    shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                      RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(15),
+                      )
+                    )
                   ),
                   child: Padding(
                     padding: EdgeInsets.only(
@@ -46,13 +61,26 @@ class _ExploreDrawerState extends State<ExploreDrawer> {
               SizedBox(height: 20),
               Container(
                 width: double.maxFinite,
-                child: FlatButton(
-                  color: Colors.black,
-                  hoverColor: Colors.blueGrey[800],
-                  highlightColor: Colors.blueGrey[700],
-                  onPressed: () {},
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(15),
+                child: TextButton(
+                  onPressed: () => AppRouter.router.navigateTo(
+                    context, AppRoutes.login.route),
+                  style: ButtonStyle(
+                    backgroundColor: MaterialStateProperty.all<Color>(Colors.black),
+                    overlayColor: MaterialStateProperty.resolveWith<Color>(
+                      (Set<MaterialState> states) {
+                        if (states.contains(MaterialState.hovered))
+                          return Colors.blueGrey[800].withOpacity(0.8);
+                        if (states.contains(MaterialState.focused) ||
+                            states.contains(MaterialState.pressed))
+                          return Colors.blueGrey[800];
+                        return null; // Defer to the widget's default.
+                      },
+                    ),
+                    shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                      RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(15),
+                      )
+                    )
                   ),
                   child: Padding(
                     padding: EdgeInsets.only(
@@ -60,8 +88,7 @@ class _ExploreDrawerState extends State<ExploreDrawer> {
                       bottom: 15.0,
                     ),
                     child: Text('Sign Up',
-                      style: TextStyle(color: Colors.white, fontSize: 20
-                      ),
+                      style: TextStyle(color: Colors.white, fontSize: 20),
                     ),
                   ),
                 ),

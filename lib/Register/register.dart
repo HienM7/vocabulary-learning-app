@@ -1,7 +1,10 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:vocabulary_learning_app/Home/home_test_auth.dart';
+import 'package:flutter/rendering.dart';
 import 'package:vocabulary_learning_app/Login/login.dart';
+import 'package:vocabulary_learning_app/constants/router_constants.dart';
+import 'package:vocabulary_learning_app/models/app_router.dart';
 
 class RegisterPage extends StatefulWidget {
   @override
@@ -82,107 +85,107 @@ class _RegisterPage extends State<RegisterPage> {
                     fontWeight: FontWeight.bold,
                     color: Colors.black,
                     fontSize: 30),
-                )
+              )
+            ),
+            Padding(
+              padding: const EdgeInsets.fromLTRB(0, 0, 0, 50),
+              child: Text(
+                "REGISTER",
+                style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    color: Colors.black,
+                    fontSize: 30),
               ),
-              Padding(
-                padding: const EdgeInsets.fromLTRB(0, 0, 0, 50),
-                child: Text(
-                  "REGISTER",
-                  style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      color: Colors.black,
-                      fontSize: 30),
-                ),
+            ),
+            Padding(
+              padding: const EdgeInsets.fromLTRB(0, 0, 0, 35),
+              child: TextField(
+                controller: _userController,
+                style: TextStyle(fontSize: 18, color: Colors.black),
+                decoration: InputDecoration(
+                    errorText: _userinvalid ? _usererr : null,
+                    labelText: "USERNAME",
+                    labelStyle:
+                        TextStyle(color: Color(0xff888888), fontSize: 15)),
               ),
-              Padding(
-                padding: const EdgeInsets.fromLTRB(0, 0, 0, 35),
-                child: TextField(
-                  controller: _userController,
-                  style: TextStyle(fontSize: 18, color: Colors.black),
-                  decoration: InputDecoration(
-                      errorText: _userinvalid ? _usererr : null,
-                      labelText: "USERNAME",
-                      labelStyle:
-                          TextStyle(color: Color(0xff888888), fontSize: 15)),
-                ),
+            ),
+            Padding(
+              padding: const EdgeInsets.fromLTRB(0, 0, 0, 35),
+              child: TextField(
+                controller: _emailController,
+                style: TextStyle(fontSize: 18, color: Colors.black),
+                decoration: InputDecoration(
+                    errorText: _emailinvalid ? _emailerr : null,
+                    labelText: "EMAIL",
+                    labelStyle:
+                        TextStyle(color: Color(0xff888888), fontSize: 15)),
               ),
-              Padding(
-                padding: const EdgeInsets.fromLTRB(0, 0, 0, 35),
-                child: TextField(
-                  controller: _emailController,
-                  style: TextStyle(fontSize: 18, color: Colors.black),
-                  decoration: InputDecoration(
-                      errorText: _emailinvalid ? _emailerr : null,
-                      labelText: "EMAIL",
-                      labelStyle:
-                          TextStyle(color: Color(0xff888888), fontSize: 15)),
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.fromLTRB(0, 0, 0, 35),
-                child: Stack(
-                  alignment: AlignmentDirectional.centerEnd,
-                  children: <Widget>[
-                    TextField(
-                      controller: _passController,
-                      style: TextStyle(fontSize: 18, color: Colors.black),
-                      obscureText: !_showPass,
-                      decoration: InputDecoration(
-                          errorText: _passinvalid ? _passerr : null,
-                          labelText: "PASSWORD",
-                          labelStyle: TextStyle(
-                              color: Color(0xff888888), fontSize: 15)),
-                    ),
-                    GestureDetector(
-                      onTap: onToggleShowPass,
-                      child: Text(
-                        _showPass ? "HIDE" : "SHOW",
-                        style: TextStyle(
-                            color: Colors.blue,
-                            fontSize: 13,
-                            fontWeight: FontWeight.bold),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.fromLTRB(0, 0, 0, 35),
-                child: SizedBox(
-                  width: double.infinity,
-                  height: 56,
-                  child: RaisedButton(
-                    color: Colors.blue,
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.all(Radius.circular(10))),
-                    onPressed: onSignInClicked,
+            ),
+            Padding(
+              padding: const EdgeInsets.fromLTRB(0, 0, 0, 35),
+              child: Stack(
+                alignment: AlignmentDirectional.centerEnd,
+                children: <Widget>[
+                  TextField(
+                    controller: _passController,
+                    style: TextStyle(fontSize: 18, color: Colors.black),
+                    obscureText: !_showPass,
+                    decoration: InputDecoration(
+                        errorText: _passinvalid ? _passerr : null,
+                        labelText: "PASSWORD",
+                        labelStyle: TextStyle(
+                            color: Color(0xff888888), fontSize: 15)),
+                  ),
+                  GestureDetector(
+                    onTap: onToggleShowPass,
                     child: Text(
-                      "REGISTER",
-                      style: TextStyle(color: Colors.white, fontSize: 16),
+                      _showPass ? "HIDE" : "SHOW",
+                      style: TextStyle(
+                          color: Colors.blue,
+                          fontSize: 13,
+                          fontWeight: FontWeight.bold),
                     ),
+                  ),
+                ],
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.fromLTRB(0, 0, 0, 35),
+              child: SizedBox(
+                width: double.infinity,
+                height: 56,
+                child: RaisedButton(
+                  color: Colors.blue,
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(10))),
+                  onPressed: onSignUpClicked,
+                  child: Text(
+                    "REGISTER",
+                    style: TextStyle(color: Colors.white, fontSize: 16),
                   ),
                 ),
               ),
-              // SizedBox(
-              //   height: 130,
-              // ),
-              Container(
-                width: double.infinity,
-                child: GestureDetector(
-                  onTap: () => {
-                    // Navigator.push(context,
-                    //     MaterialPageRoute(builder: (context) => LoginPage()))
-                    Navigator.pushNamed(context, '/login')
-                  },
+            ),
+            // SizedBox(
+            //   height: 130,
+            // ),
+            Container(
+              width: double.infinity,
+              child: InkWell(
+                onTap: () => AppRouter.router.navigateTo(
+                  context, AppRoutes.login.route),
+                child: MouseRegion(
+                  cursor: SystemMouseCursors.click,
                   child: Text(
                     " YOU HAVE AN ACCOUNT ? SIGN IN",
                     style: TextStyle(fontSize: 15, color: Colors.blue),
                   ),
                 ),
               ),
-            ],
-          ),
+            ),
+          ],
         ),
+      ),
     );
   }
 
@@ -192,7 +195,7 @@ class _RegisterPage extends State<RegisterPage> {
     });
   }
 
-  Future<void> onSignInClicked() async {
+  Future<void> onSignUpClicked() async {
     setState(() {
       if (_emailController.text.length < 6 ||
           !_emailController.text.contains("@"))
@@ -218,7 +221,8 @@ class _RegisterPage extends State<RegisterPage> {
         if (user != null) {
           await auth.currentUser
               .updateProfile(displayName: _userController.text);
-          Navigator.pushNamed(context, '/home-page');
+          AppRouter.router.navigateTo(
+            context, AppRoutes.homePage.route);
           // await Navigator.pushReplacementNamed(context,"/") ;
           // Navigator.push(
           //     context, MaterialPageRoute(builder: (context) => HomePageAuth()));

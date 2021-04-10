@@ -76,11 +76,18 @@ class _CoursePage extends State<CoursePage> {
               child: SizedBox(
                 width: double.infinity,
                 height: 56,
-                child: RaisedButton(
-                  color: Colors.blue,
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.all(Radius.circular(10))),
+                child: ElevatedButton(
                   onPressed: onCreateCourse,
+                  style: ButtonStyle(
+                    backgroundColor: MaterialStateProperty.all<Color>(Colors.blue.shade300),
+                    shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                      RoundedRectangleBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(10)))),
+                    textStyle: MaterialStateProperty.all(
+                      TextStyle(color: Colors.white)),
+                    padding: MaterialStateProperty.all(
+                      const EdgeInsets.all(0))
+                  ),
                   child: Text(
                     "Create",
                     style: TextStyle(color: Colors.white, fontSize: 16),

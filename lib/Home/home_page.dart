@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:vocabulary_learning_app/Screens/Shared/footer.dart';
 import 'package:vocabulary_learning_app/Screens/Shared/nav_bar.dart';
+import 'package:vocabulary_learning_app/constants/router_constants.dart';
+import 'package:vocabulary_learning_app/models/app_router.dart';
 
 class HomePageUser extends StatefulWidget {
   @override
@@ -105,16 +107,24 @@ class _HomePageStateUser extends State<HomePageUser> {
                     mainAxisAlignment: MainAxisAlignment.start,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      Text(
-                        'Home',
-                        style: TextStyle(
+                      GestureDetector(
+                        onTap: () => AppRouter.router.navigateTo(
+                          context, AppRoutes.homePage.route),
+                        child: Text('Home',
+                          style: TextStyle(
                             color: Colors.black,
                             fontSize: 32,
-                            fontWeight: FontWeight.bold),
+                            fontWeight: FontWeight.bold
+                          ),
+                        ),
                       ),
                       SizedBox(width: screenSize.width*0.30),
                       TextButton(
-                        child: Text('Create a list', style: TextStyle(color: Colors.white, fontSize: 18),),
+                        onPressed: () => AppRouter.router.navigateTo(
+                          context, AppRoutes.wordListNew.route),
+                        child: Text(
+                          'Create a list',
+                          style: TextStyle(color: Colors.white, fontSize: 18)),
                         style: ButtonStyle(
                           padding: MaterialStateProperty.all<EdgeInsets>(EdgeInsets.symmetric(horizontal: screenSize.width*0.015, vertical: screenSize.width*0.01)),
                           backgroundColor: MaterialStateProperty.all<Color>(Colors.greenAccent[700]),

@@ -56,25 +56,33 @@ class _RegisterPage extends State<RegisterPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(
-        child: Container(
-          width: 500,
-          padding: EdgeInsets.fromLTRB(30, 0, 30, 0),
-          // constraints: BoxConstraints.expand(),
-          color: Colors.white,
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              Padding(
-                padding: const EdgeInsets.fromLTRB(0, 90, 0, 40),
-                child: Container(
-                    width: 70,
-                    height: 70,
-                    padding: EdgeInsets.all(15),
-                    decoration: BoxDecoration(
-                        shape: BoxShape.circle, color: Color(0xffd8d8d8)),
-                    child: FlutterLogo()),
+      body: Container(
+        padding: EdgeInsets.fromLTRB(30, 0, 30, 0),
+        constraints: BoxConstraints.expand(),
+        color: Colors.white,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            Padding(
+              padding: const EdgeInsets.fromLTRB(0, 30, 0, 40),
+              child: Container(
+                  width: 70,
+                  height: 70,
+                  padding: EdgeInsets.all(15),
+                  decoration: BoxDecoration(
+                      shape: BoxShape.circle, color: Color(0xffd8d8d8)),
+                  child: FlutterLogo()),
+            ),
+            Padding(
+              padding: const EdgeInsets.fromLTRB(0, 0, 0, 50),
+              child: Text(
+                "CREATE YOUR ACCOUNT",
+                style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    color: Colors.black,
+                    fontSize: 30),
+                )
               ),
               Padding(
                 padding: const EdgeInsets.fromLTRB(0, 0, 0, 50),
@@ -175,7 +183,6 @@ class _RegisterPage extends State<RegisterPage> {
             ],
           ),
         ),
-      ),
     );
   }
 

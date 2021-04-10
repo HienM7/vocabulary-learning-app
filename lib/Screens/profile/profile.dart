@@ -133,7 +133,7 @@ class ProfileScreen extends StatelessWidget {
                   ),
                   ProfileListItem(
                     icon: LineAwesomeIcons.alternate_sign_out,
-                    text: 'Logout',
+                    text: 'Log Out',
                     hasNavigation: false,
                   ),
                 ],

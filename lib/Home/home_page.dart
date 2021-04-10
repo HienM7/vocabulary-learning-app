@@ -146,24 +146,32 @@ class _HomePageStateUser extends State<HomePageUser> {
                               },
                             ),
                             contentPadding: EdgeInsets.only(left: 25),
-                            hintText: "Search by name",
-                            border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(4)),
+                            hintText: "Search by list name",
+                            border: OutlineInputBorder(borderRadius: BorderRadius.circular(4)),
                           ),
                         ),
                       ),
                     ],
                   ),
                   Padding(
-                      padding: EdgeInsets.symmetric(vertical: 30),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Icon(
-                            Icons.library_books,
-                            size: 40,
-                            color: Colors.amber,
+                    padding: EdgeInsets.symmetric(vertical: 30),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Icon(
+                          Icons.library_books,
+                          size: 40,
+                          color: Colors.amber,
+                        ),
+                        SizedBox(width: 20,),
+                        Text(
+                          'Public Word Lists',
+                          style: TextStyle(
+                            color: Colors.black,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 34,
                           ),
+                        ),
                           SizedBox(
                             width: 20,
                           ),
@@ -192,7 +200,7 @@ class _HomePageStateUser extends State<HomePageUser> {
                         if (snapshot.connectionState ==
                                 ConnectionState.waiting &&
                             isloop == false) {
-                          return Text("loading");
+                          return Text("Loading...");
                         }
                         isloop = true;
                         if (change == false) {

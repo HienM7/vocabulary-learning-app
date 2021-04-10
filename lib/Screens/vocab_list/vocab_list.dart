@@ -26,11 +26,11 @@ class _TablePageState extends State<TablePage> {
   }
 
   final _editableKey = GlobalKey<EditableState>();
-  List listOfColumns = [
-    {"word": "civilization(n)", "mean": "nền văn minh", "level": "1"},
-    {"word": "virtual(adj)", "mean": "ảo", "level": "3"},
-    {"word": "independence(n)", "mean": "sự độc lập", "level": "5"},
-    {"word": "Indian(n)", "mean": "Người Ấn Độ", "level": "5"},
+   List listOfColumns = [
+    {"word": "civilization(n)", "meaning": "nền văn minh", "level": "1"},
+    {"word": "virtual(adj)", "meaning": "ảo", "level": "3"},
+    {"word": "independence(n)", "meaning": "sự độc lập", "level": "5"},
+    {"word": "Indian(n)", "meaning": "Người Ấn Độ", "level": "5"},
     {}
   ];
 
@@ -102,43 +102,42 @@ class _TablePageState extends State<TablePage> {
                 ],
                 rows: listOfColumns
                     .map(((element) => DataRow(cells: <DataCell>[
-                          DataCell(
-                            TextFormField(
-                              initialValue: element['word'] ?? "",
-                              keyboardType: TextInputType.text,
-                            ),
-                            showEditIcon: true,
+                      DataCell(
+                        TextFormField(
+                          initialValue: element['word'] ?? "",
+                          keyboardType: TextInputType.text,
+                        ),
+                        showEditIcon: true,
+                      ),
+                      DataCell(Text(element['level'] ?? "")),
+                      DataCell(
+                        TextButton(
+                          onPressed: () {},  // onPressed: onCreateCourse,
+                          style: ButtonStyle(
+                            backgroundColor: MaterialStateProperty.all<Color>(Colors.blue),
+                            textStyle: MaterialStateProperty.all(
+                              TextStyle(color: Colors.white)),
                           ),
-                          DataCell(
-                              TextFormField(
-                                initialValue: element['mean'] ?? "",
-                                keyboardType: TextInputType.text,
-                              ),
-                              showEditIcon: true),
-                          DataCell(Text(element['level'] ?? "")),
-                          DataCell(
-                            FlatButton(
-                              child: Text("Edit"),
-                              onPressed: () {},
-                              color: Colors.blue,
-                              textColor: Colors.white,
-                            ),
-                          ),
-                          DataCell(
-                            FlatButton(
-                              child: Text("Delete"),
-                              onPressed: () {
-                                xoa(element);
-                              },
-                              color: Colors.blue,
-                              textColor: Colors.white,
-                            ),
-                          ),
-                        ])))
-                    .toList(),
-              ),
-            ),
-            Padding(
+                          child: Text(
+                            "Update",
+                            style: TextStyle(color: Colors.white)),
+                        ),
+                      ),
+                      DataCell(
+                        FlatButton(
+                          child: Text("Delete"),
+                          onPressed: () {
+                            xoa(element);
+                          },
+                          color: Colors.blue,
+                          textColor: Colors.white,
+                        ),
+                      ),
+                    ])))
+                .toList(),
+          ),
+        ),
+         Padding(
               padding: const EdgeInsets.fromLTRB(30, 30, 30, 30),
               child: SizedBox(
                 width: double.infinity,

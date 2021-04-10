@@ -37,9 +37,8 @@ class _ExploreDrawerState extends State<ExploreDrawer> {
                       top: 15.0,
                       bottom: 15.0,
                     ),
-                    child: Text('Login',
-                      style: TextStyle(color: Colors.white, fontSize: 20
-                      ),
+                    child: Text('Log In',
+                      style: TextStyle(color: Colors.white, fontSize: 20),
                     ),
                   ),
                 ),

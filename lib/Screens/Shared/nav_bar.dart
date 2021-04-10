@@ -17,7 +17,7 @@ class _NavBar extends State<NavBar> {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Text(' LEARNING',
+            Text('VOCABLEARN',
               style: TextStyle(
                 color: Colors.white,
                 fontSize: 22,
@@ -150,7 +150,7 @@ class _NavBar extends State<NavBar> {
                         mainAxisSize: MainAxisSize.min,
                         children: [
                           Text(
-                            'Logout',
+                            ' Log Out',
                             style: TextStyle(
                               color: _isHovering[2]
                                   ? Colors.yellow

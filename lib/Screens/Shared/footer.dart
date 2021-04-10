@@ -19,19 +19,19 @@ class Footer extends StatelessWidget {
                 heading: 'ABOUT',
                 s1: 'Contact Us',
                 s2: 'About Us',
-                s3: 'Careers',
+                s3: '',
               ),
               BottomBarColumn(
                 heading: 'HELP',
-                s1: 'Payment',
-                s2: 'Cancellation',
-                s3: 'FAQ',
+                s1: 'Features',
+                s2: 'FAQ',
+                s3: '',
               ),
               BottomBarColumn(
                 heading: 'SOCIAL',
-                s1: 'Twitter',
-                s2: 'Facebook',
-                s3: 'YouTube',
+                s1: 'Facebook',
+                s2: 'YouTube',
+                s3: ''
               ),
               Container(
                 color: Colors.blueGrey,
@@ -42,7 +42,7 @@ class Footer extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
-                  Text('LEARNING',
+                  Text('VOCABLEARN',
                     style: TextStyle(
                       color: Colors.white,
                       fontSize: 28,
@@ -52,8 +52,13 @@ class Footer extends StatelessWidget {
                   SizedBox(height: 15,),
                   InfoText(
                     type: 'Email',
-                    text: 'Learning@gmail.com',
+                    text: 'contact@vocablearn.com',
                   ),
+                  SizedBox(height: 5),
+                  InfoText(
+                    type: 'Address',
+                    text: '999 Nguyen Luong Bang, Da Nang - 550000',
+                  )
                 ],
               ),
             ],
@@ -63,7 +68,7 @@ class Footer extends StatelessWidget {
           ),
           SizedBox(height: 20),
           Text(
-            'Copyright © 2020 | EXPLORE',
+            'Copyright © 2020 | VOCABLEARN',
             style: TextStyle(
               color: Colors.blueGrey[300],
               fontSize: 14,

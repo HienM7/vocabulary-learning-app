@@ -30,11 +30,12 @@ class MyApp extends StatelessWidget {
         initTheme: kLightTheme,
         child: Builder(builder: (context) {
           return MaterialApp(
-            title: 'Flutter Demo',
+            title: 'VocabLearn',
             theme: ThemeProvider.of(context),
             debugShowCheckedModeBanner: false,
-
+            
             initialRoute: '/',
+
             routes: {
               '/login': (context) => LoginPage(),
               '/signup': (context) => RegisterPage(),

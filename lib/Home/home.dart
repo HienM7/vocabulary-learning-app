@@ -21,7 +21,7 @@ class _HomePageState extends State<HomePage> {
             padding: EdgeInsets.symmetric(horizontal: screenSize.width*0.028, vertical: 20),
             child: Row(
               children: [
-                Text(' LEARNING',
+                Text(' VOCABLEARN',
                   style: TextStyle(
                     color: Colors.white.withOpacity(1),
                     fontSize: 24,
@@ -239,9 +239,9 @@ class _HomePageState extends State<HomePage> {
                   Container( // image below the top bar
                     child: SizedBox(
                       width: screenSize.width*0.17,
-                      child: Image.network(
-                        'https://scontent.fdad3-1.fna.fbcdn.net/v/t1.15752-9/164180007_1976118652529234_6551206714448134323_n.png?_nc_cat=102&ccb=1-3&_nc_sid=ae9488&_nc_ohc=ACg6WyDi8PgAX9zTVq1&_nc_ht=scontent.fdad3-1.fna&oh=9304c138c2adabd22626e2a590715f50&oe=60828E6D',
-                        fit: BoxFit.contain,
+                      child: Image.asset( 
+                      'assets/images/home_background_piece.png',
+                      fit: BoxFit.contain,
                       ),
                     ),
                   ),
@@ -252,7 +252,7 @@ class _HomePageState extends State<HomePage> {
                       Padding(
                         padding: EdgeInsets.fromLTRB(140, 50, 0, 50),
                         child: Text(
-                        'Why learn with Learning',
+                        'Why learn English with VocabLearn',
                         style: TextStyle(
                           fontSize: 44,
                           fontWeight: FontWeight.bold,
@@ -260,36 +260,11 @@ class _HomePageState extends State<HomePage> {
                       ),
                       ),
                       Text(
-                          'Learning is a software learn english has interface friendly with user, easy to use and its own charaterristics different',
+                          'VocabLearn is a English learning website with simple and friendly UI, which provides you with necessary features to start building your vocabulary with ease and fun. Check out some basic features you can try to improve your vocabulary below',
                           style: TextStyle(
                             fontSize: 18
                           ),
                           textAlign: TextAlign.left,
-                      ),
-                      Text(
-                          'with another softwares. Learning supply the feature necessary help for user learn english way easier',
-                          style: TextStyle(
-                            fontSize: 18,
-                          ),
-                          textAlign: TextAlign.left,
-                      ),
-                      Padding(
-                        padding: EdgeInsets.fromLTRB(0, 25, 0, 0),
-                        child: Row(
-                        children: [
-                          Icon(
-                            Icons.share_outlined,
-                            color: Colors.orange[600],
-                            size: 35,
-                          ),
-                          SizedBox(width: 20),
-                          Text('Share list for another users',
-                            style: TextStyle(
-                              fontSize: 18,
-                            ),
-                          )
-                        ],
-                      )
                       ),
                       Padding(
                         padding: EdgeInsets.fromLTRB(0, 25, 0, 0),
@@ -301,13 +276,31 @@ class _HomePageState extends State<HomePage> {
                             size: 35,
                           ),
                           SizedBox(width: 20),
-                          Text('Create new list and addition word',
+                          Text('Create a list of new words',
                             style: TextStyle(
                               fontSize: 18,
                             ),
                           )
                         ],
                       )
+                      ),
+                      Padding(
+                        padding: EdgeInsets.fromLTRB(0, 25, 0, 0),
+                        child: Row(
+                          children: [
+                            Icon(
+                              Icons.share_outlined,
+                              color: Colors.orange[600],
+                              size: 35,
+                            ),
+                            SizedBox(width: 20),
+                            Text('Share your lists with other users',
+                              style: TextStyle(
+                                fontSize: 18,
+                              ),
+                            )
+                          ],
+                        )
                       ),
                       Padding(
                         padding: EdgeInsets.fromLTRB(0, 25, 0, 0),
@@ -319,7 +312,7 @@ class _HomePageState extends State<HomePage> {
                             size: 35,
                           ),
                           SizedBox(width: 20),
-                          Text('Review lists published',
+                          Text('Browse public word lists',
                             style: TextStyle(
                               fontSize: 18,
                             ),
@@ -332,12 +325,12 @@ class _HomePageState extends State<HomePage> {
                         child: Row(
                         children: [
                           Icon(
-                            Icons.save,
+                            Icons.games_outlined,
                             color: Colors.orange[600],
                             size: 35,
                           ),
                           SizedBox(width: 20),
-                          Text('Storage words learned today into repository',
+                          Text('Play game to remember new words',
                             style: TextStyle(
                               fontSize: 18,
                             ),
@@ -346,7 +339,7 @@ class _HomePageState extends State<HomePage> {
                       )
                       )
                     ],
-                  )
+                  ),
                 ],
               ),
             ),
@@ -358,4 +351,3 @@ class _HomePageState extends State<HomePage> {
     );
   }
 }
-

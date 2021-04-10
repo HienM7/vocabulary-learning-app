@@ -177,11 +177,11 @@ class _RegisterPage extends State<RegisterPage> {
                 child: MouseRegion(
                   cursor: SystemMouseCursors.click,
                   child: Text(
-                    " YOU HAVE AN ACCOUNT ? SIGN IN",
+                    " ALREADY HAVE AN ACCOUNT ? SIGN IN",
                     style: TextStyle(fontSize: 15, color: Colors.blue),
                   ),
-                ),
-              ),
+                )
+              )
             ),
           ],
         ),

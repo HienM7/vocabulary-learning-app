@@ -2,6 +2,7 @@ import 'package:editable/editable.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
+// NewCoursePage
 class TablePage extends StatefulWidget {
   @override
   _TablePageState createState() => _TablePageState();
@@ -40,7 +41,7 @@ class _TablePageState extends State<TablePage> {
     List rows = [
       {"Word": 'Essien Ikpa', "Definition": 'this is the name', "Level": '2'},
     ];
-//Headers or Columns
+    //Headers or Columns
     List headers = [
       {"title": 'Word', 'index': 1, 'key': 'Word'},
       {"title": 'Definition', 'index': 2, 'key': 'Definition'},
@@ -57,10 +58,10 @@ class _TablePageState extends State<TablePage> {
             Padding(
               padding: const EdgeInsets.fromLTRB(30, 30, 30, 0),
               child: Center(
-                  child: Text(
-                'List Word',
-                style: TextStyle(fontSize: 36, fontWeight: FontWeight.bold),
-              )),
+                child: Text(
+                  'Word List',
+                  style: TextStyle(fontSize: 36, fontWeight: FontWeight.bold))
+              ),
             ),
             SizedBox(
               width: 50,
@@ -72,39 +73,41 @@ class _TablePageState extends State<TablePage> {
                 // alignment: Alignment.topLeft,
               ),
             ),
-            SingleChildScrollView(
-              child: DataTable(
-                sortColumnIndex: 0,
-                sortAscending: true,
-                columns: [
-                  DataColumn(
-                      label: Text('Word',
-                          style: TextStyle(
-                              fontSize: 15, fontWeight: FontWeight.bold))),
-                  DataColumn(
-                      label: Text('Mean',
-                          style: TextStyle(
-                            fontSize: 15,
-                            fontWeight: FontWeight.bold,
-                          ))),
-                  DataColumn(
-                      label: Text('Level',
-                          style: TextStyle(
-                              fontSize: 15, fontWeight: FontWeight.bold))),
-                  DataColumn(
-                      label: Text('Edit',
-                          style: TextStyle(
-                              fontSize: 15, fontWeight: FontWeight.bold))),
-                  DataColumn(
-                      label: Text('Delete',
-                          style: TextStyle(
-                              fontSize: 15, fontWeight: FontWeight.bold))),
-                ],
-                rows: listOfColumns
-                    .map(((element) => DataRow(cells: <DataCell>[
+
+          SingleChildScrollView(
+            child: DataTable(
+            sortColumnIndex: 0,
+            sortAscending: true,
+            columns: [
+              
+              DataColumn(
+                  label: Text('Word',
+                      style: TextStyle(
+                          fontSize: 15, fontWeight: FontWeight.bold))),
+              DataColumn(
+                  label: Text('Meaning',
+                      style: TextStyle(
+                        fontSize: 15,
+                        fontWeight: FontWeight.bold,
+                      ))),
+              DataColumn(
+                  label: Text('Level',
+                      style: TextStyle(
+                          fontSize: 15, fontWeight: FontWeight.bold))),
+              DataColumn(
+                  label: Text('Edit',
+                      style: TextStyle(
+                          fontSize: 15, fontWeight: FontWeight.bold))),
+              DataColumn(
+                  label: Text('Delete',
+                      style: TextStyle(
+                          fontSize: 15, fontWeight: FontWeight.bold))),
+            ],
+            rows: listOfColumns
+                .map(((element) => DataRow(cells: <DataCell>[
                       DataCell(
                         TextFormField(
-                          initialValue: element['word'] ?? "",
+                          initialValue: element['meaning'] ?? "",
                           keyboardType: TextInputType.text,
                         ),
                         showEditIcon: true,
@@ -124,13 +127,16 @@ class _TablePageState extends State<TablePage> {
                         ),
                       ),
                       DataCell(
-                        FlatButton(
-                          child: Text("Delete"),
-                          onPressed: () {
-                            xoa(element);
-                          },
-                          color: Colors.blue,
-                          textColor: Colors.white,
+                        TextButton(
+                          onPressed: () { xoa(element); },
+                          style: ButtonStyle(
+                            backgroundColor: MaterialStateProperty.all<Color>(Colors.blue),
+                            textStyle: MaterialStateProperty.all(
+                              TextStyle(color: Colors.white)),
+                          ),
+                          child: Text(
+                            "Delete",
+                            style: TextStyle(color: Colors.white)),
                         ),
                       ),
                     ])))

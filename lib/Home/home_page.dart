@@ -93,6 +93,7 @@ class _HomePageStateUser extends State<HomePageUser> {
         preferredSize: Size(screenSize.width, 1000),
         child: NavBar(),
       ),
+      
       body: SingleChildScrollView(
         child: Column(
           children: [

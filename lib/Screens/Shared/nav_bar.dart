@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:vocabulary_learning_app/constants/router_constants.dart';
+import 'package:vocabulary_learning_app/models/app_router.dart';
 
 class NavBar extends StatefulWidget {
   @override
@@ -44,14 +46,18 @@ class _NavBar extends State<NavBar> {
                   Column(
                     mainAxisSize: MainAxisSize.min,
                     children: [
-                      Text(
-                        'Home',
-                        style: TextStyle(
-                          color: _isHovering[0]
-                              ? Colors.yellow
-                              : Colors.white,
-                          fontSize: 20,
-                          fontWeight: FontWeight.bold
+                      GestureDetector(
+                        onTap: () => AppRouter.router.navigateTo(
+                          context, AppRoutes.homePage.route),
+                        child: Text(
+                          'Home',
+                          style: TextStyle(
+                            color: _isHovering[0]
+                                ? Colors.yellow
+                                : Colors.white,
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold
+                          ),
                         ),
                       ),
                       SizedBox(height: 3),
@@ -92,14 +98,18 @@ class _NavBar extends State<NavBar> {
                   Column(
                     mainAxisSize: MainAxisSize.min,
                     children: [
-                      Text(
-                        'My List',
-                        style: TextStyle(
-                          color: _isHovering[1]
-                              ? Colors.yellow
-                              : Colors.white,
-                          fontSize: 20,
-                          fontWeight: FontWeight.bold
+                      GestureDetector(
+                        onTap: () => AppRouter.router.navigateTo(
+                          context, AppRoutes.myLists.route),
+                        child: Text(
+                          'My List',
+                          style: TextStyle(
+                            color: _isHovering[1]
+                                ? Colors.yellow
+                                : Colors.white,
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold
+                          ),
                         ),
                       ),
                       SizedBox(height: 3),

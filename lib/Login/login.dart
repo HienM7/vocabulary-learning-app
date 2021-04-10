@@ -3,6 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:vocabulary_learning_app/Home/home_test_auth.dart';
 import 'package:vocabulary_learning_app/Register/register.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/rendering.dart';
+import 'package:vocabulary_learning_app/Home/home.dart';
+import 'package:vocabulary_learning_app/constants/router_constants.dart';
+import 'package:vocabulary_learning_app/models/app_router.dart';
 
 class LoginPage extends StatefulWidget {
   @override
@@ -99,43 +103,22 @@ class _LoginPageState extends State<LoginPage> {
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.fromLTRB(0, 0, 0, 40),
-                child: Stack(
-                  alignment: AlignmentDirectional.centerEnd,
-                  children: <Widget>[
-                    TextField(
-                      controller: _passController,
-                      style: TextStyle(fontSize: 18, color: Colors.black),
-                      obscureText: !_showPass,
-                      decoration: InputDecoration(
-                          errorText: _passinvalid ? _passerr : null,
-                          labelText: "PASSWORD",
-                          labelStyle: TextStyle(
-                              color: Color(0xff888888), fontSize: 15)),
-                    ),
-                    GestureDetector(
-                      onTap: onToggleShowPass,
-                      child: Text(
-                        _showPass ? "HIDE" : "SHOW",
-                        style: TextStyle(
-                            color: Colors.blue,
-                            fontSize: 13,
-                            fontWeight: FontWeight.bold),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              Padding(
                 padding: const EdgeInsets.fromLTRB(0, 0, 0, 0),
                 child: SizedBox(
                   width: double.infinity,
                   height: 56,
-                  child: RaisedButton(
-                    color: Colors.blue,
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.all(Radius.circular(10))),
+                  child: ElevatedButton(
                     onPressed: onSignInClicked,
+                    style: ButtonStyle(
+                      backgroundColor: MaterialStateProperty.all<Color>(Colors.blue),
+                      shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                        RoundedRectangleBorder(
+                          borderRadius: BorderRadius.all(Radius.circular(10)))),
+                      textStyle: MaterialStateProperty.all(
+                        TextStyle(color: Colors.white)),
+                      padding: MaterialStateProperty.all(
+                        const EdgeInsets.all(0))
+                    ),
                     child: Text(
                       "SIGN IN",
                       style: TextStyle(color: Colors.white, fontSize: 16),
@@ -149,17 +132,15 @@ class _LoginPageState extends State<LoginPage> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: <Widget>[
-                    GestureDetector(
-                      onTap: () => {
-                        // Navigator.push(
-                        //     context,
-                        //     MaterialPageRoute(
-                        //         builder: (context) => RegisterPage()))
-                        Navigator.pushNamed(context, '/signup')
-                      },
-                      child: Text(
-                        "NEW USER ? SIGN UP",
-                        style: TextStyle(fontSize: 15, color: Colors.blue),
+                    InkWell(
+                      onTap: () => AppRouter.router.navigateTo(
+                        context, AppRoutes.signup.route),
+                      child: MouseRegion(
+                        cursor: SystemMouseCursors.click,
+                        child: Text(
+                          "NEW USER ? SIGN UP",
+                          style: TextStyle(fontSize: 15, color: Colors.blue),
+                        ),
                       ),
                     ),
                     Text(
@@ -167,7 +148,7 @@ class _LoginPageState extends State<LoginPage> {
                       style: TextStyle(fontSize: 15, color: Colors.blue),
                     )
                   ],
-                ),
+                ),                      
               ),
             ],
           ),
@@ -203,7 +184,8 @@ class _LoginPageState extends State<LoginPage> {
             .then((_) {
           // Navigator.push(
           //     context, MaterialPageRoute(builder: (context) => HomePageAuth()));
-          Navigator.pushNamed(context, '/home-page');
+          AppRouter.router.navigateTo(
+            context, AppRoutes.homePage.route);
         });
       } catch (e) {
         showError(e.message);

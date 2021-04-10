@@ -6,6 +6,8 @@ import 'package:animated_theme_switcher/animated_theme_switcher.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:line_awesome_flutter/line_awesome_flutter.dart';
 import 'package:vocabulary_learning_app/constants/constants.dart';
+import 'package:vocabulary_learning_app/constants/router_constants.dart';
+import 'package:vocabulary_learning_app/models/app_router.dart';
 
 class ProfileScreen extends StatelessWidget {
   @override
@@ -20,7 +22,7 @@ class ProfileScreen extends StatelessWidget {
           child: Stack(children: [
             CircleAvatar(
               radius: 70,
-              backgroundImage: AssetImage('assets/images/img.png'),
+              backgroundImage: AssetImage('assets/images/avatar.png'),
             ),
             Align(
               alignment: Alignment.bottomRight,
@@ -111,9 +113,13 @@ class ProfileScreen extends StatelessWidget {
             Expanded(
               child: ListView(
                 children: <Widget>[
-                  ProfileListItem(
-                    icon: LineAwesomeIcons.history,
-                    text: 'Words learned',
+                  GestureDetector(
+                    onTap: () => AppRouter.router.navigateTo(
+                      context, AppRoutes.myLists.route),
+                    child: ProfileListItem(
+                      icon: LineAwesomeIcons.history,
+                      text: 'Words learned',
+                    ),
                   ),
                   ProfileListItem(
                     icon: LineAwesomeIcons.user_plus,

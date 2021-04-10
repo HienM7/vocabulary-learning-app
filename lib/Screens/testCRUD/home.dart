@@ -2,18 +2,18 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:vocabulary_learning_app/services/database.dart';
 
-class Home extends StatefulWidget {
-  String username;
+class ToDoTestPage extends StatefulWidget {
+  final String username;
   final String userEmail;
-  Home({this.username, this.userEmail});
+  ToDoTestPage({this.username, this.userEmail});
 
   @override
-  _HomeState createState() => _HomeState();
+  _ToDoTestPageState createState() => _ToDoTestPageState();
 }
 
 String uId = "abcdefTestUserID";
 
-class _HomeState extends State<Home> {
+class _ToDoTestPageState extends State<ToDoTestPage> {
   final auth = FirebaseAuth.instance;
   User user;
   bool isloggedin = false;

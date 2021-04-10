@@ -1,5 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:vocabulary_learning_app/Screens/Shared/footer.dart';
+import 'package:flutter/rendering.dart';
+import 'package:vocabulary_learning_app/Home/widgets/info_text.dart';
+import 'package:vocabulary_learning_app/Home/widgets/bottom_bar_colum.dart';
+import 'package:vocabulary_learning_app/constants/router_constants.dart';
+import 'package:vocabulary_learning_app/models/app_router.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -42,14 +47,21 @@ class _HomePageState extends State<HomePage> {
                         child: Column(
                           mainAxisSize: MainAxisSize.min,
                           children: [
-                            Text(
-                              'Course',
-                              style: TextStyle(
-                                color: _isHovering[0]
-                                    ? Colors.yellow.withOpacity(1)
-                                    : Colors.white.withOpacity(1),
-                                fontSize: 22,
-                                fontWeight: FontWeight.bold
+                            GestureDetector(
+                              onTap: () => AppRouter.router.navigateTo(
+                                context, AppRoutes.homePage.route),
+                                // ignore: todo
+                                // TODO: Auth required here
+                                // $.homePage$ if logged in else $.login$
+                              child: Text(
+                                'Course',
+                                style: TextStyle(
+                                  color: _isHovering[0]
+                                      ? Colors.yellow.withOpacity(1)
+                                      : Colors.white.withOpacity(1),
+                                  fontSize: 22,
+                                  fontWeight: FontWeight.bold
+                                ),
                               ),
                             ),
                             SizedBox(height: 3),
@@ -118,14 +130,21 @@ class _HomePageState extends State<HomePage> {
                         child: Column(
                           mainAxisSize: MainAxisSize.min,
                           children: [
-                            Text(
-                              'Sign Up',
-                              style: TextStyle(
-                                color: _isHovering[2]
-                                    ? Colors.yellow.withOpacity(1)
-                                    : Colors.white.withOpacity(1),
-                                fontSize: 22,
-                                fontWeight: FontWeight.bold
+                            InkWell(
+                              onTap: () => AppRouter.router.navigateTo(
+                                context, AppRoutes.signup.route),
+                              child: MouseRegion(
+                                cursor: SystemMouseCursors.click,
+                                child: Text(
+                                  'Sign Up',
+                                  style: TextStyle(
+                                    color: _isHovering[2]
+                                        ? Colors.yellow.withOpacity(1)
+                                        : Colors.white.withOpacity(1),
+                                    fontSize: 22,
+                                    fontWeight: FontWeight.bold
+                                  ),
+                                ),
                               ),
                             ),
                             SizedBox(height: 3),
@@ -157,14 +176,21 @@ class _HomePageState extends State<HomePage> {
                         child: Column(
                           mainAxisSize: MainAxisSize.min,
                           children: [
-                            Text(
-                              'Login',
-                              style: TextStyle(
-                                color: _isHovering[3]
-                                    ? Colors.yellow.withOpacity(1)
-                                    : Colors.white.withOpacity(1),
-                                fontSize: 22,
-                                fontWeight: FontWeight.bold
+                            InkWell(
+                              onTap: () => AppRouter.router.navigateTo(
+                                context, AppRoutes.login.route),
+                              child: MouseRegion(
+                                cursor: SystemMouseCursors.click,
+                                child: Text(
+                                  'Log In',
+                                  style: TextStyle(
+                                    color: _isHovering[3]
+                                        ? Colors.yellow.withOpacity(1)
+                                        : Colors.white.withOpacity(1),
+                                    fontSize: 22,
+                                    fontWeight: FontWeight.bold
+                                  ),
+                                ),
                               ),
                             ),
                             SizedBox(height: 3),
@@ -197,8 +223,8 @@ class _HomePageState extends State<HomePage> {
                   child: SizedBox(
                     height: screenSize.height,
                     width: screenSize.width,
-                    child: Image.network(
-                      'https://scontent.fdad3-2.fna.fbcdn.net/v/t1.15752-9/164625311_194742339084808_6236049167233792980_n.png?_nc_cat=105&ccb=1-3&_nc_sid=ae9488&_nc_ohc=nsQWjYCt9y0AX_CO-pT&_nc_ht=scontent.fdad3-2.fna&oh=ff6488725a56330bc4b9878463b166ec&oe=607ECB47',
+                    child: Image.asset( 
+                      'assets/images/home_background.jpg',
                       fit: BoxFit.fill,
                     ),
                   ),
@@ -212,8 +238,11 @@ class _HomePageState extends State<HomePage> {
                       right: screenSize.width / 5,
                     ),
                     child: TextButton(
-                      onPressed: (){},
-                      child: Text('Get started', style: TextStyle(color: Colors.white, fontSize: 32),),
+                      onPressed: () => AppRouter.router.navigateTo(
+                        context, AppRoutes.homePage.route),
+                      child: Text(
+                        'Get started',
+                        style: TextStyle(color: Colors.white, fontSize: 32)),
                       style: ButtonStyle(
                         padding: MaterialStateProperty.all<EdgeInsets>(EdgeInsets.symmetric(horizontal: 40, vertical: 20)),
                         backgroundColor: MaterialStateProperty.all<Color>(Colors.amber),

@@ -3,12 +3,12 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:vocabulary_learning_app/Screens/Shared/footer.dart';
 import 'package:vocabulary_learning_app/Screens/Shared/nav_bar.dart';
 
-class HomePageUser extends StatefulWidget {
+class MyList extends StatefulWidget {
   @override
-  _HomePageStateUser createState() => _HomePageStateUser();
+  _MyList createState() => _MyList();
 }
 
-class _HomePageStateUser extends State<HomePageUser> {
+class _MyList extends State<MyList> {
   List<Map<dynamic, dynamic>> lists = [];
   CollectionReference firebaseinstance = Firestore.instance.collection('list');
   final TextEditingController _controller = TextEditingController();
@@ -84,7 +84,7 @@ class _HomePageStateUser extends State<HomePageUser> {
         child: Column(
           children: [
             Padding(
-              padding: EdgeInsets.symmetric(horizontal: screenSize.width*0.12, vertical: 20),
+              padding: EdgeInsets.symmetric(horizontal: 180, vertical: 20),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.center,
@@ -94,19 +94,19 @@ class _HomePageStateUser extends State<HomePageUser> {
                     mainAxisAlignment: MainAxisAlignment.start,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      Text('Home',
+                      Text('My List',
                         style: TextStyle(
                           color: Colors.black,
                           fontSize: 32,
                           fontWeight: FontWeight.bold
                         ),
                       ),
-                      SizedBox(width: screenSize.width*0.30),
+                      SizedBox(width: 500),
                       TextButton(
                         onPressed: (){},
                         child: Text('Create a list', style: TextStyle(color: Colors.white, fontSize: 18),),
                         style: ButtonStyle(
-                          padding: MaterialStateProperty.all<EdgeInsets>(EdgeInsets.symmetric(horizontal: screenSize.width*0.015, vertical: screenSize.width*0.01)),
+                          padding: MaterialStateProperty.all<EdgeInsets>(EdgeInsets.symmetric(horizontal: 25, vertical: 15)),
                           backgroundColor: MaterialStateProperty.all<Color>(Colors.greenAccent[700]),
                           shape: MaterialStateProperty.all<RoundedRectangleBorder>(
                             RoundedRectangleBorder(
@@ -116,10 +116,10 @@ class _HomePageStateUser extends State<HomePageUser> {
                           )
                         ),
                       ),
-                      SizedBox(width: screenSize.width*0.05),
+                      SizedBox(width: 50),
                       Container(
                         padding: EdgeInsets.all(10),
-                        width: screenSize.width*0.21,
+                        width: 350,
                         child: TextField(
                           controller: _controller,
                           onSubmitted: (value) {
@@ -155,7 +155,7 @@ class _HomePageStateUser extends State<HomePageUser> {
                         ),
                         SizedBox(width: 20,),
                         Text(
-                          'List Public',
+                          'My List',
                           style: TextStyle(
                             color: Colors.black,
                             fontWeight: FontWeight.bold,

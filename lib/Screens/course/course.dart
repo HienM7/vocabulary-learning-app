@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:vocabulary_learning_app/Screens/vocab_list/vocab_list.dart';
 
 
+// NewCourseInfoPage
 class CoursePage extends StatefulWidget {
   @override
   _CoursePage createState() => _CoursePage();
@@ -95,6 +96,7 @@ class _CoursePage extends State<CoursePage> {
                 ),
               ),
             ),
+
             // SizedBox(
             //   height: 130,
             // ),

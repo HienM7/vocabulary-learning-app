@@ -121,94 +121,94 @@ class _HomePageState extends State<HomePage> {
                   ),
                 ),
                 InkWell(
-                        onTap: () {},
-                        onHover: (value) {
-                          setState(() {
-                            _isHovering[2] = value;
-                          });
-                        },
-                        child: Column(
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            InkWell(
-                              onTap: () => AppRouter.router.navigateTo(
-                                context, AppRoutes.signup.route),
-                              child: MouseRegion(
-                                cursor: SystemMouseCursors.click,
-                                child: Text(
-                                  'Sign Up',
-                                  style: TextStyle(
-                                    color: _isHovering[2]
-                                        ? Colors.yellow.withOpacity(1)
-                                        : Colors.white.withOpacity(1),
-                                    fontSize: 22,
-                                    fontWeight: FontWeight.bold
-                                  ),
-                                ),
-                              ),
+                  onTap: () {},
+                  onHover: (value) {
+                    setState(() {
+                      _isHovering[2] = value;
+                    });
+                  },
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      InkWell(
+                        onTap: () => AppRouter.router.navigateTo(
+                          context, AppRoutes.signup.route),
+                        child: MouseRegion(
+                          cursor: SystemMouseCursors.click,
+                          child: Text(
+                            'Sign Up',
+                            style: TextStyle(
+                              color: _isHovering[2]
+                                  ? Colors.yellow.withOpacity(1)
+                                  : Colors.white.withOpacity(1),
+                              fontSize: 22,
+                              fontWeight: FontWeight.bold
                             ),
-                            SizedBox(height: 3),
-                            // For showing an underline on hover
-                            Visibility(
-                              maintainAnimation: true,
-                              maintainState: true,
-                              maintainSize: true,
-                              visible: _isHovering[2],
-                              child: Container(
-                                height: 3,
-                                width: 66,
-                                color: Colors.white.withOpacity(1),
-                              ),
-                            )
-                          ],
-                        ),
+                          ),
+                        )
                       ),
+                      SizedBox(height: 3),
+                      // For showing an underline on hover
+                      Visibility(
+                        maintainAnimation: true,
+                        maintainState: true,
+                        maintainSize: true,
+                        visible: _isHovering[2],
+                        child: Container(
+                          height: 3,
+                          width: 66,
+                          color: Colors.white.withOpacity(1),
+                        ),
+                      )
+                    ],
+                  ),
+                ),
                 SizedBox(
                   width: screenSize.width / 30,
                 ),
                 InkWell(
-                        onTap: () {},
-                        onHover: (value) {
-                          setState(() {
-                            _isHovering[3] = value;
-                          });
-                        },
-                        child: Column(
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            InkWell(
-                              onTap: () => AppRouter.router.navigateTo(
-                                context, AppRoutes.login.route),
-                              child: MouseRegion(
-                                cursor: SystemMouseCursors.click,
-                                child: Text(
-                                  'Log In',
-                                  style: TextStyle(
-                                    color: _isHovering[3]
-                                        ? Colors.yellow.withOpacity(1)
-                                        : Colors.white.withOpacity(1),
-                                    fontSize: 22,
-                                    fontWeight: FontWeight.bold
-                                  ),
-                                ),
-                              ),
+                  onTap: () {},
+                  onHover: (value) {
+                    setState(() {
+                      _isHovering[3] = value;
+                    });
+                  },
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      InkWell(
+                        onTap: () => AppRouter.router.navigateTo(
+                          context, AppRoutes.login.route),
+                        child: MouseRegion(
+                          cursor: SystemMouseCursors.click,
+                          child: Text(
+                            'Log In',
+                            style: TextStyle(
+                              color: _isHovering[3]
+                                  ? Colors.yellow.withOpacity(1)
+                                  : Colors.white.withOpacity(1),
+                              fontSize: 22,
+                              fontWeight: FontWeight.bold
                             ),
-                            SizedBox(height: 3),
-                            // For showing an underline on hover
-                            Visibility(
-                              maintainAnimation: true,
-                              maintainState: true,
-                              maintainSize: true,
-                              visible: _isHovering[3],
-                              child: Container(
-                                height: 3,
-                                width: 50,
-                                color: Colors.white.withOpacity(1),
-                              ),
-                            )
-                          ],
-                        ),
+                          ),
+                        )
                       ),
+                      SizedBox(height: 3),
+                      // For showing an underline on hover
+                      Visibility(
+                        maintainAnimation: true,
+                        maintainState: true,
+                        maintainSize: true,
+                        visible: _isHovering[3],
+                        child: Container(
+                          height: 3,
+                          width: 50,
+                          color: Colors.white.withOpacity(1),
+                        ),
+                      )
+                    ],
+                  ),
+                ),
               ],
             ),
           ),

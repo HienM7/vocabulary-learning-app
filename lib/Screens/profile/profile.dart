@@ -46,14 +46,14 @@ class ProfileScreen extends StatelessWidget {
           height: 10,
         ),
         Text(
-          'Viet Huynh',
+          'Viet Huynh',  // --> user.name
           style: kTitleTextStyle,
         ),
         SizedBox(
           height: 5,
         ),
         Text(
-          'huynhvanviet317@gmail.com',
+          'huynhvanviet317@gmail.com',  // --> user.email
           style: kCaptionTextStyle,
         ),
         SizedBox(
@@ -118,12 +118,12 @@ class ProfileScreen extends StatelessWidget {
                       context, AppRoutes.myLists.route),
                     child: ProfileListItem(
                       icon: LineAwesomeIcons.history,
-                      text: 'Words learned',
+                      text: 'Your Word Lists',
                     ),
                   ),
                   ProfileListItem(
                     icon: LineAwesomeIcons.user_plus,
-                    text: 'Invite a friend',
+                    text: 'Invite a friend to join us',
                   ),
                   ProfileListItem(
                     icon: LineAwesomeIcons.key,

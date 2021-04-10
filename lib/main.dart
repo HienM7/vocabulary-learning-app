@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:animated_theme_switcher/animated_theme_switcher.dart';
+import 'package:vocabulary_learning_app/Home/Mylist.dart';
 import 'package:vocabulary_learning_app/Screens/profile/profile.dart';
 import 'package:vocabulary_learning_app/Screens/testCRUD/home.dart';
+import 'package:vocabulary_learning_app/Screens/list_word/list_word.dart';
 
 import 'package:vocabulary_learning_app/constants/constants.dart';
 import 'package:vocabulary_learning_app/Login/login.dart';
@@ -40,6 +42,8 @@ class MyApp extends StatelessWidget {
               '/todo-test': (context) => Home(),
               '/home': (context) => HomePage(),
               '/home-page': (context) => HomePageUser(),
+              '/my-list': (context) => MyList(),
+              '/list-word': (context) => ListWord(),
             },
 
             home: LoginPage(),

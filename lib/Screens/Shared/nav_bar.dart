@@ -9,10 +9,11 @@ class _NavBar extends State<NavBar> {
   List _isHovering = [false, false, false];
   @override
   Widget build(BuildContext context) {
+    var screenSize = MediaQuery.of(context).size;
     return Container(
       color: Colors.blueGrey[700],
       child: Padding(
-        padding: EdgeInsets.symmetric(horizontal: 180, vertical: 5),
+        padding: EdgeInsets.symmetric(horizontal: screenSize.width*0.12, vertical: 5),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
@@ -119,12 +120,65 @@ class _NavBar extends State<NavBar> {
                 ],
               )
             ),
-            IconButton(
-              icon: Icon(Icons.account_circle),
-              iconSize: 40,
-              color: Colors.yellow[600],
-              onPressed: (){},
-            )
+            Row(
+              children: [
+                IconButton(
+                  icon: Icon(Icons.account_circle),
+                  iconSize: 40,
+                  color: Colors.yellow[600],
+                  onPressed: (){},
+                ),
+                SizedBox(width: 23,),
+                InkWell(
+                  onTap: () {},
+                  onHover: (value) {
+                    setState(() {
+                      _isHovering[2] = value;
+                    });
+                  },
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Icon(
+                        Icons.logout,
+                        size: 23,
+                        color: _isHovering[2]
+                        ? Colors.yellow
+                        : Colors.white,
+                      ),
+                      Column(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Text(
+                            'Logout',
+                            style: TextStyle(
+                              color: _isHovering[2]
+                                  ? Colors.yellow
+                                  : Colors.white,
+                              fontSize: 20,
+                              fontWeight: FontWeight.bold
+                            ),
+                          ),
+                          SizedBox(height: 3),
+                          // For showing an underline on hover
+                          Visibility(
+                            maintainAnimation: true,
+                            maintainState: true,
+                            maintainSize: true,
+                            visible: _isHovering[2],
+                            child: Container(
+                              height: 3,
+                              width: 66,
+                              color: Colors.white,
+                            ),
+                          )
+                        ],
+                      ),
+                    ],
+                  )
+                ),
+              ],
+            ),
           ],
         ),
       ),

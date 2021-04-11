@@ -1,7 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:vocabulary_learning_app/Login/login.dart';
-import 'package:vocabulary_learning_app/UpdatePass/updatepass.dart';
+import 'package:vocabulary_learning_app/constants/router_constants.dart';
+import 'package:vocabulary_learning_app/models/app_router.dart';
 
 class HomePageAuth extends StatefulWidget {
   @override
@@ -15,7 +15,8 @@ class _HomePageAuthState extends State<HomePageAuth> {
   checkAuthentification() async {
     auth.authStateChanges().listen((user) {
       if (user == null) {
-        Navigator.pushNamed(context, '/login');
+        AppRouter.router.navigateTo(
+          context, AppRoutes.login.route);
       }
     });
   }
@@ -57,36 +58,46 @@ class _HomePageAuthState extends State<HomePageAuth> {
                           fontSize: 20.0, fontWeight: FontWeight.bold),
                     ),
                   ),
-                  RaisedButton(
-                    padding: EdgeInsets.fromLTRB(70, 10, 70, 10),
+                  ElevatedButton(
                     onPressed: signout,
-                    child: Text('Signout',
-                        style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 20.0,
-                            fontWeight: FontWeight.bold)),
-                    color: Colors.orange,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(20.0),
+                    style: ButtonStyle(
+                      backgroundColor: MaterialStateProperty.all<Color>(Colors.orange),
+                      shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                        RoundedRectangleBorder(
+                          borderRadius: BorderRadius.all(Radius.circular(20)))),
+                      textStyle: MaterialStateProperty.all(
+                        TextStyle(color: Colors.white)),
+                      padding: MaterialStateProperty.all(
+                        const EdgeInsets.fromLTRB(70, 10, 70, 10))
+                    ),
+                    child: Text(
+                      'Sign Out',
+                      style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold)
                     ),
                   ),
                   SizedBox(height: 40.0),
-                  RaisedButton(
-                    padding: EdgeInsets.fromLTRB(70, 10, 70, 10),
-                    onPressed: () => {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => UpdatePassPage()))
-                    },
-                    child: Text('updatepass',
-                        style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 20.0,
-                            fontWeight: FontWeight.bold)),
-                    color: Colors.orange,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(20.0),
+                  ElevatedButton(
+                    onPressed: () => AppRouter.router.navigateTo(
+                      context, AppRoutes.passwordChange.route),
+                    style: ButtonStyle(
+                      backgroundColor: MaterialStateProperty.all<Color>(Colors.orange),
+                      shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                        RoundedRectangleBorder(
+                          borderRadius: BorderRadius.all(Radius.circular(20)))),
+                      textStyle: MaterialStateProperty.all(
+                        TextStyle(color: Colors.white)),
+                      padding: MaterialStateProperty.all(
+                        const EdgeInsets.fromLTRB(70, 10, 70, 10))
+                    ),
+                    child: Text(
+                      'Update Password',
+                      style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold)
                     ),
                   ),
                 ],

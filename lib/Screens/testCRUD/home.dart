@@ -1,5 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:vocabulary_learning_app/constants/router_constants.dart';
+import 'package:vocabulary_learning_app/models/app_router.dart';
 import 'package:vocabulary_learning_app/services/database.dart';
 
 class ToDoTestPage extends StatefulWidget {
@@ -20,7 +22,8 @@ class _ToDoTestPageState extends State<ToDoTestPage> {
   checkAuthentification() async {
     auth.authStateChanges().listen((user) {
       if (user == null) {
-        Navigator.pushNamed(context, '/login');
+        AppRouter.router.navigateTo(
+          context, AppRoutes.login.route);
       }
     });
   }

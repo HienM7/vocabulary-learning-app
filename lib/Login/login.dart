@@ -1,10 +1,6 @@
 import 'package:flutter/material.dart';
-// import 'package:vocabulary_learning_app/Home/home.dart';
-import 'package:vocabulary_learning_app/Home/home_test_auth.dart';
-import 'package:vocabulary_learning_app/Register/register.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/rendering.dart';
-import 'package:vocabulary_learning_app/Home/home.dart';
 import 'package:vocabulary_learning_app/constants/router_constants.dart';
 import 'package:vocabulary_learning_app/models/app_router.dart';
 
@@ -19,8 +15,8 @@ class _LoginPageState extends State<LoginPage> {
     auth.authStateChanges().listen((user) {
       if (user != null) {
         print(user);
-
-        Navigator.pushNamed(context, '/home-page');
+        AppRouter.router.navigateTo(
+          context, AppRoutes.homePage.route);
       }
     });
   }
@@ -33,11 +29,10 @@ class _LoginPageState extends State<LoginPage> {
             title: Text('ERROR'),
             content: Text(errormessage),
             actions: <Widget>[
-              FlatButton(
-                  onPressed: () {
-                    Navigator.of(context).pop();
-                  },
-                  child: Text('OK'))
+              TextButton(
+                onPressed: () => Navigator.of(context).pop(),
+                child: Text('OK')
+              )
             ],
           );
         });
@@ -73,12 +68,12 @@ class _LoginPageState extends State<LoginPage> {
               Padding(
                 padding: const EdgeInsets.fromLTRB(0, 0, 0, 40),
                 child: Container(
-                    width: 70,
-                    height: 70,
-                    padding: EdgeInsets.all(15),
+                    width: 130,
+                    height: 130,
+                    // padding: EdgeInsets.all(15),
                     decoration: BoxDecoration(
-                        shape: BoxShape.circle, color: Color(0xffd8d8d8)),
-                    child: FlutterLogo()),
+                        shape: BoxShape.rectangle, color: Color(0xffd8d8d8)),
+                    child: Image.asset('assets/images/VocabLearn_logo_Wix.jpg'))
               ),
               Padding(
                 padding: const EdgeInsets.fromLTRB(0, 0, 0, 60),
@@ -97,9 +92,37 @@ class _LoginPageState extends State<LoginPage> {
                   style: TextStyle(fontSize: 18, color: Colors.black),
                   decoration: InputDecoration(
                       errorText: _emailinvalid ? _emailerr : null,
-                      labelText: "USERNAME",
+                      labelText: "EMAIL",
                       labelStyle:
                           TextStyle(color: Color(0xff888888), fontSize: 15)),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.fromLTRB(0, 0, 0, 40),
+                child: Stack(
+                  alignment: AlignmentDirectional.centerEnd,
+                  children: <Widget>[
+                    TextField(
+                      controller: _passController,
+                      style: TextStyle(fontSize: 18, color: Colors.black),
+                      obscureText: !_showPass,
+                      decoration: InputDecoration(
+                          errorText: _passinvalid ? _passerr : null,
+                          labelText: "PASSWORD",
+                          labelStyle: TextStyle(
+                              color: Color(0xff888888), fontSize: 15)),
+                    ),
+                    GestureDetector(
+                      onTap: onToggleShowPass,
+                      child: Text(
+                        _showPass ? "HIDE" : "SHOW",
+                        style: TextStyle(
+                            color: Colors.blue,
+                            fontSize: 13,
+                            fontWeight: FontWeight.bold),
+                      ),
+                    ),
+                  ],
                 ),
               ),
               Padding(
@@ -148,7 +171,7 @@ class _LoginPageState extends State<LoginPage> {
                       style: TextStyle(fontSize: 15, color: Colors.blue),
                     )
                   ],
-                ),                      
+                ),
               ),
             ],
           ),
@@ -182,8 +205,8 @@ class _LoginPageState extends State<LoginPage> {
             .signInWithEmailAndPassword(
                 email: _emailController.text, password: _passController.text)
             .then((_) {
-          // Navigator.push(
-          //     context, MaterialPageRoute(builder: (context) => HomePageAuth()));
+          // AppRouter.router.navigateTo(
+          //   context, AppRoutes.homeAuth.route);
           AppRouter.router.navigateTo(
             context, AppRoutes.homePage.route);
         });

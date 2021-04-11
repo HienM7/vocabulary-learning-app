@@ -7,7 +7,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:line_awesome_flutter/line_awesome_flutter.dart';
 import 'package:vocabulary_learning_app/constants/constants.dart';
 
-
 class ProfileScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -87,22 +86,21 @@ class ProfileScreen extends StatelessWidget {
     });
 
     var header = Container(
-      margin: EdgeInsets.symmetric(horizontal: kSpacingUnit.w * 5)
-          .copyWith(bottom: 20),
-      child: Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: <Widget>[
-        Icon(
-          LineAwesomeIcons.arrow_left,
-          size: 40,
-        ),
-        profileInfo,
-        themeSwitcher,
-      ],
-    )
-    );
-    
+        margin: EdgeInsets.symmetric(horizontal: kSpacingUnit.w * 5)
+            .copyWith(bottom: 20),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            Icon(
+              LineAwesomeIcons.arrow_left,
+              size: 40,
+            ),
+            profileInfo,
+            themeSwitcher,
+          ],
+        ));
+
     return ThemeSwitchingArea(child: Builder(
       builder: (context) {
         return Scaffold(
@@ -113,27 +111,22 @@ class ProfileScreen extends StatelessWidget {
             Expanded(
               child: ListView(
                 children: <Widget>[
-                  
                   ProfileListItem(
                     icon: LineAwesomeIcons.history,
                     text: 'Words learned',
                   ),
-
                   ProfileListItem(
                     icon: LineAwesomeIcons.user_plus,
                     text: 'Invite a friend',
                   ),
-
                   ProfileListItem(
-                  icon: LineAwesomeIcons.key,
-                  text: 'Change password',
+                    icon: LineAwesomeIcons.key,
+                    text: 'Change password',
                   ),
-
                   ProfileListItem(
                     icon: LineAwesomeIcons.question_circle,
                     text: 'Help & Support',
                   ),
-                
                   ProfileListItem(
                     icon: LineAwesomeIcons.user_shield,
                     text: 'Privacy policy',
@@ -183,8 +176,8 @@ class ProfileListItem extends StatelessWidget {
           ),
           SizedBox(width: 25),
           Text(this.text,
-              style: kTitleTextStyle.copyWith(fontWeight: FontWeight.w500, fontSize: 17))
-              ,
+              style: kTitleTextStyle.copyWith(
+                  fontWeight: FontWeight.w500, fontSize: 17)),
           Spacer(),
           if (this.hasNavigation) Icon(LineAwesomeIcons.angle_right, size: 25)
         ],

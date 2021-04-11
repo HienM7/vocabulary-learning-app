@@ -11,54 +11,72 @@
     Fore more details:
     * https://developer.mozilla.org/en-US/docs/Web/HTML/Element/base
   -->
-  <base href="/">
+    <base href="/" />
 
-  <meta charset="UTF-8">
-  <meta content="IE=Edge" http-equiv="X-UA-Compatible">
-  <meta name="description" content="A new Flutter project.">
+    <meta charset="UTF-8" />
+    <meta content="IE=Edge" http-equiv="X-UA-Compatible" />
+    <meta name="description" content="A new Flutter project." />
 
-  <!-- iOS meta tags & icons -->
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black">
-  <meta name="apple-mobile-web-app-title" content="vocabulary_learning_app">
-  <link rel="apple-touch-icon" href="icons/Icon-192.png">
+    <!-- iOS meta tags & icons -->
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+    <meta name="apple-mobile-web-app-title" content="vocabulary_learning_app" />
+    <link rel="apple-touch-icon" href="icons/Icon-192.png" />
 
-  <!-- Favicon -->
-  <link rel="icon" type="image/png" href="favicon.png"/>
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="favicon.png" />
 
-  <title>vocabulary_learning_app</title>
-  <link rel="manifest" href="manifest.json">
-</head>
-<body>
-  <!-- Insert these scripts at the bottom of the HTML, but before you use any Firebase services -->
+    <title>vocabulary_learning_app</title>
+    <link rel="manifest" href="manifest.json" />
+  </head>
+  <body>
+    <!-- Insert these scripts at the bottom of the HTML, but before you use any Firebase services -->
 
-  <!-- Firebase App (the core Firebase SDK) is always required and must be listed first -->
-  <script src="https://www.gstatic.com/firebasejs/8.3.1/firebase-app.js"></script>
+    <!-- Firebase App (the core Firebase SDK) is always required and must be listed first -->
+    <script src="https://www.gstatic.com/firebasejs/8.3.1/firebase-app.js"></script>
 
-  <!-- If you enabled Analytics in your project, add the Firebase SDK for Analytics -->
-  <script src="https://www.gstatic.com/firebasejs/8.3.1/firebase-analytics.js"></script>
+    <!-- If you enabled Analytics in your project, add the Firebase SDK for Analytics -->
+    <script src="https://www.gstatic.com/firebasejs/8.3.1/firebase-analytics.js"></script>
 
-  <!-- Add Firebase products that you want to use -->
-  <script src="https://www.gstatic.com/firebasejs/8.3.1/firebase-auth.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/8.3.1/firebase-firestore.js"></script>
-  <script>
+    <!-- Add Firebase products that you want to use -->
+    <script src="https://www.gstatic.com/firebasejs/8.3.1/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.3.1/firebase-firestore.js"></script>
+
+    <script>
+      // Your web app's Firebase configuration
+      // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+      var firebaseConfig = {
+        apiKey: "AIzaSyAkGiyhKb4yHSAXrEEs5NBX63BttrM20jY",
+        authDomain: "cloud-firestore-viet.firebaseapp.com",
+        databaseURL: "https://cloud-firestore-viet.firebaseio.com",
+        projectId: "cloud-firestore-viet",
+        storageBucket: "cloud-firestore-viet.appspot.com",
+        messagingSenderId: "103227232736",
+        appId: "1:103227232736:web:8d9a8294e318b2c301db85",
+        measurementId: "G-PGNCGW3MWQ",
+      };
+
+      // Initialize Firebase
+      firebase.initializeApp(firebaseConfig);
+    </script>
+    <!-- <script>
     // Your web app's Firebase configuration
     // For Firebase JS SDK v7.20.0 and later, measurementId is optional
     var firebaseConfig = {
-      apiKey: "AIzaSyAkGiyhKb4yHSAXrEEs5NBX63BttrM20jY",
-      authDomain: "cloud-firestore-viet.firebaseapp.com",
-      databaseURL: "https://cloud-firestore-viet.firebaseio.com",
-      projectId: "cloud-firestore-viet",
-      storageBucket: "cloud-firestore-viet.appspot.com",
-      messagingSenderId: "103227232736",
-      appId: "1:103227232736:web:8d9a8294e318b2c301db85",
-      measurementId: "G-PGNCGW3MWQ"
+      apiKey: "AIzaSyCLz-55VloQTEwPjnAkr-ghKbC-VYPbdyo",
+      authDomain: "do-an-flutter-8f822.firebaseapp.com",
+      projectId: "do-an-flutter-8f822",
+      storageBucket: "do-an-flutter-8f822.appspot.com",
+      messagingSenderId: "895883305601",
+      appId: "1:895883305601:web:50a3d262f652782e85e380",
+      measurementId: "G-MJS9WDQJ1R",
     };
-    
     // Initialize Firebase
     firebase.initializeApp(firebaseConfig);
-  </script>
-  <!-- This script installs service_worker.js to provide PWA functionality to
+    firebase.analytics();
+  </script> -->
+
+    <!-- This script installs service_worker.js to provide PWA functionality to
        application. For more information, see:
        https://developers.google.com/web/fundamentals/primers/service-workers -->
     <script>

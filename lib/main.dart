@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:animated_theme_switcher/animated_theme_switcher.dart';
+
 import 'package:vocabulary_learning_app/Home/home_test_auth.dart';
 import 'package:vocabulary_learning_app/Screens/profile/profile.dart';
 import 'package:vocabulary_learning_app/Screens/testCRUD/home.dart';
 import 'package:vocabulary_learning_app/UpdatePass/updatepass.dart';
-
+import 'package:vocabulary_learning_app/Home/Mylist.dart';
+import 'package:vocabulary_learning_app/Screens/list_word/list_word.dart';
 import 'package:vocabulary_learning_app/constants/constants.dart';
 import 'package:vocabulary_learning_app/Login/login.dart';
 import 'package:vocabulary_learning_app/Register/register.dart';
@@ -12,9 +14,11 @@ import 'package:vocabulary_learning_app/Screens/vocab_list/vocab_list.dart';
 import 'package:vocabulary_learning_app/Home/home.dart';
 import 'package:vocabulary_learning_app/Home/home_page.dart';
 import 'package:vocabulary_learning_app/Screens/course/course.dart';
+import 'package:vocabulary_learning_app/Home/home.dart';
+import 'package:vocabulary_learning_app/Home/home_page.dart';
+import 'Home/home.dart';
 
-void main() {
-  // SystemChrome.setEnabledSystemUIOverlays([]);
+void main(){
   WidgetsFlutterBinding.ensureInitialized();
   runApp(MyApp());
 }
@@ -41,7 +45,8 @@ class MyApp extends StatelessWidget {
               '/home-page': (context) => HomePageUser(),
               '/home-page-auth': (context) => HomePageAuth(),
               '/updatepass': (context) => UpdatePassPage(),
-              
+              '/my-list': (context) => MyList(),
+              '/list-word': (context) => ListWord(),
             },
 
             home: LoginPage(),

@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:vocabulary_learning_app/Screens/Shared/footer.dart';
 import 'package:vocabulary_learning_app/Screens/Shared/nav_bar.dart';
-import 'package:vocabulary_learning_app/services/database.dart';
 
 class ListWord extends StatefulWidget {
   @override
@@ -11,7 +10,7 @@ class ListWord extends StatefulWidget {
 
 class _ListWord extends State<ListWord> {
   List<Map<dynamic, dynamic>> lists = [];
-  CollectionReference firebaseinstance = Firestore.instance.collection('word');
+  CollectionReference firebaseinstance = FirebaseFirestore.instance.collection('word');
   bool isloop = false;
   List<TextEditingController> wordcontrollers = [];
   List<TextEditingController> definecontrollers = [];
@@ -64,7 +63,7 @@ class _ListWord extends State<ListWord> {
                       minHeight: 600,
                     ),
                     child: FutureBuilder<QuerySnapshot>(
-                      future: firebaseinstance.getDocuments(),
+                      future: firebaseinstance.get(),
                       builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot){
                         if(snapshot.hasError)
                         {
@@ -76,9 +75,9 @@ class _ListWord extends State<ListWord> {
                         }
                         isloop = true;
                         lists.clear();
-                        for (var document in snapshot.data.documents) {
-                          keys.add(document.documentID);
-                          lists.add(document.data);
+                        for (var document in snapshot.data.docs) {
+                          keys.add(document.id);
+                          lists.add(document.data());
                         }
                         return Column(
                           mainAxisAlignment: MainAxisAlignment.start,
@@ -242,7 +241,7 @@ class _ListWord extends State<ListWord> {
                   child: Text("Edit",style: TextStyle(fontSize: 16,),),
                   onPressed: () {
                     setState(() {
-                      firebaseinstance.document(keys[i]).updateData({"word": wordcontrollers[i].text,
+                      firebaseinstance.doc(keys[i]).update({"word": wordcontrollers[i].text,
                       "definition": definecontrollers[i].text}).catchError((onError){print("onError");});
                     });
                   },
@@ -255,7 +254,7 @@ class _ListWord extends State<ListWord> {
                   child: Text("Delete",style: TextStyle(fontSize: 16,),),
                   onPressed: () {
                     setState(() {
-                      firebaseinstance.document(keys[i]).delete().catchError((onError){print("onError");});
+                      firebaseinstance.doc(keys[i]).delete().catchError((onError){print("onError");});
                     });
                   },
                   color: Colors.blue,

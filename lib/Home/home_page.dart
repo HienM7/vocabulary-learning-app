@@ -125,18 +125,6 @@ class _HomePageStateUser extends State<HomePageUser> {
                             )
                           )
                         ),
-                        style: ButtonStyle(
-                            padding: MaterialStateProperty.all<EdgeInsets>(
-                                EdgeInsets.symmetric(
-                                    horizontal: 25, vertical: 15)),
-                            backgroundColor: MaterialStateProperty.all<Color>(
-                                Colors.greenAccent[700]),
-                            shape: MaterialStateProperty.all<
-                                    RoundedRectangleBorder>(
-                                RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(5),
-                                    side: BorderSide(
-                                        color: Colors.greenAccent[700])))),
                       ),
                       SizedBox(width: screenSize.width*0.05),
                       Container(

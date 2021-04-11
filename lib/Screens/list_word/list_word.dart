@@ -237,28 +237,34 @@ class _ListWord extends State<ListWord> {
                   showEditIcon: true),
               DataCell(Text("${list[i]['level']}", style: TextStyle(fontSize: 16, fontWeight: FontWeight.w400),)),
               DataCell(
-                FlatButton(
-                  child: Text("Edit",style: TextStyle(fontSize: 16,),),
+                TextButton(
+                  child: Text(
+                    "Edit",
+                    style: TextStyle(fontSize: 16, color: Colors.white)),
                   onPressed: () {
                     setState(() {
                       firebaseinstance.doc(keys[i]).update({"word": wordcontrollers[i].text,
-                      "definition": definecontrollers[i].text}).catchError((onError){print("onError");});
+                      "definition": definecontrollers[i].text}).catchError((onError) { print("onError"); });
                     });
                   },
-                  color: Colors.blue,
-                  textColor: Colors.white,
+                  style: ButtonStyle(
+                    backgroundColor: MaterialStateProperty.all<Color>(Colors.blue),
+                  )
                 ),
               ),
               DataCell(
-                FlatButton(
-                  child: Text("Delete",style: TextStyle(fontSize: 16,),),
+                TextButton(
+                  child: Text(
+                    "Delete",
+                    style: TextStyle(fontSize: 16, color: Colors.white)),
                   onPressed: () {
                     setState(() {
-                      firebaseinstance.doc(keys[i]).delete().catchError((onError){print("onError");});
+                      firebaseinstance.doc(keys[i]).delete().catchError((onError) { print("onError"); });
                     });
                   },
-                  color: Colors.blue,
-                  textColor: Colors.white,
+                  style: ButtonStyle(
+                    backgroundColor: MaterialStateProperty.all<Color>(Colors.blue),
+                  )
                 ),
               ),
             ]),

@@ -18,7 +18,8 @@ class _HomePageStateUser extends State<HomePageUser> {
   checkAuthentification() async {
     auth.authStateChanges().listen((user) {
       if (user == null) {
-        Navigator.pushNamed(context, '/login');
+        AppRouter.router.navigateTo(
+          context, AppRoutes.login.route);
       }
     });
   }

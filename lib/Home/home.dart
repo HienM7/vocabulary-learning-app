@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:vocabulary_learning_app/Screens/Shared/footer.dart';
 import 'package:flutter/rendering.dart';
-import 'package:vocabulary_learning_app/Home/widgets/info_text.dart';
-import 'package:vocabulary_learning_app/Home/widgets/bottom_bar_colum.dart';
 import 'package:vocabulary_learning_app/constants/router_constants.dart';
 import 'package:vocabulary_learning_app/models/app_router.dart';
 

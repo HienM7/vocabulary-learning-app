@@ -1,6 +1,7 @@
-import 'package:editable/editable.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:vocabulary_learning_app/constants/router_constants.dart';
+import 'package:vocabulary_learning_app/models/app_router.dart';
 
 // NewCoursePage
 class TablePage extends StatefulWidget {
@@ -15,7 +16,8 @@ class _TablePageState extends State<TablePage> {
   checkAuthentification() async {
     auth.authStateChanges().listen((user) {
       if (user == null) {
-        Navigator.pushNamed(context, '/login');
+          AppRouter.router.navigateTo(
+            context, AppRoutes.login.route);
       }
     });
   }
@@ -26,8 +28,8 @@ class _TablePageState extends State<TablePage> {
     this.checkAuthentification();
   }
 
-  final _editableKey = GlobalKey<EditableState>();
-   List listOfColumns = [
+  // final _editableKey = GlobalKey<EditableState>();
+  List listOfColumns = [
     {"word": "civilization(n)", "meaning": "nền văn minh", "level": "1"},
     {"word": "virtual(adj)", "meaning": "ảo", "level": "3"},
     {"word": "independence(n)", "meaning": "sự độc lập", "level": "5"},
@@ -37,16 +39,16 @@ class _TablePageState extends State<TablePage> {
 
   @override
   Widget build(BuildContext context) {
-    const PrimaryColor = const Color(0xFF151026);
-    List rows = [
-      {"Word": 'Essien Ikpa', "Definition": 'this is the name', "Level": '2'},
-    ];
+    // const PrimaryColor = const Color(0xFF151026);
+    // List rows = [
+    //   {"Word": 'Essien Ikpa', "Definition": 'this is the name', "Level": '2'},
+    // ];
     //Headers or Columns
-    List headers = [
-      {"title": 'Word', 'index': 1, 'key': 'Word'},
-      {"title": 'Definition', 'index': 2, 'key': 'Definition'},
-      {"title": 'Level', 'index': 3, 'key': 'Level'},
-    ];
+    // List headers = [
+    //   {"title": 'Word', 'index': 1, 'key': 'Word'},
+    //   {"title": 'Definition', 'index': 2, 'key': 'Definition'},
+    //   {"title": 'Level', 'index': 3, 'key': 'Level'},
+    // ];
     return Scaffold(
       appBar: AppBar(
         title: Text('Vocab list', style: TextStyle(color: Colors.white)),

@@ -1,8 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:vocabulary_learning_app/Home/home_test_auth.dart';
 import 'package:flutter/rendering.dart';
-import 'package:vocabulary_learning_app/Login/login.dart';
 import 'package:vocabulary_learning_app/constants/router_constants.dart';
 import 'package:vocabulary_learning_app/models/app_router.dart';
 
@@ -16,7 +14,8 @@ class _RegisterPage extends State<RegisterPage> {
   checkAuthentication() async {
     auth.authStateChanges().listen((user) async {
       if (user != null) {
-        Navigator.pushNamed(context, '/home-page');
+        AppRouter.router.navigateTo(
+          context, AppRoutes.homePage.route);
       }
     });
   }
@@ -29,11 +28,10 @@ class _RegisterPage extends State<RegisterPage> {
             title: Text('ERROR'),
             content: Text(errormessage),
             actions: <Widget>[
-              FlatButton(
-                  onPressed: () {
-                    Navigator.of(context).pop();
-                  },
-                  child: Text('OK'))
+              TextButton(
+                onPressed: () => Navigator.of(context).pop(),
+                child: Text('OK')
+              )
             ],
           );
         });
@@ -59,23 +57,25 @@ class _RegisterPage extends State<RegisterPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Container(
+      body: Center(
+      child: Container(
+        width: 500,
         padding: EdgeInsets.fromLTRB(30, 0, 30, 0),
-        constraints: BoxConstraints.expand(),
+        // constraints: BoxConstraints.expand(),
         color: Colors.white,
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.end,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
             Padding(
               padding: const EdgeInsets.fromLTRB(0, 30, 0, 40),
               child: Container(
-                  width: 70,
-                  height: 70,
-                  padding: EdgeInsets.all(15),
+                  width: 130,
+                  height: 130,
+                  // padding: EdgeInsets.all(15),
                   decoration: BoxDecoration(
-                      shape: BoxShape.circle, color: Color(0xffd8d8d8)),
-                  child: FlutterLogo()),
+                      shape: BoxShape.rectangle, color: Color(0xffd8d8d8)),
+                  child: Image.asset('assets/images/VocabLearn_logo_Wix.jpg'))
             ),
             Padding(
               padding: const EdgeInsets.fromLTRB(0, 0, 0, 50),
@@ -86,16 +86,6 @@ class _RegisterPage extends State<RegisterPage> {
                     color: Colors.black,
                     fontSize: 30),
               )
-            ),
-            Padding(
-              padding: const EdgeInsets.fromLTRB(0, 0, 0, 50),
-              child: Text(
-                "REGISTER",
-                style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    color: Colors.black,
-                    fontSize: 30),
-              ),
             ),
             Padding(
               padding: const EdgeInsets.fromLTRB(0, 0, 0, 35),
@@ -154,14 +144,22 @@ class _RegisterPage extends State<RegisterPage> {
               child: SizedBox(
                 width: double.infinity,
                 height: 56,
-                child: RaisedButton(
-                  color: Colors.blue,
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.all(Radius.circular(10))),
+                child: ElevatedButton(
                   onPressed: onSignUpClicked,
+                  style: ButtonStyle(
+                    backgroundColor: MaterialStateProperty.all<Color>(Colors.blue),
+                    shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                      RoundedRectangleBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(10)))),
+                    textStyle: MaterialStateProperty.all(
+                      TextStyle(color: Colors.white)),
+                  ),
                   child: Text(
-                    "REGISTER",
-                    style: TextStyle(color: Colors.white, fontSize: 16),
+                    'REGISTER',
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 16,
+                    ),
                   ),
                 ),
               ),
@@ -177,7 +175,7 @@ class _RegisterPage extends State<RegisterPage> {
                 child: MouseRegion(
                   cursor: SystemMouseCursors.click,
                   child: Text(
-                    " ALREADY HAVE AN ACCOUNT ? SIGN IN",
+                    "ALREADY HAVE AN ACCOUNT ? SIGN IN",
                     style: TextStyle(fontSize: 15, color: Colors.blue),
                   ),
                 )
@@ -185,6 +183,7 @@ class _RegisterPage extends State<RegisterPage> {
             ),
           ],
         ),
+      ),
       ),
     );
   }
@@ -224,8 +223,8 @@ class _RegisterPage extends State<RegisterPage> {
           AppRouter.router.navigateTo(
             context, AppRoutes.homePage.route);
           // await Navigator.pushReplacementNamed(context,"/") ;
-          // Navigator.push(
-          //     context, MaterialPageRoute(builder: (context) => HomePageAuth()));
+          // AppRouter.router.navigateTo(
+          //   context, AppRoutes.homeAuth.route);
         }
       } catch (e) {
         showError(e.message);

@@ -147,8 +147,8 @@ class AppRoutes {
     ),
   );
 
-  static final passwordReset = AppRoute(
-    '/resetpass',
+  static final passwordChange = AppRoute(
+    '/changepass',
     Handler(
         handlerFunc: (context, parameters) => UpdatePassPage(),  // ??
     ),
@@ -181,6 +181,8 @@ class AppRoutes {
     wordListDetail,
     wordListNew,
     practice,
+    homeAuth,
+    passwordChange,
     todoTest,
   ];
 }

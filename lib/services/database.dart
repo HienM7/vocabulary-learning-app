@@ -2,36 +2,36 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 
 class DatabaseServices {
   updateTask(String userId, Map taskMap, String documentId) {
-    Firestore.instance
+    FirebaseFirestore.instance
         .collection("users")
-        .document(userId)
+        .doc(userId)
         .collection("tasks")
-        .document(documentId)
-        .setData(taskMap);
+        .doc(documentId)
+        .set(taskMap);
   }
 
   createTask(String userId, Map taskMap) {
-    Firestore.instance
+    FirebaseFirestore.instance
         .collection("users")
-        .document(userId)
+        .doc(userId)
         .collection("tasks")
         .add(taskMap);
   }
 
   getTasks(String userId) async {
-    return await Firestore.instance
+    return FirebaseFirestore.instance
         .collection("users")
-        .document(userId)
+        .doc(userId)
         .collection("tasks")
         .snapshots();
   }
 
   deleteTask(String userId, String documentId) {
-    Firestore.instance
+    FirebaseFirestore.instance
         .collection("users")
-        .document(userId)
+        .doc(userId)
         .collection("tasks")
-        .document(documentId)
+        .doc(documentId)
         .delete()
         .catchError((e) {
       print(e.toString());

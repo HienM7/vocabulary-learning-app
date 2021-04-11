@@ -1,8 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-
-import 'package:vocabulary_learning_app/Home/home_test_auth.dart';
-import 'package:vocabulary_learning_app/Login/login.dart';
+import 'package:vocabulary_learning_app/constants/router_constants.dart';
+import 'package:vocabulary_learning_app/models/app_router.dart';
 
 class UpdatePassPage extends StatefulWidget {
   @override
@@ -17,7 +16,8 @@ class _UpdatePassPage extends State<UpdatePassPage> {
   checkAuthentication() async {
     auth.authStateChanges().listen((user) async {
       if (user == null) {
-        Navigator.pushNamed(context, '/login');
+        AppRouter.router.navigateTo(
+          context, AppRoutes.login.route);
       }
     });
   }
@@ -30,11 +30,10 @@ class _UpdatePassPage extends State<UpdatePassPage> {
             title: Text('ERROR'),
             content: Text(errormessage),
             actions: <Widget>[
-              FlatButton(
-                  onPressed: () {
-                    Navigator.of(context).pop();
-                  },
-                  child: Text('OK'))
+              TextButton(
+                onPressed: () => Navigator.of(context).pop(),
+                child: Text('OK')
+              )
             ],
           );
         });
@@ -189,14 +188,22 @@ class _UpdatePassPage extends State<UpdatePassPage> {
                 child: SizedBox(
                   width: double.infinity,
                   height: 56,
-                  child: RaisedButton(
-                    color: Colors.blue,
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.all(Radius.circular(10))),
+                  child: ElevatedButton(
                     onPressed: onUpdateClicked,
+                    style: ButtonStyle(
+                      backgroundColor: MaterialStateProperty.all<Color>(Colors.blue),
+                      shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                        RoundedRectangleBorder(
+                          borderRadius: BorderRadius.all(Radius.circular(10)))),
+                      textStyle: MaterialStateProperty.all(
+                        TextStyle(color: Colors.white)),
+                    ),
                     child: Text(
-                      "Update",
-                      style: TextStyle(color: Colors.white, fontSize: 16),
+                      'Update',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 16,
+                      ),
                     ),
                   ),
                 ),
@@ -250,7 +257,7 @@ class _UpdatePassPage extends State<UpdatePassPage> {
     });
 
     user = auth.currentUser;
-    var authCredentials = EmailAuthProvider.getCredential(
+    var authCredentials = EmailAuthProvider.credential(
         email: user.email, password: _passController.text);
     try {
       var authResult = await user.reauthenticateWithCredential(authCredentials);
@@ -261,9 +268,10 @@ class _UpdatePassPage extends State<UpdatePassPage> {
           _renewpassController.text) {
         try {
           await user.updatePassword(_newpassController.text);
-          Navigator.pushNamed(context, '/my-profile');
-          // Navigator.push(
-          //     context, MaterialPageRoute(builder: (context) => HomePageAuth()));
+          AppRouter.router.navigateTo(
+            context, AppRoutes.myProfile.route);
+          // AppRouter.router.navigateTo(
+          //   context, AppRoutes.homeAuth.route);
         } catch (e) {
           showError(e.message);
           print(e);

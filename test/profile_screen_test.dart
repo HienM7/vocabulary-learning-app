@@ -16,7 +16,7 @@ void main() {
 
     // Verify that our counter starts at 0.
     // expect(find.text('@gmail.com'), findsOneWidget);
-    expect(find.text('Invite a friend'), findsOneWidget);
+    expect(find.text('Invite a friend to join us'), findsOneWidget);
     expect(find.text('Change password'), findsOneWidget);
   });
 }

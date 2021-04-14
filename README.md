@@ -53,14 +53,14 @@ A Flutter progressive web app for building vocabulary.
   ```javascript
   {
     code: "VN"
-    created_at: April 7, 2021 at 1:01:01 AM UTC+7
-    dial_code: "+84"
-    display_name: "John Doe"
-    email: "johndoe@gmail.com"
-    first_language: "Indian"
-    introduction: "Hi, my name is John Doe. Just call me John."
-    name: "John Doe"
-    user: /users/BXdTNFyd2gajVD4JI4N5EKrVPLA3
+    created_at: "April 7, 2021 at 1:01:01 AM UTC+7",
+    dial_code: "+84",
+    display_name: "John Doe",
+    email: "johndoe@gmail.com",
+    first_language: "Indian",
+    introduction: "Hi, my name is John Doe. Just call me John.",
+    name: "John Doe",
+    user: "/users/BXdTNFyd2gajVD4JI4N5EKrVPLA3"
   }
   ```
   
@@ -91,8 +91,7 @@ A Flutter progressive web app for building vocabulary.
 
 | Path | Page | Description |
 | ---  | :---:| ---         |
-| `/`  | Landing page | The home page for users who is not logged in        |
-| `/home`  | Landing page | The home page for users who is not logged in        |
+| `/`, `/home`  | Landing page | The home page for users who is not logged in        |
 | `/homepage`  | Home page | The home page for users who is logged in         |
 | `/login`  | Login page | The login page         |
 | `/signup`  | Signup page | The signup page         |
@@ -117,8 +116,8 @@ A Flutter progressive web app for building vocabulary.
 ## Deployment
 
 * Manual deployment
-  `flutter build web`
-  `firebase deploy`
+    * `flutter build web`
+    * `firebase deploy`
 
 * Deployment with Github Actions
     * Add FIREBASE_TOKEN and PROJECT_ID to Github secrets / environment variables (details in [this comment](https://github.com/HienM7/vocabulary-learning-app/pull/15#issuecomment-812800236))

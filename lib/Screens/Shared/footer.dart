@@ -5,9 +5,10 @@ import 'package:vocabulary_learning_app/Home/widgets/bottom_bar_colum.dart';
 class Footer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    var screenSize = MediaQuery.of(context).size;
     return Container(
-      padding: EdgeInsets.all(30),
-      margin: EdgeInsets.fromLTRB(0, 30, 0, 0),
+      padding: EdgeInsets.all(screenSize.width*0.025),
+      margin: EdgeInsets.fromLTRB(0, screenSize.width*0.025, 0, 0),
       color: Colors.blueGrey[900],
       child: Column(
         children: [
@@ -33,23 +34,37 @@ class Footer extends StatelessWidget {
                 s2: 'YouTube',
                 s3: ''
               ),
+              screenSize.width > 800 ?
               Container(
                 color: Colors.blueGrey,
                 width: 2,
                 height: 150,
+              ):
+              Container(
+                color: Colors.blueGrey,
+                width: 2,
+                height: 75,
               ),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
+                  screenSize.width > 800 ?
                   Text('VOCABLEARN',
                     style: TextStyle(
                       color: Colors.white,
                       fontSize: 28,
                       fontWeight: FontWeight.bold,
                     ),
+                  )
+                  : Text('VOCABLEARN',
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
-                  SizedBox(height: 15,),
+                  SizedBox(height: screenSize.width*0.01),
                   InfoText(
                     type: 'Email',
                     text: 'contact@vocablearn.com',
@@ -57,7 +72,7 @@ class Footer extends StatelessWidget {
                   SizedBox(height: 5),
                   InfoText(
                     type: 'Address',
-                    text: '999 Nguyen Luong Bang, Da Nang - 550000',
+                    text: '999 Nguyen Luong Bang, Da Nang',
                   )
                 ],
               ),
@@ -66,7 +81,7 @@ class Footer extends StatelessWidget {
           Divider(
             color: Colors.blueGrey,
           ),
-          SizedBox(height: 20),
+          SizedBox(height: screenSize.width*0.015),
           Text(
             'Copyright © 2020 | VOCABLEARN',
             style: TextStyle(

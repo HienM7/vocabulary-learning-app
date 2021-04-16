@@ -13,6 +13,7 @@ import 'package:vocabulary_learning_app/Screens/profile/profile.dart';
 import 'package:vocabulary_learning_app/Screens/testCRUD/home.dart';
 import 'package:vocabulary_learning_app/Screens/vocab_list/vocab_list.dart';
 import 'package:vocabulary_learning_app/UpdatePass/updatepass.dart';
+import 'package:vocabulary_learning_app/game/quizpage.dart';
 
 class AppRoutes {
   static final routeNotFoundHandler = Handler(
@@ -57,6 +58,13 @@ class AppRoutes {
     ),
   );
 
+  static final quizpage = AppRoute(
+    '/quizpage',
+    Handler(
+      handlerFunc: (context, parameters) => QuizPage(),
+    ),
+  );
+
   static final my = AppRoute(
     '/my',
     Handler(
@@ -89,12 +97,12 @@ class AppRoutes {
     ),
   );
 
-  static final wordLists = AppRoute(
-    '/wordlists',
-    Handler(
-      handlerFunc: (context, parameters) => ListWord(),  // --> ListsPage
-    ),
-  );
+  // static final wordLists = AppRoute(
+  //   '/wordlists',
+  //   Handler(
+  //     handlerFunc: (context, parameters) => ListWord(),  // --> ListsPage
+  //   ),
+  // );
 
   static final wordListDetail = AppRoute(
     '/wordlists/:id',
@@ -102,7 +110,7 @@ class AppRoutes {
       handlerFunc: (BuildContext context, Map<String, List<String>> params) {
         // ignore: unused_local_variable
         final String listId = params["id"][0];
-        return ListWord();  // --> ListDetailPage
+        return ListWord(listId);  // --> ListDetailPage
       }
     ),
   );
@@ -173,11 +181,12 @@ class AppRoutes {
     homePage,
     login,
     signup,
+    quizpage,
     my,
     myProfile,
     myLists,
     myListDetail,
-    wordLists,
+    // wordLists,
     wordListDetail,
     wordListNew,
     practice,

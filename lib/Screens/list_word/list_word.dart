@@ -4,13 +4,17 @@ import 'package:vocabulary_learning_app/Screens/Shared/footer.dart';
 import 'package:vocabulary_learning_app/Screens/Shared/nav_bar.dart';
 
 class ListWord extends StatefulWidget {
+  final String _listId;
+  const ListWord(String listId) : _listId = listId;
   @override
-  _ListWord createState() => _ListWord();
+  _ListWord createState() => _ListWord(_listId);
 }
 
 class _ListWord extends State<ListWord> {
+  final String _listId;
+  _ListWord(String listId) : _listId = listId;
   List<Map<dynamic, dynamic>> lists = [];
-  CollectionReference firebaseinstance = FirebaseFirestore.instance.collection('word');
+  CollectionReference firebaseinstance;
   bool isloop = false;
   List<TextEditingController> wordcontrollers = [];
   List<TextEditingController> definecontrollers = [];
@@ -21,6 +25,7 @@ class _ListWord extends State<ListWord> {
 
   Widget build(BuildContext context) {
     var screenSize = MediaQuery.of(context).size;
+    firebaseinstance = FirebaseFirestore.instance.collection('lists/${_listId}/words');
     return Scaffold(
       //App bar
       appBar: PreferredSize(

@@ -15,7 +15,7 @@ class _NavBar extends State<NavBar> {
     return Container(
       color: Colors.blueGrey[700],
       child: Padding(
-        padding: EdgeInsets.symmetric(horizontal: screenSize.width*0.12, vertical: 5),
+        padding: EdgeInsets.symmetric(horizontal: screenSize.width*0.1, vertical: 5),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [

@@ -1,4 +1,3 @@
-import 'dart:html';
 import 'dart:async';
 
 import 'package:firebase_auth/firebase_auth.dart';
@@ -168,7 +167,7 @@ class _HomePageStateUser extends State<HomePageUser> {
                                     fontWeight: FontWeight.bold),
                               ),
                             ),
-                            SizedBox(width: screenSize.width * 0.30),
+                            SizedBox(width: screenSize.width * 0.32),
                             TextButton(
                               onPressed: () => AppRouter.router.navigateTo(
                                   context, AppRoutes.wordListDetailOrNew.route,
@@ -198,7 +197,8 @@ class _HomePageStateUser extends State<HomePageUser> {
                             ),
                             SizedBox(width: screenSize.width * 0.05),
                             Container(
-                              width: screenSize.width*0.78,
+                              padding: EdgeInsets.all(10),
+                              width: screenSize.width * 0.23,
                               child: TextField(
                                 controller: _controller,
                                 onSubmitted: (value) {
@@ -416,7 +416,7 @@ class _HomePageStateUser extends State<HomePageUser> {
                                           Container(
                                             height: 40,
                                             margin: EdgeInsets.only(
-                                                top: 15, bottom: 10, left: 15),
+                                                top: 15, bottom: 5, left: 15),
                                             child: Text(
                                               lists[i]['name'],
                                               style: TextStyle(
@@ -426,19 +426,65 @@ class _HomePageStateUser extends State<HomePageUser> {
                                               ),
                                             ),
                                           ),
-                                          Container(
-                                            height: 40,
-                                            child: ElevatedButton(
-                                              style: ButtonStyle(
-                                                backgroundColor: MaterialStateProperty.all<Color>(Colors.blue),
-                                              ),
-                                              
-                                              child: Text(
-                                                "Share List"
-                                              ),
-                                              onPressed: () async {
-                                                await share(keys[i]);
-                                              },
+                                          Padding(
+                                            padding: EdgeInsets.only(bottom: 10),
+                                            child: Row(
+                                              mainAxisSize: MainAxisSize.min,
+                                              mainAxisAlignment: MainAxisAlignment.start,
+                                              crossAxisAlignment: CrossAxisAlignment.center,
+                                              children: [
+                                                SizedBox(width: 15,),
+                                                TextButton(
+                                                  onPressed: () {
+                                                    AppRouter.router.navigateTo(
+                                                      context,
+                                                    AppRoutes.getDetailRoute(
+                                                      "/quizpage", keys[i]),
+                                                    transition: TransitionType.none);
+                                                  },
+                                                  child: Padding(
+                                                    padding: EdgeInsets.all(5),
+                                                    child: Row(
+                                                      mainAxisAlignment:MainAxisAlignment.center,
+                                                      children: [
+                                                        Icon(
+                                                          Icons.games,
+                                                          color: Colors.grey[600],
+                                                          size: 20,
+                                                        ),
+                                                        SizedBox(width: 5,),
+                                                        Text(
+                                                          "Game",
+                                                          style: TextStyle(
+                                                              color: Colors.black,
+                                                              fontSize: 18,
+                                                              fontWeight: FontWeight.w400),
+                                                        )
+                                                      ],
+                                                    ),
+                                                  ),
+                                                  style: ButtonStyle(
+                                                    backgroundColor: MaterialStateProperty.all<Color>(Colors.grey[200]),
+                                                    side: MaterialStateProperty.all<BorderSide>(BorderSide(color: Colors.grey)),
+                                                  ),
+                                                ),
+                                                SizedBox(width: screenSize.width*0.1,),
+                                                Container(
+                                                  height: 34,
+                                                  child: ElevatedButton(
+                                                    style: ButtonStyle(
+                                                      backgroundColor: MaterialStateProperty.all<Color>(Colors.blue),
+                                                    ),
+                                                    
+                                                    child: Text(
+                                                      "Share List"
+                                                    ),
+                                                    onPressed: () async {
+                                                      await share(keys[i]);
+                                                    },
+                                                  )
+                                                ),
+                                              ],
                                             )
                                           ),
                                         ],

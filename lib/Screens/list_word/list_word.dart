@@ -123,6 +123,7 @@ class _ListWord extends State<ListWord> {
                         }
                         isloop = true;
                         lists.clear();
+                        keys.clear();
                         for (var document in snapshot.data.docs) {
                           keys.add(document.id);
                           lists.add(document.data());
@@ -262,8 +263,6 @@ class _ListWord extends State<ListWord> {
     return Container(
       width: size.width*0.8,
       child: DataTable(
-        sortColumnIndex: 0,
-        sortAscending: true,
         columns: [
           DataColumn(
               label: Text('Word',
@@ -293,7 +292,7 @@ class _ListWord extends State<ListWord> {
             DataRow(cells: <DataCell>[
               DataCell(
                 TextFormField(
-                  controller: definecontrollers[i],
+                  controller: wordcontrollers[i],
                   keyboardType: TextInputType.text,
                   decoration: InputDecoration(border: InputBorder.none),
                   style: TextStyle(fontSize: 16, fontWeight: FontWeight.w400),

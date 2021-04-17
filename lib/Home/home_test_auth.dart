@@ -12,11 +12,17 @@ class _HomePageAuthState extends State<HomePageAuth> {
   final auth = FirebaseAuth.instance;
   User user;
   bool isloggedin = false;
-  checkAuthentification() async {
+  checkAuth() async {
     auth.authStateChanges().listen((user) {
+      // not logged in
       if (user == null) {
         AppRouter.router.navigateTo(
           context, AppRoutes.login.route);
+      }
+      // not verified
+      else if (!user.emailVerified) {
+        AppRouter.router.navigateTo(
+          context, AppRoutes.emailNotVerified.route);
       }
     });
   }
@@ -37,7 +43,7 @@ class _HomePageAuthState extends State<HomePageAuth> {
   @override
   void initState() {
     super.initState();
-    this.checkAuthentification();
+    this.checkAuth();
     this.getUser();
   }
 

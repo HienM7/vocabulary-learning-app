@@ -1,5 +1,8 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:vocabulary_learning_app/Screens/vocab_list/vocab_list.dart';
+import 'package:vocabulary_learning_app/constants/router_constants.dart';
+import 'package:vocabulary_learning_app/models/app_router.dart';
 
 
 // NewCourseInfoPage
@@ -9,6 +12,30 @@ class CoursePage extends StatefulWidget {
 }
 
 class _CoursePage extends State<CoursePage> {
+  final auth = FirebaseAuth.instance;
+  User user;
+  bool isloggedin = false;
+  checkAuth() async {
+    auth.authStateChanges().listen((user) {
+      // not logged in
+      if (user == null) {
+        AppRouter.router.navigateTo(
+          context, AppRoutes.login.route);
+      }
+      // not verified
+      else if (!user.emailVerified) {
+        AppRouter.router.navigateTo(
+          context, AppRoutes.emailNotVerified.route);
+      }
+    });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    this.checkAuth();
+  }
+  
   TextEditingController _nameController = new TextEditingController();
   TextEditingController _desController = new TextEditingController();
   TextEditingController _tagController = new TextEditingController();

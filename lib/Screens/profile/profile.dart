@@ -1,6 +1,7 @@
 // ignore: avoid_web_libraries_in_flutter
 import 'dart:html';
 
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:animated_theme_switcher/animated_theme_switcher.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -9,7 +10,36 @@ import 'package:vocabulary_learning_app/constants/constants.dart';
 import 'package:vocabulary_learning_app/constants/router_constants.dart';
 import 'package:vocabulary_learning_app/models/app_router.dart';
 
-class ProfileScreen extends StatelessWidget {
+class ProfileScreen extends StatefulWidget {
+  @override
+  _ProfilePageState createState() => _ProfilePageState();
+}
+
+class _ProfilePageState extends State<ProfileScreen> {
+  final auth = FirebaseAuth.instance;
+  User user;
+  bool isloggedin = false;
+  checkAuth() async {
+    auth.authStateChanges().listen((user) {
+      // not logged in
+      if (user == null) {
+        AppRouter.router.navigateTo(
+          context, AppRoutes.login.route);
+      }
+      // not verified
+      else if (!user.emailVerified) {
+        AppRouter.router.navigateTo(
+          context, AppRoutes.emailNotVerified.route);
+      }
+    });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    this.checkAuth();
+  }
+
   @override
   Widget build(BuildContext context) {
     ScreenUtil.init(context, height: 896, width: 414, allowFontScaling: true);

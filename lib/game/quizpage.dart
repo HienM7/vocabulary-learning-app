@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:vocabulary_learning_app/constants/router_constants.dart';
@@ -9,6 +10,30 @@ class QuizPage extends StatefulWidget {
 }
 
 class _QuizPage extends State<QuizPage> {
+  final auth = FirebaseAuth.instance;
+  User user;
+  bool isloggedin = false;
+  checkAuth() async {
+    auth.authStateChanges().listen((user) {
+      // not logged in
+      if (user == null) {
+        AppRouter.router.navigateTo(
+          context, AppRoutes.login.route);
+      }
+      // not verified
+      else if (!user.emailVerified) {
+        AppRouter.router.navigateTo(
+          context, AppRoutes.emailNotVerified.route);
+      }
+    });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    this.checkAuth();
+  }
+
   var sliderValue = 12;
   @override
   Widget build(BuildContext context) {

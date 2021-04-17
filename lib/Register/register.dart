@@ -11,14 +11,6 @@ class RegisterPage extends StatefulWidget {
 
 class _RegisterPage extends State<RegisterPage> {
   final auth = FirebaseAuth.instance;
-  checkAuthentication() async {
-    auth.authStateChanges().listen((user) async {
-      if (user != null) {
-        AppRouter.router.navigateTo(
-          context, AppRoutes.homePage.route);
-      }
-    });
-  }
 
   showError(String errormessage) {
     showDialog(
@@ -40,7 +32,6 @@ class _RegisterPage extends State<RegisterPage> {
   @override
   void initState() {
     super.initState();
-    this.checkAuthentication();
   }
 
   bool _showPass = false;

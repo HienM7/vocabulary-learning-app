@@ -13,11 +13,16 @@ class _UpdatePassPage extends State<UpdatePassPage> {
   User user;
   bool isloggedin = false;
 
-  checkAuthentication() async {
+  checkAuth() async {
     auth.authStateChanges().listen((user) async {
       if (user == null) {
         AppRouter.router.navigateTo(
           context, AppRoutes.login.route);
+      }
+      // not verified
+      else if (!user.emailVerified) {
+        AppRouter.router.navigateTo(
+          context, AppRoutes.emailNotVerified.route);
       }
     });
   }
@@ -55,7 +60,7 @@ class _UpdatePassPage extends State<UpdatePassPage> {
   @override
   void initState() {
     super.initState();
-    this.checkAuthentication();
+    this.checkAuth();
     this.getUser();
   }
 

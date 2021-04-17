@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:vocabulary_learning_app/Screens/Shared/footer.dart';
@@ -12,6 +13,30 @@ class MyList extends StatefulWidget {
 }
 
 class _MyList extends State<MyList> {
+  final auth = FirebaseAuth.instance;
+  User user;
+  bool isloggedin = false;
+  checkAuth() async {
+    auth.authStateChanges().listen((user) {
+      // not logged in
+      if (user == null) {
+        AppRouter.router.navigateTo(
+          context, AppRoutes.login.route);
+      }
+      // not verified
+      else if (!user.emailVerified) {
+        AppRouter.router.navigateTo(
+          context, AppRoutes.emailNotVerified.route);
+      }
+    });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    this.checkAuth();
+  }
+  
   List<Map<dynamic, dynamic>> lists = [];
   List<String> keys = [];
   CollectionReference firebaseinstance = FirebaseFirestore.instance.collection('lists');

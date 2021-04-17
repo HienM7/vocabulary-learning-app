@@ -13,11 +13,17 @@ class _TablePageState extends State<TablePage> {
   final auth = FirebaseAuth.instance;
   User user;
   bool isloggedin = false;
-  checkAuthentification() async {
+  checkAuth() async {
     auth.authStateChanges().listen((user) {
+      // not logged in
       if (user == null) {
-          AppRouter.router.navigateTo(
-            context, AppRoutes.login.route);
+        AppRouter.router.navigateTo(
+          context, AppRoutes.login.route);
+      }
+      // not verified
+      else if (!user.emailVerified) {
+        AppRouter.router.navigateTo(
+          context, AppRoutes.emailNotVerified.route);
       }
     });
   }
@@ -25,7 +31,7 @@ class _TablePageState extends State<TablePage> {
   @override
   void initState() {
     super.initState();
-    this.checkAuthentification();
+    this.checkAuth();
   }
 
   // final _editableKey = GlobalKey<EditableState>();

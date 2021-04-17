@@ -7,6 +7,7 @@ import 'package:vocabulary_learning_app/Home/home_test_auth.dart';
 import 'package:vocabulary_learning_app/Login/login.dart';
 import 'package:vocabulary_learning_app/Register/register.dart';
 import 'package:vocabulary_learning_app/Screens/course/course.dart';
+import 'package:vocabulary_learning_app/Screens/email_not_verified.dart';
 import 'package:vocabulary_learning_app/Screens/error_pages/page404.dart';
 import 'package:vocabulary_learning_app/Screens/list_word/list_word.dart';
 import 'package:vocabulary_learning_app/Screens/profile/profile.dart';
@@ -174,6 +175,14 @@ class AppRoutes {
   );
 
   // Test route, kept for testing purposes
+  static final emailNotVerified = AppRoute(
+    '/unverified',
+    Handler(
+      handlerFunc: (context, parameters) => EmailNotVerifiedPage()
+    ),
+  );
+
+  // Test route, kept for testing purposes
   static final todoTest = AppRoute(
     '/todotest',
     Handler(
@@ -203,6 +212,7 @@ class AppRoutes {
     practice,
     homeAuth,
     passwordChange,
+    emailNotVerified,
     todoTest,
   ];
 }

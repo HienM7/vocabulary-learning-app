@@ -92,6 +92,8 @@ class AppRoutes {
       handlerFunc: (BuildContext context, Map<String, List<String>> params) {
         // ignore: unused_local_variable
         final String listId = params["id"][0];
+        if (listId.trim().isEmpty) return MyList();
+        
         return TablePage();
       }
     ),
@@ -104,23 +106,26 @@ class AppRoutes {
   //   ),
   // );
 
-  static final wordListDetail = AppRoute(
+  static final wordListDetailOrNew = AppRoute(
     '/wordlists/:id',
     Handler(
       handlerFunc: (BuildContext context, Map<String, List<String>> params) {
-        // ignore: unused_local_variable
         final String listId = params["id"][0];
+        
+        // if (listId.trim().isEmpty) return MyList();
+        if (listId == 'new') return CoursePage();
+
         return ListWord(listId);  // --> ListDetailPage
       }
     ),
   );
 
-  static final wordListNew = AppRoute(
-    '/wordlists/new',
-    Handler(
-        handlerFunc: (context, parameters) => CoursePage(),
-    ),
-  );
+  // static final wordListNew = AppRoute(
+  //   '/wordlists/new',
+  //   Handler(
+  //       handlerFunc: (context, parameters) => CoursePage(),
+  //   ),
+  // );
 
   static final users = AppRoute(
     '/users',
@@ -132,7 +137,13 @@ class AppRoutes {
   static final userDetail = AppRoute(
     '/users/:id',
     Handler(
-        handlerFunc: (context, parameters) => HomePage(),  // --> ProfilePage
+        handlerFunc: (context, params) {
+          final String userId = params["id"][0];
+          
+          if (userId.trim().isEmpty) return HomePage();  // --> UserListPage
+          
+          return HomePage();  // --> ProfilePage
+        }
     ),
   );
 
@@ -187,8 +198,8 @@ class AppRoutes {
     myLists,
     myListDetail,
     // wordLists,
-    wordListDetail,
-    wordListNew,
+    wordListDetailOrNew,
+    // wordListNew,
     practice,
     homeAuth,
     passwordChange,

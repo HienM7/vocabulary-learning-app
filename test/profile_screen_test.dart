@@ -5,18 +5,29 @@
 // gestures. You can also use WidgetTester to find child widgets in the widget
 // tree, read text, and verify that the values of widget properties are correct.
 
+import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:vocabulary_learning_app/Home/home.dart';
 
-import 'package:vocabulary_learning_app/Screens/profile/mainProfile.dart';
+import 'mock.dart';
 
-void main() {
-  testWidgets('Profile screen has profile items', (WidgetTester tester) async {    
-    // Build the Profile Screen and trigger a frame.
-    await tester.pumpWidget(new MainProfile());
+void main() async {
+  setupFirebaseAuthMocks();
+
+  setUpAll(() async {
+    await Firebase.initializeApp();
+  });
+  
+  testWidgets('Landing page has Get Started text', (WidgetTester tester) async {
+    Widget testWidget = new MediaQuery(
+      data: new MediaQueryData(),
+      child: new MaterialApp(home: new HomePage())
+    );
+    await tester.pumpWidget(testWidget);
 
     // Verify that our counter starts at 0.
     // expect(find.text('@gmail.com'), findsOneWidget);
-    expect(find.text('Invite a friend to join us'), findsOneWidget);
-    expect(find.text('Change password'), findsOneWidget);
+    expect(find.text('Get started'), findsOneWidget);
   });
 }

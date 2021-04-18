@@ -78,20 +78,11 @@ class _HomePageStateUser extends State<HomePageUser> {
         lists.clear();
         firebaseinstance.get().then((querySnapshot) {
           querySnapshot.docs.forEach((document) {
-            List<String> strs = [];
-            String str = "";
-            for (int i = 0;
-                i < document.data()["name"].toString().length;
-                i++) {
-              str += document.data()["name"][i];
-              strs.add(str);
+            String listName = document.data()["name"].toString();
+            if (listName.trim().toLowerCase().contains(searchText)) {
+              lists.add(document.data());
+              keys.add(document.id);
             }
-            strs.forEach((element) {
-              if (element.trim().toLowerCase().contains(searchText)) {
-                lists.add(document.data());
-                keys.add(document.id);
-              }
-            });
           });
           if (limits == lists.length) {
             equal = true;

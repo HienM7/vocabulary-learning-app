@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:fluro/fluro.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -22,7 +23,9 @@ class RouteNotFoundPage extends StatelessWidget {
             TextButton(
               onPressed: () => AppRouter.router.navigateTo(
                 context,
-                AppRoutes.homePage.route,
+                FirebaseAuth.instance.currentUser != null
+                  ? AppRoutes.homePage.route
+                  : AppRoutes.home.route,
                 replace: true,
                 clearStack: true,
                 transition: TransitionType.none,

@@ -25,11 +25,6 @@ class _NavBar extends State<NavBar> {
               onTap: () => AppRouter.router.navigateTo(
                 context, AppRoutes.homePage.route,
                 transition: TransitionType.none),
-              onHover: (value) {
-                setState(() {
-                  _isHovering[0] = value;
-                });
-              },
               child: Text('VOCABLEARN',
                 style: TextStyle(
                   color: Colors.white,

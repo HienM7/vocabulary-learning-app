@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:fluro/fluro.dart';
 import 'package:flutter/material.dart';
 import 'package:vocabulary_learning_app/constants/router_constants.dart';
@@ -20,11 +21,21 @@ class _NavBar extends State<NavBar> {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Text('VOCABLEARN',
-              style: TextStyle(
-                color: Colors.white,
-                fontSize: 22,
-                fontWeight: FontWeight.bold
+            InkWell(
+              onTap: () => AppRouter.router.navigateTo(
+                context, AppRoutes.homePage.route,
+                transition: TransitionType.none),
+              onHover: (value) {
+                setState(() {
+                  _isHovering[0] = value;
+                });
+              },
+              child: Text('VOCABLEARN',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 22,
+                  fontWeight: FontWeight.bold
+                ),
               ),
             ),
             InkWell(
@@ -139,11 +150,18 @@ class _NavBar extends State<NavBar> {
                   icon: Icon(Icons.account_circle),
                   iconSize: 40,
                   color: Colors.yellow[600],
-                  onPressed: (){},
+                  onPressed: () => AppRouter.router.navigateTo(
+                    context, AppRoutes.myProfile.route,
+                    transition: TransitionType.none),
                 ),
                 SizedBox(width: 23,),
                 InkWell(
-                  onTap: () {},
+                  onTap: () {
+                    FirebaseAuth.instance.signOut();
+                    AppRouter.router.navigateTo(
+                      context, AppRoutes.home.route,
+                      transition: TransitionType.none);
+                  },
                   onHover: (value) {
                     setState(() {
                       _isHovering[2] = value;

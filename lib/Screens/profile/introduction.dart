@@ -1,38 +1,59 @@
 // ignore: avoid_web_libraries_in_flutter
-import 'dart:async';
 import 'dart:html';
 
 import 'package:country_code_picker/country_code_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:animated_theme_switcher/animated_theme_switcher.dart';
 import 'package:flutter/rendering.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:line_awesome_flutter/line_awesome_flutter.dart';
 import 'package:vocabulary_learning_app/constants/constants.dart';
-import 'package:vocabulary_learning_app/constants/router_constants.dart';
-import 'package:vocabulary_learning_app/models/app_router.dart';
 import 'package:vocabulary_learning_app/services/database.dart';
 
 String uId = "i2uEzQDBu9GIjnjNnAMr";
 
-class ProfileScreen extends StatefulWidget {
+class Introduction extends StatefulWidget {
   @override
-  _ProfileScreenPage createState() => _ProfileScreenPage();
+  _IntroductionPage createState() => _IntroductionPage();
 }
 
-class _ProfileScreenPage extends State<ProfileScreen> {
+class _IntroductionPage extends State<Introduction> {
+  Stream userStream;
+  String code;
+  String dialCode;
+  String name;
+  String email;
+  String password;
+
+  DatabaseServices databaseServices = new DatabaseServices();
+
+  @override
+  void initState() {
+    databaseServices.getUserInfo(uId).then((val) {
+      print(val);
+      userStream = val;
+      setState(() {});
+    });
+
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
-    SystemChrome.setApplicationSwitcherDescription(
-        ApplicationSwitcherDescription(
-      label: 'VocabLearn | Profile',
-      primaryColor: Theme.of(context).primaryColor.value,
-    ));
-
     ScreenUtil.init(context, height: 896, width: 414, allowFontScaling: true);
-    var profileInfo = Expanded(
+    var profileInfo = StreamBuilder(
+        stream: userStream,
+        builder: (context, snapshot) {
+          print(snapshot);
+          this.code = snapshot.data["code"];
+
+          this.dialCode = snapshot.data["dialCode"];
+
+          this.name = snapshot.data["name"];
+
+          this.email = snapshot.data["email"];
+          this.password = snapshot.data["password"];
+          return Expanded(
             child: Column(children: [
               Container(
                 height: 120,
@@ -65,14 +86,14 @@ class _ProfileScreenPage extends State<ProfileScreen> {
                 height: 10,
               ),
               Text(
-                'Viet Huynh',
+                snapshot.data["username"],
                 style: kTitleTextStyle,
               ),
               SizedBox(
                 height: 5,
               ),
               Text(
-                'adsdads@gmail.com',
+                snapshot.data["email"],
                 style: kCaptionTextStyle,
               ),
               SizedBox(
@@ -80,6 +101,7 @@ class _ProfileScreenPage extends State<ProfileScreen> {
               ),
             ]),
           );
+        });
 
     var themeSwitcher = ThemeSwitcher(builder: (context) {
       return AnimatedCrossFade(
@@ -113,19 +135,17 @@ class _ProfileScreenPage extends State<ProfileScreen> {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-
             MouseRegion(
               cursor: SystemMouseCursors.click,
               child: GestureDetector(
                 onTap: () {
-                  Navigator.pushNamed(context, '/home-page');
+                  Navigator.pushNamed(context, '/my-profile');
                 },
                 child: Icon(
                   LineAwesomeIcons.arrow_left,
                   size: 40,
                 ),
               ),
-
             ),
             profileInfo,
             themeSwitcher,
@@ -139,126 +159,52 @@ class _ProfileScreenPage extends State<ProfileScreen> {
           children: <Widget>[
             SizedBox(height: 15),
             header,
-            
-           
-              
-                  Expanded(
+            StreamBuilder(
+                stream: userStream,
+                builder: (context, snapshot) {
+                  this.code = snapshot.data["code"];
+
+                  this.dialCode = snapshot.data["dialCode"];
+
+                  this.name = snapshot.data["name"];
+                  return Expanded(
                     child: ListView(
                       children: <Widget>[
                         Padding(
                           padding: const EdgeInsets.fromLTRB(0, 0, 0, 20),
                           child: CountryCodePicker(
-                            onChanged: (CountryCode countryCode) {
-                              Map<String, dynamic> userMap = {
-                                "code": countryCode.code,
-                                "dialCode": countryCode.dialCode,
-                                "name": countryCode.name,
-                              };
-                              DatabaseServices().updateUserInfo(uId, userMap);
-                            },
+                            onChanged: print,
                             // Initial selection and favorite can be one of code ('IT') OR dial_code('+39')
-                            initialSelection: "VN",
+                            initialSelection: snapshot.data["code"],
                             favorite: [
-                              "+84",
-                              "VN"
+                              snapshot.data["dialCode"],
+                              snapshot.data["code"]
                             ],
                             // optional. Shows only country name and flag
                             showCountryOnly: true,
                             // optional. Shows only country name and flag when popup is closed.
                             showOnlyCountryWhenClosed: false,
+                            enabled: false,
                             // optional. aligns the fla g and the Text left
                             alignLeft: false,
                           ),
                         ),
-                        MouseRegion(
-                          cursor: SystemMouseCursors.click,
-                          child: GestureDetector(
-                            onTap: () {
-                              print('press button');
-                            },
-                            child: ProfileListItem(
-                              icon: LineAwesomeIcons.history,
-                              text: 'Words learned',
-                            ),
-                          ),
+                        IntroductionItem(
+                          text: 'Introduction 1',
                         ),
-                        MouseRegion(
-                          cursor: SystemMouseCursors.click,
-                          child: GestureDetector(
-                            onTap: () {
-                              Navigator.pushNamed(
-                                  context, '/my-profile/introduction');
-                            },
-                            child: ProfileListItem(
-                              icon: LineAwesomeIcons.info,
-                              text: 'Introduction',
-                            ),
-                          ),
+                        IntroductionItem(
+                          text: 'Introduction 2',
                         ),
-                        MouseRegion(
-                          cursor: SystemMouseCursors.click,
-                          child: GestureDetector(
-                            onTap: () {
-                              Navigator.pushNamed(context, '/edit-profile');
-                            },
-                            child: ProfileListItem(
-                              icon: LineAwesomeIcons.edit,
-                              text: 'Edit Profile',
-                            ),
-                          ),
+                        IntroductionItem(
+                          text: 'Introduction 3',
                         ),
-                        MouseRegion(
-                          cursor: SystemMouseCursors.click,
-                          child: GestureDetector(
-                            onTap: () {
-                              print('press button');
-                            },
-                            child: ProfileListItem(
-                              icon: LineAwesomeIcons.key,
-                              text: 'Change password',
-                            ),
-                          ),
-                        ),
-                        MouseRegion(
-                          cursor: SystemMouseCursors.click,
-                          child: GestureDetector(
-                            onTap: () {
-                              print('press button');
-                            },
-                            child: ProfileListItem(
-                              icon: LineAwesomeIcons.question_circle,
-                              text: 'Help & Support',
-                            ),
-                          ),
-                        ),
-                        MouseRegion(
-                          cursor: SystemMouseCursors.click,
-                          child: GestureDetector(
-                            onTap: () {
-                              print('press button');
-                            },
-                            child: ProfileListItem(
-                              icon: LineAwesomeIcons.user_shield,
-                              text: 'Privacy policy',
-                            ),
-                          ),
-                        ),
-                        MouseRegion(
-                          cursor: SystemMouseCursors.click,
-                          child: GestureDetector(
-                            onTap: () {
-                              print('press button');
-                            },
-                            child: ProfileListItem(
-                              icon: LineAwesomeIcons.alternate_sign_out,
-                              text: 'Logout',
-                              hasNavigation: false,
-                            ),
-                          ),
+                        IntroductionItem(
+                          text: 'Introduction 4',
                         ),
                       ],
                     ),
-                ),
+                  );
+                }),
           ],
         ));
       },
@@ -266,16 +212,12 @@ class _ProfileScreenPage extends State<ProfileScreen> {
   }
 }
 
-class ProfileListItem extends StatelessWidget {
-  final IconData icon;
+class IntroductionItem extends StatelessWidget {
   final String text;
-  final bool hasNavigation;
 
-  const ProfileListItem({
+  const IntroductionItem({
     Key key,
-    this.icon,
     this.text,
-    this.hasNavigation = true,
   }) : super(key: key);
 
   @override
@@ -290,16 +232,10 @@ class ProfileListItem extends StatelessWidget {
           color: Theme.of(context).backgroundColor),
       child: Row(
         children: <Widget>[
-          Icon(
-            this.icon,
-            size: 25,
-          ),
           SizedBox(width: 25),
           Text(this.text,
               style: kTitleTextStyle.copyWith(
                   fontWeight: FontWeight.w500, fontSize: 17)),
-          Spacer(),
-          if (this.hasNavigation) Icon(LineAwesomeIcons.angle_right, size: 25)
         ],
       ),
     );

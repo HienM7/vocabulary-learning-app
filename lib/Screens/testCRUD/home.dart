@@ -150,9 +150,12 @@ class _TaskTileState extends State<TaskTile> {
       child: Row(
         children: [
           GestureDetector(
-            onTap: () {
-              Map<String, dynamic> taskMap = {
-                "isCompleted": !widget.isCompleted
+
+            onTap: (){
+
+              Map<String,dynamic> taskMap = {
+                "task": widget.task,
+                "isCompleted" : !widget.isCompleted
               };
 
               DatabaseServices().updateTask(uId, taskMap, widget.documentId);

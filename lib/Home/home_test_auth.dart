@@ -1,4 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:fluro/fluro.dart';
 import 'package:flutter/material.dart';
 import 'package:vocabulary_learning_app/constants/router_constants.dart';
 import 'package:vocabulary_learning_app/models/app_router.dart';
@@ -17,12 +18,14 @@ class _HomePageAuthState extends State<HomePageAuth> {
       // not logged in
       if (user == null) {
         AppRouter.router.navigateTo(
-          context, AppRoutes.login.route);
+          context, AppRoutes.login.route,
+          transition: TransitionType.none);
       }
       // not verified
       else if (!user.emailVerified) {
         AppRouter.router.navigateTo(
-          context, AppRoutes.emailNotVerified.route);
+          context, AppRoutes.emailNotVerified.route,
+          transition: TransitionType.none);
       }
     });
   }
@@ -87,7 +90,8 @@ class _HomePageAuthState extends State<HomePageAuth> {
                   SizedBox(height: 40.0),
                   ElevatedButton(
                     onPressed: () => AppRouter.router.navigateTo(
-                      context, AppRoutes.passwordChange.route),
+                      context, AppRoutes.passwordChange.route,
+                      transition: TransitionType.none),
                     style: ButtonStyle(
                       backgroundColor: MaterialStateProperty.all<Color>(Colors.orange),
                       shape: MaterialStateProperty.all<RoundedRectangleBorder>(

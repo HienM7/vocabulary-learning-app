@@ -1,4 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:fluro/fluro.dart';
 import 'package:flutter/material.dart';
 import 'package:vocabulary_learning_app/constants/router_constants.dart';
 import 'package:vocabulary_learning_app/models/app_router.dart';
@@ -17,12 +18,14 @@ class _UpdatePassPage extends State<UpdatePassPage> {
     auth.authStateChanges().listen((user) async {
       if (user == null) {
         AppRouter.router.navigateTo(
-          context, AppRoutes.login.route);
+          context, AppRoutes.login.route,
+          transition: TransitionType.none);
       }
       // not verified
       else if (!user.emailVerified) {
         AppRouter.router.navigateTo(
-          context, AppRoutes.emailNotVerified.route);
+          context, AppRoutes.emailNotVerified.route,
+          transition: TransitionType.none);
       }
     });
   }
@@ -274,9 +277,11 @@ class _UpdatePassPage extends State<UpdatePassPage> {
         try {
           await user.updatePassword(_newpassController.text);
           AppRouter.router.navigateTo(
-            context, AppRoutes.myProfile.route);
+            context, AppRoutes.myProfile.route,
+            transition: TransitionType.none);
           // AppRouter.router.navigateTo(
-          //   context, AppRoutes.homeAuth.route);
+          //   context, AppRoutes.homeAuth.route,
+          //   transition: TransitionType.none);
         } catch (e) {
           showError(e.message);
           print(e);

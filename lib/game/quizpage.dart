@@ -1,4 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:fluro/fluro.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:vocabulary_learning_app/constants/router_constants.dart';
@@ -18,7 +19,8 @@ class _QuizPage extends State<QuizPage> {
       // not logged in
       if (user == null) {
         AppRouter.router.navigateTo(
-          context, AppRoutes.login.route);
+          context, AppRoutes.login.route,
+          transition: TransitionType.none);
       }
       // not verified
       else if (!user.emailVerified) {
@@ -99,8 +101,10 @@ class _QuizPage extends State<QuizPage> {
                       icon: Icon(Icons.home),
                       iconSize: 40,
                       color: Colors.white,
-                      onPressed: (){
-                        AppRouter.router.navigateTo(context, AppRoutes.homePage.route);
+                      onPressed: () {
+                        AppRouter.router.navigateTo(
+                          context, AppRoutes.homePage.route,
+                          transition: TransitionType.none);
                       },
                     ),
                   ],

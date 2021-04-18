@@ -1,3 +1,4 @@
+import 'package:fluro/fluro.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/rendering.dart';
@@ -147,7 +148,8 @@ class _LoginPageState extends State<LoginPage> {
                   children: <Widget>[
                     InkWell(
                       onTap: () => AppRouter.router.navigateTo(
-                        context, AppRoutes.signup.route),
+                        context, AppRoutes.signup.route,
+                        transition: TransitionType.none),
                       child: MouseRegion(
                         cursor: SystemMouseCursors.click,
                         child: Text(
@@ -196,9 +198,11 @@ class _LoginPageState extends State<LoginPage> {
                 email: _emailController.text, password: _passController.text)
             .then((_) {
           // AppRouter.router.navigateTo(
-          //   context, AppRoutes.homeAuth.route);
+          //   context, AppRoutes.homeAuth.route,
+          //   transition: TransitionType.none);
           AppRouter.router.navigateTo(
-            context, AppRoutes.homePage.route);
+            context, AppRoutes.homePage.route,
+            transition: TransitionType.none);
         });
       } catch (e) {
         showError(e.message);

@@ -1,4 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:fluro/fluro.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:vocabulary_learning_app/Screens/Shared/footer.dart';
@@ -22,12 +23,14 @@ class _ListWord extends State<ListWord> {
       // not logged in
       if (user == null) {
         AppRouter.router.navigateTo(
-          context, AppRoutes.login.route);
+          context, AppRoutes.login.route,
+          transition: TransitionType.none);
       }
       // not verified
       else if (!user.emailVerified) {
         AppRouter.router.navigateTo(
-          context, AppRoutes.emailNotVerified.route);
+          context, AppRoutes.emailNotVerified.route,
+          transition: TransitionType.none);
       }
     });
   }

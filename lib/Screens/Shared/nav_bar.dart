@@ -1,3 +1,4 @@
+import 'package:fluro/fluro.dart';
 import 'package:flutter/material.dart';
 import 'package:vocabulary_learning_app/constants/router_constants.dart';
 import 'package:vocabulary_learning_app/models/app_router.dart';
@@ -48,7 +49,8 @@ class _NavBar extends State<NavBar> {
                     children: [
                       GestureDetector(
                         onTap: () => AppRouter.router.navigateTo(
-                          context, AppRoutes.homePage.route),
+                          context, AppRoutes.homePage.route,
+                          transition: TransitionType.none),
                         child: Text(
                           'Home',
                           style: TextStyle(
@@ -100,7 +102,8 @@ class _NavBar extends State<NavBar> {
                     children: [
                       GestureDetector(
                         onTap: () => AppRouter.router.navigateTo(
-                          context, AppRoutes.myLists.route),
+                          context, AppRoutes.myLists.route,
+                          transition: TransitionType.none),
                         child: Text(
                           'My List',
                           style: TextStyle(

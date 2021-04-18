@@ -1,3 +1,4 @@
+import 'package:fluro/fluro.dart';
 import 'package:flutter/material.dart';
 import 'package:vocabulary_learning_app/Screens/Shared/footer.dart';
 import 'package:vocabulary_learning_app/Home/widgets/explore_drawer.dart';
@@ -51,7 +52,8 @@ class _HomePageState extends State<HomePage> {
                           children: [
                             GestureDetector(
                               onTap: () => AppRouter.router.navigateTo(
-                                context, AppRoutes.homePage.route),
+                                context, AppRoutes.homePage.route,
+                                transition: TransitionType.none),
                                 // ignore: todo
                                 // TODO: Auth required here
                                 // $.homePage$ if logged in else $.login$
@@ -134,7 +136,8 @@ class _HomePageState extends State<HomePage> {
                     children: [
                       InkWell(
                         onTap: () => AppRouter.router.navigateTo(
-                          context, AppRoutes.signup.route),
+                          context, AppRoutes.signup.route,
+                          transition: TransitionType.none),
                         child: MouseRegion(
                           cursor: SystemMouseCursors.click,
                           child: Text(
@@ -180,7 +183,8 @@ class _HomePageState extends State<HomePage> {
                     children: [
                       InkWell(
                         onTap: () => AppRouter.router.navigateTo(
-                          context, AppRoutes.login.route),
+                          context, AppRoutes.login.route,
+                          transition: TransitionType.none),
                         child: MouseRegion(
                           cursor: SystemMouseCursors.click,
                           child: Text(
@@ -257,7 +261,8 @@ class _HomePageState extends State<HomePage> {
                     ),
                     child: TextButton(
                       onPressed: () => AppRouter.router.navigateTo(
-                        context, AppRoutes.homePage.route),
+                        context, AppRoutes.homePage.route,
+                        transition: TransitionType.none),
                       child: Text(
                         'Get started',
                         style: TextStyle(color: Colors.white, fontSize: 32)),
@@ -298,7 +303,8 @@ class _HomePageState extends State<HomePage> {
                     ),
                     child: TextButton(
                       onPressed: () => AppRouter.router.navigateTo(
-                        context, AppRoutes.homePage.route),
+                        context, AppRoutes.homePage.route,
+                        transition: TransitionType.none),
                       child: Text(
                         'Get started',
                         style: TextStyle(color: Colors.white, fontSize: 16)),

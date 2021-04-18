@@ -1,4 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:fluro/fluro.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:vocabulary_learning_app/constants/router_constants.dart';
@@ -162,7 +163,8 @@ class _RegisterPage extends State<RegisterPage> {
               width: double.infinity,
               child: InkWell(
                 onTap: () => AppRouter.router.navigateTo(
-                  context, AppRoutes.login.route),
+                  context, AppRoutes.login.route,
+                  transition: TransitionType.none),
                 child: MouseRegion(
                   cursor: SystemMouseCursors.click,
                   child: Text(
@@ -215,10 +217,12 @@ class _RegisterPage extends State<RegisterPage> {
           auth.currentUser.sendEmailVerification();
           
           AppRouter.router.navigateTo(
-            context, AppRoutes.homePage.route);
+            context, AppRoutes.homePage.route,
+            transition: TransitionType.none);
           // await Navigator.pushReplacementNamed(context,"/") ;
           // AppRouter.router.navigateTo(
-          //   context, AppRoutes.homeAuth.route);
+          //   context, AppRoutes.homeAuth.route,
+          //   transition: TransitionType.none);
         }
       } catch (e) {
         showError(e.message);

@@ -1,4 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:fluro/fluro.dart';
 import 'package:flutter/material.dart';
 import 'package:vocabulary_learning_app/constants/router_constants.dart';
 import 'package:vocabulary_learning_app/models/app_router.dart';
@@ -23,7 +24,8 @@ class _ToDoTestPageState extends State<ToDoTestPage> {
     auth.authStateChanges().listen((user) {
       if (user == null) {
         AppRouter.router.navigateTo(
-          context, AppRoutes.login.route);
+          context, AppRoutes.login.route,
+          transition: TransitionType.none);
       }
     });
   }

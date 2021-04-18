@@ -1,4 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:fluro/fluro.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:vocabulary_learning_app/Screens/Shared/footer.dart';
@@ -21,7 +22,8 @@ class _HomePageStateUser extends State<HomePageUser> {
       // not logged in
       if (user == null) {
         AppRouter.router.navigateTo(
-          context, AppRoutes.login.route);
+          context, AppRoutes.login.route,
+          transition: TransitionType.none);
       }
       // not verified
       else if (!user.emailVerified) {
@@ -147,7 +149,8 @@ class _HomePageStateUser extends State<HomePageUser> {
                     children: [
                       GestureDetector(
                         onTap: () => AppRouter.router.navigateTo(
-                          context, AppRoutes.homePage.route),
+                          context, AppRoutes.homePage.route,
+                          transition: TransitionType.none),
                         child: Text('Home',
                           style: TextStyle(
                             color: Colors.black,
@@ -159,7 +162,8 @@ class _HomePageStateUser extends State<HomePageUser> {
                       SizedBox(width: screenSize.width*0.30),
                       TextButton(
                         onPressed: () => AppRouter.router.navigateTo(
-                          context, AppRoutes.wordListDetailOrNew.route),
+                          context, AppRoutes.wordListDetailOrNew.route,
+                          transition: TransitionType.none),
                         child: Text(
                           'Create a list',
                           style: TextStyle(color: Colors.white, fontSize: 18)),
@@ -213,7 +217,8 @@ class _HomePageStateUser extends State<HomePageUser> {
                         children: [
                           GestureDetector(
                             onTap: () => AppRouter.router.navigateTo(
-                              context, AppRoutes.homePage.route),
+                              context, AppRoutes.homePage.route,
+                              transition: TransitionType.none),
                             child: Text('Home',
                               style: TextStyle(
                                 color: Colors.black,
@@ -225,7 +230,8 @@ class _HomePageStateUser extends State<HomePageUser> {
                           SizedBox(width: screenSize.width*0.36),
                           TextButton(
                             onPressed: () => AppRouter.router.navigateTo(
-                              context, AppRoutes.wordListDetailOrNew.route),
+                              context, AppRoutes.wordListDetailOrNew.route,
+                              transition: TransitionType.none),
                             child: Text(
                               'Create a list',
                               style: TextStyle(color: Colors.white, fontSize: 14)),
@@ -366,8 +372,11 @@ class _HomePageStateUser extends State<HomePageUser> {
                                         children: [
                                           TextButton(
                                             onPressed: () {
-                                              AppRouter.router.navigateTo(context,
-                                              AppRoutes.getDetailRoute("/wordlists", keys[i]));
+                                              AppRouter.router.navigateTo(
+                                                context,
+                                              AppRoutes.getDetailRoute(
+                                                "/wordlists", keys[i]),
+                                              transition: TransitionType.none);
                                             },
                                             child: Container(
                                                 height: 200,

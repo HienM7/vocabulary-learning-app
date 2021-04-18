@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:fluro/fluro.dart';
 import 'package:flutter/material.dart';
@@ -5,7 +7,6 @@ import 'package:flutter/services.dart';
 import 'package:vocabulary_learning_app/Screens/vocab_list/vocab_list.dart';
 import 'package:vocabulary_learning_app/constants/router_constants.dart';
 import 'package:vocabulary_learning_app/models/app_router.dart';
-
 
 // NewCourseInfoPage
 class CoursePage extends StatefulWidget {
@@ -21,35 +22,37 @@ class _CoursePage extends State<CoursePage> {
     auth.authStateChanges().listen((user) {
       // not logged in
       if (user == null) {
-        AppRouter.router.navigateTo(
-          context, AppRoutes.login.route,
-          transition: TransitionType.none);
+        AppRouter.router.navigateTo(context, AppRoutes.login.route,
+            transition: TransitionType.none);
       }
       // not verified
       else if (!user.emailVerified) {
-        AppRouter.router.navigateTo(
-          context, AppRoutes.emailNotVerified.route,
-          transition: TransitionType.none);
+        AppRouter.router.navigateTo(context, AppRoutes.emailNotVerified.route,
+            transition: TransitionType.none);
       }
     });
   }
 
   @override
   void initState() {
+    Timer(Duration(seconds: 2), () {
+      this.checkAuth();
+    });
+
     super.initState();
-    this.checkAuth();
   }
-  
+
   TextEditingController _nameController = new TextEditingController();
   TextEditingController _desController = new TextEditingController();
   TextEditingController _tagController = new TextEditingController();
   @override
   Widget build(BuildContext context) {
-    SystemChrome.setApplicationSwitcherDescription(ApplicationSwitcherDescription(
+    SystemChrome.setApplicationSwitcherDescription(
+        ApplicationSwitcherDescription(
       label: 'VocabLearn | New List',
       primaryColor: Theme.of(context).primaryColor.value,
     ));
-    
+
     return Scaffold(
       appBar: AppBar(title: Text('Vocab list')),
       body: Container(
@@ -116,15 +119,16 @@ class _CoursePage extends State<CoursePage> {
                 child: ElevatedButton(
                   onPressed: onCreateCourse,
                   style: ButtonStyle(
-                    backgroundColor: MaterialStateProperty.all<Color>(Colors.blue.shade300),
-                    shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                      RoundedRectangleBorder(
-                        borderRadius: BorderRadius.all(Radius.circular(10)))),
-                    textStyle: MaterialStateProperty.all(
-                      TextStyle(color: Colors.white)),
-                    padding: MaterialStateProperty.all(
-                      const EdgeInsets.all(0))
-                  ),
+                      backgroundColor: MaterialStateProperty.all<Color>(
+                          Colors.blue.shade300),
+                      shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                          RoundedRectangleBorder(
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(10)))),
+                      textStyle: MaterialStateProperty.all(
+                          TextStyle(color: Colors.white)),
+                      padding:
+                          MaterialStateProperty.all(const EdgeInsets.all(0))),
                   child: Text(
                     "Create",
                     style: TextStyle(color: Colors.white, fontSize: 16),
@@ -136,7 +140,6 @@ class _CoursePage extends State<CoursePage> {
             // SizedBox(
             //   height: 130,
             // ),
-            
           ],
         ),
       ),

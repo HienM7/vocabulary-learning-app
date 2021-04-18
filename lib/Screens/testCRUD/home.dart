@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:fluro/fluro.dart';
 import 'package:flutter/material.dart';
@@ -24,9 +26,8 @@ class _ToDoTestPageState extends State<ToDoTestPage> {
   checkAuthentification() async {
     auth.authStateChanges().listen((user) {
       if (user == null) {
-        AppRouter.router.navigateTo(
-          context, AppRoutes.login.route,
-          transition: TransitionType.none);
+        AppRouter.router.navigateTo(context, AppRoutes.login.route,
+            transition: TransitionType.none);
       }
     });
   }
@@ -39,7 +40,9 @@ class _ToDoTestPageState extends State<ToDoTestPage> {
 
   @override
   void initState() {
-    this.checkAuthentification();
+    Timer(Duration(seconds: 2), () {
+      this.checkAuthentification();
+    });
     databaseServices.getTasks(uId).then((val) {
       taskStream = val;
       setState(() {});
@@ -72,11 +75,12 @@ class _ToDoTestPageState extends State<ToDoTestPage> {
 
   @override
   Widget build(BuildContext context) {
-    SystemChrome.setApplicationSwitcherDescription(ApplicationSwitcherDescription(
+    SystemChrome.setApplicationSwitcherDescription(
+        ApplicationSwitcherDescription(
       label: 'VocabLearn | Todo Test',
       primaryColor: Theme.of(context).primaryColor.value,
     ));
-    
+
     return Scaffold(
       body: SingleChildScrollView(
         child: Container(

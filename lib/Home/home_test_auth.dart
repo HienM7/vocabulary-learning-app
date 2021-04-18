@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:fluro/fluro.dart';
 import 'package:flutter/material.dart';
@@ -18,15 +20,13 @@ class _HomePageAuthState extends State<HomePageAuth> {
     auth.authStateChanges().listen((user) {
       // not logged in
       if (user == null) {
-        AppRouter.router.navigateTo(
-          context, AppRoutes.login.route,
-          transition: TransitionType.none);
+        AppRouter.router.navigateTo(context, AppRoutes.login.route,
+            transition: TransitionType.none);
       }
       // not verified
       else if (!user.emailVerified) {
-        AppRouter.router.navigateTo(
-          context, AppRoutes.emailNotVerified.route,
-          transition: TransitionType.none);
+        AppRouter.router.navigateTo(context, AppRoutes.emailNotVerified.route,
+            transition: TransitionType.none);
       }
     });
   }
@@ -46,18 +46,22 @@ class _HomePageAuthState extends State<HomePageAuth> {
 
   @override
   void initState() {
+    Timer(Duration(seconds: 2), () {
+      this.checkAuth();
+      this.getUser();
+    });
+
     super.initState();
-    this.checkAuth();
-    this.getUser();
   }
 
   @override
   Widget build(BuildContext context) {
-    SystemChrome.setApplicationSwitcherDescription(ApplicationSwitcherDescription(
+    SystemChrome.setApplicationSwitcherDescription(
+        ApplicationSwitcherDescription(
       label: 'VocabLearn | Logged In',
       primaryColor: Theme.of(context).primaryColor.value,
     ));
-    
+
     return Scaffold(
         body: Center(
       child: Container(
@@ -76,45 +80,45 @@ class _HomePageAuthState extends State<HomePageAuth> {
                   ElevatedButton(
                     onPressed: signout,
                     style: ButtonStyle(
-                      backgroundColor: MaterialStateProperty.all<Color>(Colors.orange),
-                      shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                        RoundedRectangleBorder(
-                          borderRadius: BorderRadius.all(Radius.circular(20)))),
-                      textStyle: MaterialStateProperty.all(
-                        TextStyle(color: Colors.white)),
-                      padding: MaterialStateProperty.all(
-                        const EdgeInsets.fromLTRB(70, 10, 70, 10))
-                    ),
-                    child: Text(
-                      'Sign Out',
-                      style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 20,
-                          fontWeight: FontWeight.bold)
-                    ),
+                        backgroundColor:
+                            MaterialStateProperty.all<Color>(Colors.orange),
+                        shape:
+                            MaterialStateProperty.all<RoundedRectangleBorder>(
+                                RoundedRectangleBorder(
+                                    borderRadius:
+                                        BorderRadius.all(Radius.circular(20)))),
+                        textStyle: MaterialStateProperty.all(
+                            TextStyle(color: Colors.white)),
+                        padding: MaterialStateProperty.all(
+                            const EdgeInsets.fromLTRB(70, 10, 70, 10))),
+                    child: Text('Sign Out',
+                        style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold)),
                   ),
                   SizedBox(height: 40.0),
                   ElevatedButton(
                     onPressed: () => AppRouter.router.navigateTo(
-                      context, AppRoutes.passwordChange.route,
-                      transition: TransitionType.none),
+                        context, AppRoutes.passwordChange.route,
+                        transition: TransitionType.none),
                     style: ButtonStyle(
-                      backgroundColor: MaterialStateProperty.all<Color>(Colors.orange),
-                      shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                        RoundedRectangleBorder(
-                          borderRadius: BorderRadius.all(Radius.circular(20)))),
-                      textStyle: MaterialStateProperty.all(
-                        TextStyle(color: Colors.white)),
-                      padding: MaterialStateProperty.all(
-                        const EdgeInsets.fromLTRB(70, 10, 70, 10))
-                    ),
-                    child: Text(
-                      'Update Password',
-                      style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 20,
-                          fontWeight: FontWeight.bold)
-                    ),
+                        backgroundColor:
+                            MaterialStateProperty.all<Color>(Colors.orange),
+                        shape:
+                            MaterialStateProperty.all<RoundedRectangleBorder>(
+                                RoundedRectangleBorder(
+                                    borderRadius:
+                                        BorderRadius.all(Radius.circular(20)))),
+                        textStyle: MaterialStateProperty.all(
+                            TextStyle(color: Colors.white)),
+                        padding: MaterialStateProperty.all(
+                            const EdgeInsets.fromLTRB(70, 10, 70, 10))),
+                    child: Text('Update Password',
+                        style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold)),
                   ),
                 ],
               ),

@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:fluro/fluro.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -19,23 +21,24 @@ class _TablePageState extends State<TablePage> {
     auth.authStateChanges().listen((user) {
       // not logged in
       if (user == null) {
-        AppRouter.router.navigateTo(
-          context, AppRoutes.login.route,
-          transition: TransitionType.none);
+        AppRouter.router.navigateTo(context, AppRoutes.login.route,
+            transition: TransitionType.none);
       }
       // not verified
       else if (!user.emailVerified) {
-        AppRouter.router.navigateTo(
-          context, AppRoutes.emailNotVerified.route,
-          transition: TransitionType.none);
+        AppRouter.router.navigateTo(context, AppRoutes.emailNotVerified.route,
+            transition: TransitionType.none);
       }
     });
   }
 
   @override
   void initState() {
+    Timer(Duration(seconds: 2), () {
+      this.checkAuth();
+    });
+
     super.initState();
-    this.checkAuth();
   }
 
   // final _editableKey = GlobalKey<EditableState>();
@@ -49,11 +52,12 @@ class _TablePageState extends State<TablePage> {
 
   @override
   Widget build(BuildContext context) {
-    SystemChrome.setApplicationSwitcherDescription(ApplicationSwitcherDescription(
+    SystemChrome.setApplicationSwitcherDescription(
+        ApplicationSwitcherDescription(
       label: 'VocabLearn | New List',
       primaryColor: Theme.of(context).primaryColor.value,
     ));
-    
+
     // const PrimaryColor = const Color(0xFF151026);
     // List rows = [
     //   {"Word": 'Essien Ikpa', "Definition": 'this is the name', "Level": '2'},
@@ -75,10 +79,9 @@ class _TablePageState extends State<TablePage> {
             Padding(
               padding: const EdgeInsets.fromLTRB(30, 30, 30, 0),
               child: Center(
-                child: Text(
-                  'Word List',
-                  style: TextStyle(fontSize: 36, fontWeight: FontWeight.bold))
-              ),
+                  child: Text('Word List',
+                      style: TextStyle(
+                          fontSize: 36, fontWeight: FontWeight.bold))),
             ),
             SizedBox(
               width: 50,
@@ -90,93 +93,96 @@ class _TablePageState extends State<TablePage> {
                 // alignment: Alignment.topLeft,
               ),
             ),
-
-          SingleChildScrollView(
-            child: DataTable(
-            sortColumnIndex: 0,
-            sortAscending: true,
-            columns: [
-              
-              DataColumn(
-                  label: Text('Word',
-                      style: TextStyle(
-                          fontSize: 15, fontWeight: FontWeight.bold))),
-              DataColumn(
-                  label: Text('Meaning',
-                      style: TextStyle(
-                        fontSize: 15,
-                        fontWeight: FontWeight.bold,
-                      ))),
-              DataColumn(
-                  label: Text('Level',
-                      style: TextStyle(
-                          fontSize: 15, fontWeight: FontWeight.bold))),
-              DataColumn(
-                  label: Text('Edit',
-                      style: TextStyle(
-                          fontSize: 15, fontWeight: FontWeight.bold))),
-              DataColumn(
-                  label: Text('Delete',
-                      style: TextStyle(
-                          fontSize: 15, fontWeight: FontWeight.bold))),
-            ],
-            rows: listOfColumns
-                .map(((element) => DataRow(cells: <DataCell>[
-                      DataCell(
-                        TextFormField(
-                          initialValue: element['meaning'] ?? "",
-                          keyboardType: TextInputType.text,
-                        ),
-                        showEditIcon: true,
-                      ),
-                      DataCell(Text(element['level'] ?? "")),
-                      DataCell(
-                        TextButton(
-                          onPressed: () {},  // onPressed: onCreateCourse,
-                          style: ButtonStyle(
-                            backgroundColor: MaterialStateProperty.all<Color>(Colors.blue),
-                            textStyle: MaterialStateProperty.all(
-                              TextStyle(color: Colors.white)),
+            SingleChildScrollView(
+              child: DataTable(
+                sortColumnIndex: 0,
+                sortAscending: true,
+                columns: [
+                  DataColumn(
+                      label: Text('Word',
+                          style: TextStyle(
+                              fontSize: 15, fontWeight: FontWeight.bold))),
+                  DataColumn(
+                      label: Text('Meaning',
+                          style: TextStyle(
+                            fontSize: 15,
+                            fontWeight: FontWeight.bold,
+                          ))),
+                  DataColumn(
+                      label: Text('Level',
+                          style: TextStyle(
+                              fontSize: 15, fontWeight: FontWeight.bold))),
+                  DataColumn(
+                      label: Text('Edit',
+                          style: TextStyle(
+                              fontSize: 15, fontWeight: FontWeight.bold))),
+                  DataColumn(
+                      label: Text('Delete',
+                          style: TextStyle(
+                              fontSize: 15, fontWeight: FontWeight.bold))),
+                ],
+                rows: listOfColumns
+                    .map(((element) => DataRow(cells: <DataCell>[
+                          DataCell(
+                            TextFormField(
+                              initialValue: element['meaning'] ?? "",
+                              keyboardType: TextInputType.text,
+                            ),
+                            showEditIcon: true,
                           ),
-                          child: Text(
-                            "Update",
-                            style: TextStyle(color: Colors.white)),
-                        ),
-                      ),
-                      DataCell(
-                        TextButton(
-                          onPressed: () { xoa(element); },
-                          style: ButtonStyle(
-                            backgroundColor: MaterialStateProperty.all<Color>(Colors.blue),
-                            textStyle: MaterialStateProperty.all(
-                              TextStyle(color: Colors.white)),
+                          DataCell(Text(element['level'] ?? "")),
+                          DataCell(
+                            TextButton(
+                              onPressed: () {}, // onPressed: onCreateCourse,
+                              style: ButtonStyle(
+                                backgroundColor:
+                                    MaterialStateProperty.all<Color>(
+                                        Colors.blue),
+                                textStyle: MaterialStateProperty.all(
+                                    TextStyle(color: Colors.white)),
+                              ),
+                              child: Text("Update",
+                                  style: TextStyle(color: Colors.white)),
+                            ),
                           ),
-                          child: Text(
-                            "Delete",
-                            style: TextStyle(color: Colors.white)),
-                        ),
-                      ),
-                    ])))
-                .toList(),
-          ),
-        ),
-         Padding(
+                          DataCell(
+                            TextButton(
+                              onPressed: () {
+                                xoa(element);
+                              },
+                              style: ButtonStyle(
+                                backgroundColor:
+                                    MaterialStateProperty.all<Color>(
+                                        Colors.blue),
+                                textStyle: MaterialStateProperty.all(
+                                    TextStyle(color: Colors.white)),
+                              ),
+                              child: Text("Delete",
+                                  style: TextStyle(color: Colors.white)),
+                            ),
+                          ),
+                        ])))
+                    .toList(),
+              ),
+            ),
+            Padding(
               padding: const EdgeInsets.fromLTRB(30, 30, 30, 30),
               child: SizedBox(
                 width: double.infinity,
                 height: 56,
                 child: ElevatedButton(
-                  onPressed: () {},  // onPressed: onCreateCourse,
+                  onPressed: () {}, // onPressed: onCreateCourse,
                   style: ButtonStyle(
-                    backgroundColor: MaterialStateProperty.all<Color>(Colors.blueGrey),
-                    shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                      RoundedRectangleBorder(
-                        borderRadius: BorderRadius.all(Radius.circular(10)))),
-                    textStyle: MaterialStateProperty.all(
-                      TextStyle(color: Colors.white)),
-                    padding: MaterialStateProperty.all(
-                      const EdgeInsets.all(0))
-                  ),
+                      backgroundColor:
+                          MaterialStateProperty.all<Color>(Colors.blueGrey),
+                      shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                          RoundedRectangleBorder(
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(10)))),
+                      textStyle: MaterialStateProperty.all(
+                          TextStyle(color: Colors.white)),
+                      padding:
+                          MaterialStateProperty.all(const EdgeInsets.all(0))),
                   child: Text(
                     "Create",
                     style: TextStyle(color: Colors.white, fontSize: 16),

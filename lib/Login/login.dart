@@ -170,10 +170,19 @@ class _LoginPageState extends State<LoginPage> {
                         ),
                       ),
                     ),
-                    Text(
-                      "FORGOT PASSWORD ?",
-                      style: TextStyle(fontSize: 15, color: Colors.blue),
-                    )
+                    InkWell(
+                      onTap: () => AppRouter.router.navigateTo(
+                        context, AppRoutes.resetpass.route,
+                        transition: TransitionType.none),
+                      child: MouseRegion(
+                        cursor: SystemMouseCursors.click,
+                        child: Text(
+                           "FORGOT PASSWORD ?",
+                          style: TextStyle(fontSize: 15, color: Colors.blue),
+                        ),
+                      ),
+                    ),
+      
                   ],
                 ),
               ),

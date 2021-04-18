@@ -6,6 +6,7 @@ import 'package:vocabulary_learning_app/Home/home_page.dart';
 import 'package:vocabulary_learning_app/Home/home_test_auth.dart';
 import 'package:vocabulary_learning_app/Login/login.dart';
 import 'package:vocabulary_learning_app/Register/register.dart';
+import 'package:vocabulary_learning_app/ResetPass/resetpass.dart';
 import 'package:vocabulary_learning_app/Screens/course/course.dart';
 import 'package:vocabulary_learning_app/Screens/email_not_verified.dart';
 import 'package:vocabulary_learning_app/Screens/error_pages/page404.dart';
@@ -19,7 +20,6 @@ import 'package:vocabulary_learning_app/game/quizpage.dart';
 class AppRoutes {
   static final routeNotFoundHandler = Handler(
       handlerFunc: (BuildContext context, Map<String, List<String>> params) {
-    
     debugPrint("Page not found.");
     return RouteNotFoundPage();
   });
@@ -59,6 +59,13 @@ class AppRoutes {
     ),
   );
 
+  static final resetpass = AppRoute(
+    '/resetpass',
+    Handler(
+      handlerFunc: (context, parameters) => ResetPass(),
+    ),
+  );
+
   static final quizpage = AppRoute(
     '/quizpage',
     Handler(
@@ -90,14 +97,13 @@ class AppRoutes {
   static final myListDetail = AppRoute(
     '/my/lists/:id',
     Handler(
-      handlerFunc: (BuildContext context, Map<String, List<String>> params) {
-        // ignore: unused_local_variable
-        final String listId = params["id"][0];
-        if (listId.trim().isEmpty) return MyList();
-        
-        return TablePage();
-      }
-    ),
+        handlerFunc: (BuildContext context, Map<String, List<String>> params) {
+      // ignore: unused_local_variable
+      final String listId = params["id"][0];
+      if (listId.trim().isEmpty) return MyList();
+
+      return TablePage();
+    }),
   );
 
   // static final wordLists = AppRoute(
@@ -110,15 +116,14 @@ class AppRoutes {
   static final wordListDetailOrNew = AppRoute(
     '/wordlists/:id',
     Handler(
-      handlerFunc: (BuildContext context, Map<String, List<String>> params) {
-        final String listId = params["id"][0];
-        
-        // if (listId.trim().isEmpty) return MyList();
-        if (listId == 'new') return CoursePage();
+        handlerFunc: (BuildContext context, Map<String, List<String>> params) {
+      final String listId = params["id"][0];
 
-        return ListWord(listId);  // --> ListDetailPage
-      }
-    ),
+      // if (listId.trim().isEmpty) return MyList();
+      if (listId == 'new') return CoursePage();
+
+      return ListWord(listId); // --> ListDetailPage
+    }),
   );
 
   // static final wordListNew = AppRoute(
@@ -131,21 +136,19 @@ class AppRoutes {
   static final users = AppRoute(
     '/users',
     Handler(
-        handlerFunc: (context, parameters) => HomePage(),  // --> UsersPage
+      handlerFunc: (context, parameters) => HomePage(), // --> UsersPage
     ),
   );
 
   static final userDetail = AppRoute(
     '/users/:id',
-    Handler(
-        handlerFunc: (context, params) {
-          final String userId = params["id"][0];
-          
-          if (userId.trim().isEmpty) return HomePage();  // --> UserListPage
-          
-          return HomePage();  // --> ProfilePage
-        }
-    ),
+    Handler(handlerFunc: (context, params) {
+      final String userId = params["id"][0];
+
+      if (userId.trim().isEmpty) return HomePage(); // --> UserListPage
+
+      return HomePage(); // --> ProfilePage
+    }),
   );
 
   static final practice = AppRoute(
@@ -156,38 +159,34 @@ class AppRoutes {
     //    2. Practice with questions
     //    3. Result: List of correct and incorrect answers + total
     Handler(
-        handlerFunc: (context, parameters) => HomePage(),  // --> GamePage
+      handlerFunc: (context, parameters) => HomePage(), // --> GamePage
     ),
   );
 
   static final homeAuth = AppRoute(
     '/home-page-auth',
     Handler(
-        handlerFunc: (context, parameters) => HomePageAuth(),  // ??
+      handlerFunc: (context, parameters) => HomePageAuth(), // ??
     ),
   );
 
   static final passwordChange = AppRoute(
     '/changepass',
     Handler(
-        handlerFunc: (context, parameters) => UpdatePassPage(),  // ??
+      handlerFunc: (context, parameters) => UpdatePassPage(), // ??
     ),
   );
 
   // Test route, kept for testing purposes
   static final emailNotVerified = AppRoute(
     '/unverified',
-    Handler(
-      handlerFunc: (context, parameters) => EmailNotVerifiedPage()
-    ),
+    Handler(handlerFunc: (context, parameters) => EmailNotVerifiedPage()),
   );
 
   // Test route, kept for testing purposes
   static final todoTest = AppRoute(
     '/todotest',
-    Handler(
-      handlerFunc: (context, parameters) => ToDoTestPage()
-    ),
+    Handler(handlerFunc: (context, parameters) => ToDoTestPage()),
   );
 
   // Primitive function to get one param detail route (i.e. id)
@@ -214,5 +213,6 @@ class AppRoutes {
     passwordChange,
     emailNotVerified,
     todoTest,
+    resetpass,
   ];
 }

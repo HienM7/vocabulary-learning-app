@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:fluro/fluro.dart';
 import 'package:flutter/material.dart';
@@ -22,27 +24,29 @@ class _HomePageStateUser extends State<HomePageUser> {
     auth.authStateChanges().listen((user) {
       // not logged in
       if (user == null) {
-        AppRouter.router.navigateTo(
-          context, AppRoutes.login.route,
-          transition: TransitionType.none);
+        AppRouter.router.navigateTo(context, AppRoutes.login.route,
+            transition: TransitionType.none);
       }
       // not verified
       else if (!user.emailVerified) {
-        AppRouter.router.navigateTo(
-          context, AppRoutes.emailNotVerified.route);
+        AppRouter.router.navigateTo(context, AppRoutes.emailNotVerified.route);
       }
     });
   }
 
   @override
   void initState() {
+    Timer(Duration(seconds: 2), () {
+      this.checkAuth();
+    });
+
     super.initState();
-    this.checkAuth();
   }
 
   List<Map<dynamic, dynamic>> lists = [];
   List<String> keys = [];
-  CollectionReference firebaseinstance = FirebaseFirestore.instance.collection("lists");
+  CollectionReference firebaseinstance =
+      FirebaseFirestore.instance.collection("lists");
   final TextEditingController _controller = TextEditingController();
   bool change = false;
   int limits = 9;
@@ -100,234 +104,249 @@ class _HomePageStateUser extends State<HomePageUser> {
 
   @override
   Widget build(BuildContext context) {
-    SystemChrome.setApplicationSwitcherDescription(ApplicationSwitcherDescription(
+    SystemChrome.setApplicationSwitcherDescription(
+        ApplicationSwitcherDescription(
       label: 'VocabLearn',
       primaryColor: Theme.of(context).primaryColor.value,
     ));
-    
+
     var screenSize = MediaQuery.of(context).size;
     return Scaffold(
       //App bar
-      appBar: screenSize.width > 800 ?
-      PreferredSize(
-        preferredSize: Size(screenSize.width, 1000),
-        child: NavBar(),
-      )
-      : AppBar(
-        backgroundColor: Colors.blueGrey[700],
-        elevation: 0,
-        centerTitle: true,
-        title: Text(' VOCABLEARN',
-          style: TextStyle(
-            color: Colors.white,
-            fontSize: 18,
-            fontWeight: FontWeight.bold
-          ),
-        ),
-        actions: [
-          IconButton(
-            icon: Icon(Icons.account_circle),
-            iconSize: 36,
-            color: Colors.yellow[600],
-            splashColor: Colors.transparent,
-            highlightColor: Colors.transparent,
-            onPressed: (){},
-          ),
-        ],
-        iconTheme: IconThemeData(color: Colors.white),
-      ),
+      appBar: screenSize.width > 800
+          ? PreferredSize(
+              preferredSize: Size(screenSize.width, 1000),
+              child: NavBar(),
+            )
+          : AppBar(
+              backgroundColor: Colors.blueGrey[700],
+              elevation: 0,
+              centerTitle: true,
+              title: Text(
+                ' VOCABLEARN',
+                style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold),
+              ),
+              actions: [
+                IconButton(
+                  icon: Icon(Icons.account_circle),
+                  iconSize: 36,
+                  color: Colors.yellow[600],
+                  splashColor: Colors.transparent,
+                  highlightColor: Colors.transparent,
+                  onPressed: () {},
+                ),
+              ],
+              iconTheme: IconThemeData(color: Colors.white),
+            ),
       drawer: DrawerHome(),
-      
+
       body: SingleChildScrollView(
-        child: Column(
-          children: [
-            Padding(
-              padding: EdgeInsets.symmetric(horizontal: screenSize.width*0.1, vertical: 20),
+        child: Column(children: [
+          Padding(
+              padding: EdgeInsets.symmetric(
+                  horizontal: screenSize.width * 0.1, vertical: 20),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   //screensize larger
-                  screenSize.width > 800 ?
-                  Row(
-                    mainAxisSize: MainAxisSize.max,
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      GestureDetector(
-                        onTap: () => AppRouter.router.navigateTo(
-                          context, AppRoutes.homePage.route,
-                          transition: TransitionType.none),
-                        child: Text('Home',
-                          style: TextStyle(
-                            color: Colors.black,
-                            fontSize: 32,
-                            fontWeight: FontWeight.bold
-                          ),
-                        ),
-                      ),
-                      SizedBox(width: screenSize.width*0.30),
-                      TextButton(
-                        onPressed: () => AppRouter.router.navigateTo(
-                          context, AppRoutes.wordListDetailOrNew.route,
-                          transition: TransitionType.none),
-                        child: Text(
-                          'Create a list',
-                          style: TextStyle(color: Colors.white, fontSize: 18)),
-                        style: ButtonStyle(
-                          padding: MaterialStateProperty.all<EdgeInsets>(EdgeInsets.symmetric(horizontal: screenSize.width*0.015, vertical: screenSize.width*0.01)),
-                          backgroundColor: MaterialStateProperty.all<Color>(Colors.greenAccent[700]),
-                          shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                            RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(5),
-                              side: BorderSide(color: Colors.greenAccent[700])
-                            )
-                          )
-                        ),
-                      ),
-                      SizedBox(width: screenSize.width*0.05),
-                      Container(
-                        padding: EdgeInsets.all(10),
-                        width: screenSize.width*0.21,
-                        child: TextField(
-                          controller: _controller,
-                          onSubmitted: (value) {
-                            initiateSearch(value);
-                          },
-                          textInputAction: TextInputAction.newline,
-                          decoration: InputDecoration(
-                            prefixIcon: IconButton(
-                              color: Colors.black,
-                              icon: Icon(Icons.search),
-                              iconSize: 20,
-                              onPressed: () {
-                                Navigator.of(context).pop();
-                              },
-                            ),
-                            contentPadding: EdgeInsets.only(left: 25),
-                            hintText: "Search by list name",
-                            border: OutlineInputBorder(borderRadius: BorderRadius.circular(4)),
-                          ),
-                        ),
-                      ),
-                    ],
-                  )
-                  //screensize small
-                  : Column(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Row(
-                        mainAxisSize: MainAxisSize.max,
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          GestureDetector(
-                            onTap: () => AppRouter.router.navigateTo(
-                              context, AppRoutes.homePage.route,
-                              transition: TransitionType.none),
-                            child: Text('Home',
-                              style: TextStyle(
-                                color: Colors.black,
-                                fontSize: 26,
-                                fontWeight: FontWeight.bold
+                  screenSize.width > 800
+                      ? Row(
+                          mainAxisSize: MainAxisSize.max,
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            GestureDetector(
+                              onTap: () => AppRouter.router.navigateTo(
+                                  context, AppRoutes.homePage.route,
+                                  transition: TransitionType.none),
+                              child: Text(
+                                'Home',
+                                style: TextStyle(
+                                    color: Colors.black,
+                                    fontSize: 32,
+                                    fontWeight: FontWeight.bold),
                               ),
                             ),
-                          ),
-                          SizedBox(width: screenSize.width*0.36),
-                          TextButton(
-                            onPressed: () => AppRouter.router.navigateTo(
-                              context, AppRoutes.wordListDetailOrNew.route,
-                              transition: TransitionType.none),
-                            child: Text(
-                              'Create a list',
-                              style: TextStyle(color: Colors.white, fontSize: 14)),
-                            style: ButtonStyle(
-                              padding: MaterialStateProperty.all<EdgeInsets>(EdgeInsets.symmetric(horizontal: 10, vertical: 5)),
-                              backgroundColor: MaterialStateProperty.all<Color>(Colors.greenAccent[700]),
-                              shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                                RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(3),
-                                  side: BorderSide(color: Colors.greenAccent[700])
-                                )
-                              )
+                            SizedBox(width: screenSize.width * 0.30),
+                            TextButton(
+                              onPressed: () => AppRouter.router.navigateTo(
+                                  context, AppRoutes.wordListDetailOrNew.route,
+                                  transition: TransitionType.none),
+                              child: Text('Create a list',
+                                  style: TextStyle(
+                                      color: Colors.white, fontSize: 18)),
+                              style: ButtonStyle(
+                                  padding: MaterialStateProperty.all<EdgeInsets>(
+                                      EdgeInsets.symmetric(
+                                          horizontal: screenSize.width * 0.015,
+                                          vertical: screenSize.width * 0.01)),
+                                  backgroundColor:
+                                      MaterialStateProperty.all<Color>(
+                                          Colors.greenAccent[700]),
+                                  shape:
+                                      MaterialStateProperty.all<RoundedRectangleBorder>(
+                                          RoundedRectangleBorder(
+                                              borderRadius:
+                                                  BorderRadius.circular(5),
+                                              side: BorderSide(
+                                                  color:
+                                                      Colors.greenAccent[700])))),
                             ),
-                          ),
-                        ],
-                      ),
-                      SizedBox(height: 5),
-                      Container(
-                        width: screenSize.width*0.78,
-                        child: TextField(
-                          controller: _controller,
-                          onSubmitted: (value) {
-                            initiateSearch(value);
-                          },
-                          textInputAction: TextInputAction.newline,
-                          decoration: InputDecoration(
-                            prefixIcon: IconButton(
-                              color: Colors.black,
-                              icon: Icon(Icons.search),
-                              iconSize: 20,
-                              onPressed: () {
-                                
-                              },
+                            SizedBox(width: screenSize.width * 0.05),
+                            Container(
+                              padding: EdgeInsets.all(10),
+                              width: screenSize.width * 0.21,
+                              child: TextField(
+                                controller: _controller,
+                                onSubmitted: (value) {
+                                  initiateSearch(value);
+                                },
+                                textInputAction: TextInputAction.newline,
+                                decoration: InputDecoration(
+                                  prefixIcon: IconButton(
+                                    color: Colors.black,
+                                    icon: Icon(Icons.search),
+                                    iconSize: 20,
+                                    onPressed: () {
+                                      Navigator.of(context).pop();
+                                    },
+                                  ),
+                                  contentPadding: EdgeInsets.only(left: 25),
+                                  hintText: "Search by list name",
+                                  border: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(4)),
+                                ),
+                              ),
                             ),
-                            contentPadding: EdgeInsets.only(left: 25),
-                            hintText: "Search by list name",
-                            border: OutlineInputBorder(borderRadius: BorderRadius.circular(4)),
-                          ),
+                          ],
+                        )
+                      //screensize small
+                      : Column(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Row(
+                              mainAxisSize: MainAxisSize.max,
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                GestureDetector(
+                                  onTap: () => AppRouter.router.navigateTo(
+                                      context, AppRoutes.homePage.route,
+                                      transition: TransitionType.none),
+                                  child: Text(
+                                    'Home',
+                                    style: TextStyle(
+                                        color: Colors.black,
+                                        fontSize: 26,
+                                        fontWeight: FontWeight.bold),
+                                  ),
+                                ),
+                                SizedBox(width: screenSize.width * 0.36),
+                                TextButton(
+                                  onPressed: () => AppRouter.router.navigateTo(
+                                      context,
+                                      AppRoutes.wordListDetailOrNew.route,
+                                      transition: TransitionType.none),
+                                  child: Text('Create a list',
+                                      style: TextStyle(
+                                          color: Colors.white, fontSize: 14)),
+                                  style: ButtonStyle(
+                                      padding:
+                                          MaterialStateProperty.all<EdgeInsets>(
+                                              EdgeInsets.symmetric(
+                                                  horizontal: 10, vertical: 5)),
+                                      backgroundColor:
+                                          MaterialStateProperty.all<Color>(
+                                              Colors.greenAccent[700]),
+                                      shape: MaterialStateProperty.all<
+                                              RoundedRectangleBorder>(
+                                          RoundedRectangleBorder(
+                                              borderRadius:
+                                                  BorderRadius.circular(3),
+                                              side: BorderSide(color: Colors.greenAccent[700])))),
+                                ),
+                              ],
+                            ),
+                            SizedBox(height: 5),
+                            Container(
+                              width: screenSize.width * 0.78,
+                              child: TextField(
+                                controller: _controller,
+                                onSubmitted: (value) {
+                                  initiateSearch(value);
+                                },
+                                textInputAction: TextInputAction.newline,
+                                decoration: InputDecoration(
+                                  prefixIcon: IconButton(
+                                    color: Colors.black,
+                                    icon: Icon(Icons.search),
+                                    iconSize: 20,
+                                    onPressed: () {},
+                                  ),
+                                  contentPadding: EdgeInsets.only(left: 25),
+                                  hintText: "Search by list name",
+                                  border: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(4)),
+                                ),
+                              ),
+                            ),
+                          ],
                         ),
-                      ),
-                    ],
-                  ),
                   //screensize larger
-                  screenSize.width > 800 ?
-                  Padding(
-                    padding: EdgeInsets.symmetric(vertical: 30),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Icon(
-                          Icons.library_books,
-                          size: 40,
-                          color: Colors.amber,
-                        ),
-                        SizedBox(width: 20,),
-                        Text(
-                          'Public Word Lists',
-                          style: TextStyle(
-                            color: Colors.black,
-                            fontWeight: FontWeight.bold,
-                            fontSize: 34,
+                  screenSize.width > 800
+                      ? Padding(
+                          padding: EdgeInsets.symmetric(vertical: 30),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Icon(
+                                Icons.library_books,
+                                size: 40,
+                                color: Colors.amber,
+                              ),
+                              SizedBox(
+                                width: 20,
+                              ),
+                              Text(
+                                'Public Word Lists',
+                                style: TextStyle(
+                                  color: Colors.black,
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 34,
+                                ),
+                              ),
+                            ],
                           ),
-                        ),
-                      ],
-                    ),
-                  )
-                  //screensize small
-                  : Padding(
-                    padding: EdgeInsets.symmetric(vertical: 20),
-                    child: Wrap(
-                      alignment: WrapAlignment.center,
-                      children: [
-                        Icon(
-                          Icons.library_books,
-                          size: 30,
-                          color: Colors.amber,
-                        ),
-                        SizedBox(width: 13,),
-                        Text(
-                          'Public Word Lists',
-                          style: TextStyle(
-                            color: Colors.black,
-                            fontWeight: FontWeight.bold,
-                            fontSize: 23,
-                          ),
-                        ),
-                      ],
-                    )
-                  ),
+                        )
+                      //screensize small
+                      : Padding(
+                          padding: EdgeInsets.symmetric(vertical: 20),
+                          child: Wrap(
+                            alignment: WrapAlignment.center,
+                            children: [
+                              Icon(
+                                Icons.library_books,
+                                size: 30,
+                                color: Colors.amber,
+                              ),
+                              SizedBox(
+                                width: 13,
+                              ),
+                              Text(
+                                'Public Word Lists',
+                                style: TextStyle(
+                                  color: Colors.black,
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 23,
+                                ),
+                              ),
+                            ],
+                          )),
                   // card list publish
                   ConstrainedBox(
                     constraints: BoxConstraints(
@@ -335,7 +354,8 @@ class _HomePageStateUser extends State<HomePageUser> {
                     ),
                     child: FutureBuilder<QuerySnapshot>(
                       future: firebaseinstance.get(),
-                      builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
+                      builder: (BuildContext context,
+                          AsyncSnapshot<QuerySnapshot> snapshot) {
                         if (snapshot.hasError) {
                           return Text("Something went wrong");
                         }
@@ -354,10 +374,10 @@ class _HomePageStateUser extends State<HomePageUser> {
                             i++;
                             if (i == limits) break;
                           }
-                          if (limits == lists.length)
-                          {
+                          if (limits == lists.length) {
                             equal = true;
-                          } else equal = false;
+                          } else
+                            equal = false;
                         }
                         return ConstrainedBox(
                             constraints: BoxConstraints(
@@ -380,10 +400,11 @@ class _HomePageStateUser extends State<HomePageUser> {
                                           TextButton(
                                             onPressed: () {
                                               AppRouter.router.navigateTo(
-                                                context,
-                                              AppRoutes.getDetailRoute(
-                                                "/wordlists", keys[i]),
-                                              transition: TransitionType.none);
+                                                  context,
+                                                  AppRoutes.getDetailRoute(
+                                                      "/wordlists", keys[i]),
+                                                  transition:
+                                                      TransitionType.none);
                                             },
                                             child: Container(
                                                 height: 200,
@@ -394,7 +415,8 @@ class _HomePageStateUser extends State<HomePageUser> {
                                                         BorderRadius.circular(
                                                             10),
                                                     image: DecorationImage(
-                                                      image: AssetImage('assets/images/home_background.jpg'),
+                                                      image: AssetImage(
+                                                          'assets/images/home_background.jpg'),
                                                       fit: BoxFit.cover,
                                                     ))),
                                           ),

@@ -62,11 +62,11 @@ class _RegisterPage extends State<RegisterPage> {
         // constraints: BoxConstraints.expand(),
         color: Colors.white,
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.end,
+          // mainAxisAlignment: MainAxisAlignment.end,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
             Padding(
-              padding: const EdgeInsets.fromLTRB(0, 30, 0, 40),
+              padding: const EdgeInsets.fromLTRB(0, 50, 0, 40),
               child: Container(
                   width: 130,
                   height: 130,

@@ -1,4 +1,5 @@
 // ignore: avoid_web_libraries_in_flutter
+import 'dart:async';
 import 'dart:html';
 
 import 'package:firebase_auth/firebase_auth.dart';
@@ -25,32 +26,34 @@ class _ProfilePageState extends State<ProfileScreen> {
     auth.authStateChanges().listen((user) {
       // not logged in
       if (user == null) {
-        AppRouter.router.navigateTo(
-          context, AppRoutes.login.route,
-          transition: TransitionType.none);
+        AppRouter.router.navigateTo(context, AppRoutes.login.route,
+            transition: TransitionType.none);
       }
       // not verified
       else if (!user.emailVerified) {
-        AppRouter.router.navigateTo(
-          context, AppRoutes.emailNotVerified.route,
-          transition: TransitionType.none);
+        AppRouter.router.navigateTo(context, AppRoutes.emailNotVerified.route,
+            transition: TransitionType.none);
       }
     });
   }
 
   @override
   void initState() {
+    Timer(Duration(seconds: 2), () {
+      this.checkAuth();
+    });
+
     super.initState();
-    this.checkAuth();
   }
 
   @override
   Widget build(BuildContext context) {
-    SystemChrome.setApplicationSwitcherDescription(ApplicationSwitcherDescription(
+    SystemChrome.setApplicationSwitcherDescription(
+        ApplicationSwitcherDescription(
       label: 'VocabLearn | Profile',
       primaryColor: Theme.of(context).primaryColor.value,
     ));
-    
+
     ScreenUtil.init(context, height: 896, width: 414, allowFontScaling: true);
     var profileInfo = Expanded(
       child: Column(children: [
@@ -85,14 +88,14 @@ class _ProfilePageState extends State<ProfileScreen> {
           height: 10,
         ),
         Text(
-          'Viet Huynh',  // --> user.name
+          'Viet Huynh', // --> user.name
           style: kTitleTextStyle,
         ),
         SizedBox(
           height: 5,
         ),
         Text(
-          'huynhvanviet317@gmail.com',  // --> user.email
+          'huynhvanviet317@gmail.com', // --> user.email
           style: kCaptionTextStyle,
         ),
         SizedBox(
@@ -154,8 +157,8 @@ class _ProfilePageState extends State<ProfileScreen> {
                 children: <Widget>[
                   GestureDetector(
                     onTap: () => AppRouter.router.navigateTo(
-                      context, AppRoutes.myLists.route,
-                      transition: TransitionType.none),
+                        context, AppRoutes.myLists.route,
+                        transition: TransitionType.none),
                     child: ProfileListItem(
                       icon: LineAwesomeIcons.history,
                       text: 'Your Word Lists',

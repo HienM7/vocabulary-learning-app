@@ -50,8 +50,9 @@ class _HomePageStateUser extends State<HomePageUser> {
   bool isloop = false;
 
   initiateSearch(value) {
+    String searchText = value.toString().trim().toLowerCase();
     change = true;
-    if (value.length == 0) {
+    if (searchText.length == 0) {
       setState(() {
         lists.clear();
         firebaseinstance.get().then((querySnapshot) {
@@ -82,7 +83,7 @@ class _HomePageStateUser extends State<HomePageUser> {
               strs.add(str);
             }
             strs.forEach((element) {
-              if (element == value.toString()) {
+              if (element.trim().toLowerCase().contains(searchText)) {
                 lists.add(document.data());
                 keys.add(document.id);
               }

@@ -268,7 +268,10 @@ class _HomePageState extends State<HomePage> {
                     ),
                     child: TextButton(
                       onPressed: () => AppRouter.router.navigateTo(
-                        context, AppRoutes.homePage.route,
+                        context,
+                        FirebaseAuth.instance.currentUser != null
+                          ? AppRoutes.homePage.route
+                          : AppRoutes.home.route,
                         transition: TransitionType.none),
                       child: Text(
                         'Get started',
@@ -310,7 +313,10 @@ class _HomePageState extends State<HomePage> {
                     ),
                     child: TextButton(
                       onPressed: () => AppRouter.router.navigateTo(
-                        context, AppRoutes.homePage.route,
+                        context,
+                        FirebaseAuth.instance.currentUser != null
+                          ? AppRoutes.homePage.route
+                          : AppRoutes.home.route,
                         transition: TransitionType.none),
                       child: Text(
                         'Get started',

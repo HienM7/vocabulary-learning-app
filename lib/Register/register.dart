@@ -211,6 +211,9 @@ class _RegisterPage extends State<RegisterPage> {
         if (user != null) {
           await auth.currentUser
               .updateProfile(displayName: _userController.text);
+          
+          auth.currentUser.sendEmailVerification();
+          
           AppRouter.router.navigateTo(
             context, AppRoutes.homePage.route);
           // await Navigator.pushReplacementNamed(context,"/") ;

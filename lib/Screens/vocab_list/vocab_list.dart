@@ -1,6 +1,7 @@
 import 'package:fluro/fluro.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/services.dart';
 import 'package:vocabulary_learning_app/constants/router_constants.dart';
 import 'package:vocabulary_learning_app/models/app_router.dart';
 
@@ -48,6 +49,11 @@ class _TablePageState extends State<TablePage> {
 
   @override
   Widget build(BuildContext context) {
+    SystemChrome.setApplicationSwitcherDescription(ApplicationSwitcherDescription(
+      label: 'VocabLearn | New List',
+      primaryColor: Theme.of(context).primaryColor.value,
+    ));
+    
     // const PrimaryColor = const Color(0xFF151026);
     // List rows = [
     //   {"Word": 'Essien Ikpa', "Definition": 'this is the name', "Level": '2'},

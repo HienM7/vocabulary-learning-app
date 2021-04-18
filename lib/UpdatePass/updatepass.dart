@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:fluro/fluro.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:vocabulary_learning_app/constants/router_constants.dart';
 import 'package:vocabulary_learning_app/models/app_router.dart';
 
@@ -82,6 +83,11 @@ class _UpdatePassPage extends State<UpdatePassPage> {
 
   @override
   Widget build(BuildContext context) {
+    SystemChrome.setApplicationSwitcherDescription(ApplicationSwitcherDescription(
+      label: 'VocabLearn | Change Password',
+      primaryColor: Theme.of(context).primaryColor.value,
+    ));
+    
     return Scaffold(
       body: Center(
         child: Container(

@@ -5,6 +5,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:fluro/fluro.dart';
 import 'package:flutter/material.dart';
 import 'package:animated_theme_switcher/animated_theme_switcher.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:line_awesome_flutter/line_awesome_flutter.dart';
 import 'package:vocabulary_learning_app/constants/constants.dart';
@@ -45,6 +46,11 @@ class _ProfilePageState extends State<ProfileScreen> {
 
   @override
   Widget build(BuildContext context) {
+    SystemChrome.setApplicationSwitcherDescription(ApplicationSwitcherDescription(
+      label: 'VocabLearn | Profile',
+      primaryColor: Theme.of(context).primaryColor.value,
+    ));
+    
     ScreenUtil.init(context, height: 896, width: 414, allowFontScaling: true);
     var profileInfo = Expanded(
       child: Column(children: [

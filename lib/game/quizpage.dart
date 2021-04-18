@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:fluro/fluro.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:flutter/services.dart';
 import 'package:vocabulary_learning_app/constants/router_constants.dart';
 import 'package:vocabulary_learning_app/models/app_router.dart';
 
@@ -39,6 +40,11 @@ class _QuizPage extends State<QuizPage> {
   var sliderValue = 12;
   @override
   Widget build(BuildContext context) {
+    SystemChrome.setApplicationSwitcherDescription(ApplicationSwitcherDescription(
+      label: 'VocabLearn | Practice',
+      primaryColor: Theme.of(context).primaryColor.value,
+    ));
+    
     var screenSize = MediaQuery.of(context).size;
     return Scaffold(
       body: SafeArea(

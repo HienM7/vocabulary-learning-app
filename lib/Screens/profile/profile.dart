@@ -2,6 +2,7 @@
 import 'dart:html';
 
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:fluro/fluro.dart';
 import 'package:flutter/material.dart';
 import 'package:animated_theme_switcher/animated_theme_switcher.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -24,12 +25,14 @@ class _ProfilePageState extends State<ProfileScreen> {
       // not logged in
       if (user == null) {
         AppRouter.router.navigateTo(
-          context, AppRoutes.login.route);
+          context, AppRoutes.login.route,
+          transition: TransitionType.none);
       }
       // not verified
       else if (!user.emailVerified) {
         AppRouter.router.navigateTo(
-          context, AppRoutes.emailNotVerified.route);
+          context, AppRoutes.emailNotVerified.route,
+          transition: TransitionType.none);
       }
     });
   }
@@ -145,7 +148,8 @@ class _ProfilePageState extends State<ProfileScreen> {
                 children: <Widget>[
                   GestureDetector(
                     onTap: () => AppRouter.router.navigateTo(
-                      context, AppRoutes.myLists.route),
+                      context, AppRoutes.myLists.route,
+                      transition: TransitionType.none),
                     child: ProfileListItem(
                       icon: LineAwesomeIcons.history,
                       text: 'Your Word Lists',

@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:fluro/fluro.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:vocabulary_learning_app/Screens/vocab_list/vocab_list.dart';
 import 'package:vocabulary_learning_app/constants/router_constants.dart';
 import 'package:vocabulary_learning_app/models/app_router.dart';
@@ -44,6 +45,11 @@ class _CoursePage extends State<CoursePage> {
   TextEditingController _tagController = new TextEditingController();
   @override
   Widget build(BuildContext context) {
+    SystemChrome.setApplicationSwitcherDescription(ApplicationSwitcherDescription(
+      label: 'VocabLearn | New List',
+      primaryColor: Theme.of(context).primaryColor.value,
+    ));
+    
     return Scaffold(
       appBar: AppBar(title: Text('Vocab list')),
       body: Container(
@@ -57,7 +63,7 @@ class _CoursePage extends State<CoursePage> {
             Padding(
               padding: const EdgeInsets.fromLTRB(0, 0, 0, 50),
               child: Text(
-                "Create new Course",
+                "Create new List",
                 style: TextStyle(
                     fontWeight: FontWeight.bold,
                     color: Colors.black,

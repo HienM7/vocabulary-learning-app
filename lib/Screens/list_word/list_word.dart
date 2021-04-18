@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:fluro/fluro.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/services.dart';
 import 'package:vocabulary_learning_app/Screens/Shared/footer.dart';
 import 'package:vocabulary_learning_app/Screens/Shared/nav_bar.dart';
 import 'package:vocabulary_learning_app/constants/router_constants.dart';
@@ -54,6 +55,11 @@ class _ListWord extends State<ListWord> {
   TextEditingController addlevel = new TextEditingController();
 
   Widget build(BuildContext context) {
+    SystemChrome.setApplicationSwitcherDescription(ApplicationSwitcherDescription(
+      label: 'VocabLearn | View List',
+      primaryColor: Theme.of(context).primaryColor.value,
+    ));
+    
     var screenSize = MediaQuery.of(context).size;
     firebaseinstance = FirebaseFirestore.instance.collection('lists/${_listId}/words');
     return Scaffold(

@@ -64,7 +64,7 @@ class _MyAppState extends State<MyApp> {
               '/home': (context) => HomePage(),
               '/home-page': (context) => HomePageUser(),
               '/my-list': (context) => MyList(),
-              '/list-word': (context) => ListWord(),
+              '/list-word': (context) => ListWord('DfsZ7qHrewovv309K2WV'),
               '/edit-profile': (context) => EditProfile(),
               '/my-profile/introduction': (context) => Introduction()
             },

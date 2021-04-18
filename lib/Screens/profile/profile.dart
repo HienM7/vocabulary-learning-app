@@ -2,6 +2,7 @@
 import 'dart:async';
 import 'dart:html';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:country_code_picker/country_code_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:animated_theme_switcher/animated_theme_switcher.dart';
@@ -31,55 +32,82 @@ class _ProfileScreenPage extends State<ProfileScreen> {
       primaryColor: Theme.of(context).primaryColor.value,
     ));
 
+  CollectionReference firebaseInstance =
+      FirebaseFirestore.instance.collection('profiles');
+  bool equal = true;
+  bool isLoop = false;
+
+  DocumentReference docRef = FirebaseFirestore.instance
+      .collection('users')
+      .doc('BXdTNFyd2gajVD4JI4N5EKrVPLA3');
+
+  @override
+  Widget build(BuildContext context) {
+    print(firebaseInstance);
     ScreenUtil.init(context, height: 896, width: 414, allowFontScaling: true);
     var profileInfo = Expanded(
-            child: Column(children: [
-              Container(
-                height: 120,
-                width: 120,
-                margin: EdgeInsets.only(top: 50),
-                child: Stack(children: [
-                  CircleAvatar(
-                    radius: 70,
-                    backgroundImage: AssetImage('assets/images/img.png'),
-                  ),
-                  Align(
-                    alignment: Alignment.bottomRight,
-                    child: Container(
-                      height: 25,
-                      width: 25,
-                      decoration: BoxDecoration(
-                        color: Theme.of(context).accentColor,
-                        shape: BoxShape.circle,
-                      ),
-                      child: Icon(
-                        LineAwesomeIcons.pen,
-                        color: kDarkPrimaryColor,
-                        size: ScreenUtil().setSp(kSpacingUnit.w * 0.2),
-                      ),
+        child: FutureBuilder<QuerySnapshot>(
+      future: firebaseInstance.where('user_id', isEqualTo: docRef).get(),
+      builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
+        if (snapshot.hasError) {
+          return Text("Something went wrong");
+        }
+        if (snapshot.connectionState == ConnectionState.waiting &&
+            isLoop == false) {
+          return Text("Loading...");
+        }
+        isLoop = true;
+        
+        return Expanded(
+          child: Column(children: [
+            Container(
+              height: 120,
+              width: 120,
+              margin: EdgeInsets.only(top: 50),
+              child: Stack(children: [
+                CircleAvatar(
+                  radius: 70,
+                  backgroundImage: AssetImage('assets/images/avatar.png'),
+                ),
+                Align(
+                  alignment: Alignment.bottomRight,
+                  child: Container(
+                    height: 25,
+                    width: 25,
+                    decoration: BoxDecoration(
+                      color: Theme.of(context).accentColor,
+                      shape: BoxShape.circle,
                     ),
-                  )
-                ]),
-              ),
-              SizedBox(
-                height: 10,
-              ),
-              Text(
-                'Viet Huynh',
-                style: kTitleTextStyle,
-              ),
-              SizedBox(
-                height: 5,
-              ),
-              Text(
-                'adsdads@gmail.com',
-                style: kCaptionTextStyle,
-              ),
-              SizedBox(
-                height: 7,
-              ),
-            ]),
-          );
+                    child: Icon(
+                      LineAwesomeIcons.pen,
+                      color: kDarkPrimaryColor,
+                      size: ScreenUtil().setSp(kSpacingUnit.w * 0.2),
+                    ),
+                  ),
+                )
+              ]),
+            ),
+            SizedBox(
+              height: 10,
+            ),
+            Text(
+              snapshot.data.docs[0].data()['display_name'],
+              style: kTitleTextStyle,
+            ),
+            SizedBox(
+              height: 5,
+            ),
+            Text(
+              snapshot.data.docs[0].data()['email'],
+              style: kCaptionTextStyle,
+            ),
+            SizedBox(
+              height: 7,
+            ),
+          ]),
+        );
+      },
+    ));
 
     var themeSwitcher = ThemeSwitcher(builder: (context) {
       return AnimatedCrossFade(
@@ -113,7 +141,6 @@ class _ProfileScreenPage extends State<ProfileScreen> {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-
             MouseRegion(
               cursor: SystemMouseCursors.click,
               child: GestureDetector(
@@ -125,7 +152,6 @@ class _ProfileScreenPage extends State<ProfileScreen> {
                   size: 40,
                 ),
               ),
-
             ),
             profileInfo,
             themeSwitcher,
@@ -139,133 +165,127 @@ class _ProfileScreenPage extends State<ProfileScreen> {
           children: <Widget>[
             SizedBox(height: 15),
             header,
-            
-           
-              
-                  Expanded(
-                    child: ListView(
-                      children: <Widget>[
-                        Padding(
+
+            Expanded(
+              child: FutureBuilder<QuerySnapshot>(
+          future: firebaseInstance.where('user_id', isEqualTo: docRef).get(),
+          builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
+        if (snapshot.hasError) {
+          return Text("Something went wrong");
+        }
+        if (snapshot.connectionState == ConnectionState.waiting &&
+            isLoop == false) {
+          return Text("Loading...");
+        }
+        isLoop = true;
+     
+        return ListView(
+                children: <Widget>[
+                  Padding(
                           padding: const EdgeInsets.fromLTRB(0, 0, 0, 20),
                           child: CountryCodePicker(
-                            onChanged: (CountryCode countryCode) {
-                              Map<String, dynamic> userMap = {
-                                "code": countryCode.code,
-                                "dialCode": countryCode.dialCode,
-                                "name": countryCode.name,
-                              };
-                              DatabaseServices().updateUserInfo(uId, userMap);
-                            },
+                            onChanged: print,
                             // Initial selection and favorite can be one of code ('IT') OR dial_code('+39')
-                            initialSelection: "VN",
+                            initialSelection: snapshot.data.docs[0].data()['VN'],
                             favorite: [
-                              "+84",
-                              "VN"
+                              snapshot.data.docs[0].data()['+84'],
+                              snapshot.data.docs[0].data()['VN']
                             ],
                             // optional. Shows only country name and flag
                             showCountryOnly: true,
                             // optional. Shows only country name and flag when popup is closed.
                             showOnlyCountryWhenClosed: false,
+                            enabled: false,
                             // optional. aligns the fla g and the Text left
                             alignLeft: false,
                           ),
                         ),
-                        MouseRegion(
-                          cursor: SystemMouseCursors.click,
-                          child: GestureDetector(
-                            onTap: () {
-                              print('press button');
-                            },
-                            child: ProfileListItem(
-                              icon: LineAwesomeIcons.history,
-                              text: 'Words learned',
-                            ),
-                          ),
-                        ),
-                        MouseRegion(
-                          cursor: SystemMouseCursors.click,
-                          child: GestureDetector(
-                            onTap: () {
-                              Navigator.pushNamed(
-                                  context, '/my-profile/introduction');
-                            },
-                            child: ProfileListItem(
-                              icon: LineAwesomeIcons.info,
-                              text: 'Introduction',
-                            ),
-                          ),
-                        ),
-                        MouseRegion(
-                          cursor: SystemMouseCursors.click,
-                          child: GestureDetector(
-                            onTap: () {
-                              Navigator.pushNamed(context, '/edit-profile');
-                            },
-                            child: ProfileListItem(
-                              icon: LineAwesomeIcons.edit,
-                              text: 'Edit Profile',
-                            ),
-                          ),
-                        ),
-                        MouseRegion(
-                          cursor: SystemMouseCursors.click,
-                          child: GestureDetector(
-                            onTap: () {
-                              print('press button');
-                            },
-                            child: ProfileListItem(
-                              icon: LineAwesomeIcons.key,
-                              text: 'Change password',
-                            ),
-                          ),
-                        ),
-                        MouseRegion(
-                          cursor: SystemMouseCursors.click,
-                          child: GestureDetector(
-                            onTap: () {
-                              print('press button');
-                            },
-                            child: ProfileListItem(
-                              icon: LineAwesomeIcons.question_circle,
-                              text: 'Help & Support',
-                            ),
-                          ),
-                        ),
-                        MouseRegion(
-                          cursor: SystemMouseCursors.click,
-                          child: GestureDetector(
-                            onTap: () {
-                              print('press button');
-                            },
-                            child: ProfileListItem(
-                              icon: LineAwesomeIcons.user_shield,
-                              text: 'Privacy policy',
-                            ),
-                          ),
-                        ),
-                        MouseRegion(
-                          cursor: SystemMouseCursors.click,
-                          child: GestureDetector(
-                            onTap: () {
-                              print('press button');
-                            },
-                            child: ProfileListItem(
-                              icon: LineAwesomeIcons.alternate_sign_out,
-                              text: 'Logout',
-                              hasNavigation: false,
-                            ),
-                          ),
-                        ),
-                      ],
+                  MouseRegion(
+                    cursor: SystemMouseCursors.click,
+                    child: GestureDetector(
+                      onTap: () {
+                        Navigator.pushNamed(
+                            context, '/my-profile/introduction');
+                      },
+                      child: ProfileListItem(
+                        icon: LineAwesomeIcons.info,
+                        text: 'Introduction',
+                      ),
                     ),
-                ),
+                  ),
+                  MouseRegion(
+                    cursor: SystemMouseCursors.click,
+                    child: GestureDetector(
+                      onTap: () {
+                        Navigator.pushNamed(context, '/edit-profile');
+                      },
+                      child: ProfileListItem(
+                        icon: LineAwesomeIcons.edit,
+                        text: 'Edit Profile',
+                      ),
+                    ),
+                  ),
+                  MouseRegion(
+                    cursor: SystemMouseCursors.click,
+                    child: GestureDetector(
+                      onTap: () {
+                        print('press button');
+                      },
+                      child: ProfileListItem(
+                        icon: LineAwesomeIcons.key,
+                        text: 'Change password',
+                      ),
+                    ),
+                  ),
+                  MouseRegion(
+                    cursor: SystemMouseCursors.click,
+                    child: GestureDetector(
+                      onTap: () {
+                        print('press button');
+                      },
+                      child: ProfileListItem(
+                        icon: LineAwesomeIcons.question_circle,
+                        text: 'Help & Support',
+                      ),
+                    ),
+
+                  ),
+                  MouseRegion(
+                    cursor: SystemMouseCursors.click,
+                    child: GestureDetector(
+                      onTap: () {
+                        print('press button');
+                      },
+                      child: ProfileListItem(
+                        icon: LineAwesomeIcons.user_shield,
+                        text: 'Privacy policy',
+                      ),
+                    ),
+                  ),
+                  MouseRegion(
+                    cursor: SystemMouseCursors.click,
+                    child: GestureDetector(
+                      onTap: () {
+                        print('press button');
+                      },
+                      child: ProfileListItem(
+                        icon: LineAwesomeIcons.alternate_sign_out,
+                        text: 'Logout',
+                        hasNavigation: false,
+                      ),
+                    ),
+                  ),
+                ],
+              );
+},
+    ))
           ],
         ));
       },
     ));
   }
 }
-
+}
 class ProfileListItem extends StatelessWidget {
   final IconData icon;
   final String text;

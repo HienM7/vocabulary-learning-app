@@ -32,7 +32,7 @@ class _ExploreDrawerState extends State<ExploreDrawer> {
                   enabled: true,
                   onTap: () {
                     AppRouter.router.navigateTo(
-                      context, AppRoutes.homePage.route,
+                      context, AppRoutes.home.route,
                       transition: TransitionType.none);
                   },
                 ),

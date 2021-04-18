@@ -70,7 +70,13 @@ class _LoginPageState extends State<LoginPage> {
                     // padding: EdgeInsets.all(15),
                     decoration: BoxDecoration(
                         shape: BoxShape.rectangle, color: Color(0xffd8d8d8)),
-                    child: Image.asset('assets/images/VocabLearn_logo_Wix.jpg'))
+                    child: InkWell(
+                      onTap: () => AppRouter.router.navigateTo(
+                        context, AppRoutes.home.route,
+                        transition: TransitionType.none),
+                      child: Image.asset(
+                        'assets/images/VocabLearn_logo_Wix.jpg'))
+                    )
               ),
               Padding(
                 padding: const EdgeInsets.fromLTRB(0, 0, 0, 60),

@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:fluro/fluro.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -58,11 +59,11 @@ class _HomePageState extends State<HomePage> {
                           children: [
                             GestureDetector(
                               onTap: () => AppRouter.router.navigateTo(
-                                context, AppRoutes.homePage.route,
+                                context,
+                                FirebaseAuth.instance.currentUser != null
+                                  ? AppRoutes.homePage.route
+                                  : AppRoutes.home.route,
                                 transition: TransitionType.none),
-                                // ignore: todo
-                                // TODO: Auth required here
-                                // $.homePage$ if logged in else $.login$
                               child: Text(
                                 'Course',
                                 style: TextStyle(

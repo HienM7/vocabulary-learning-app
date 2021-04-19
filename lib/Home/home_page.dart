@@ -320,7 +320,7 @@ class _HomePageStateUser extends State<HomePageUser> {
                       ],
                     ),
                   )
-                  // small screen sizes
+                  //screensize small
                   : Padding(
                     padding: EdgeInsets.symmetric(vertical: 20),
                     child: Wrap(

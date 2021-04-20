@@ -1,16 +1,22 @@
 // ignore: avoid_web_libraries_in_flutter
 import 'dart:html';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:country_code_picker/country_code_picker.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:fluro/fluro.dart';
 import 'package:flutter/material.dart';
 import 'package:animated_theme_switcher/animated_theme_switcher.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:line_awesome_flutter/line_awesome_flutter.dart';
+import 'package:vocabulary_learning_app/Home/widgets/drawer.dart';
+import 'package:vocabulary_learning_app/Screens/Shared/footer.dart';
+import 'package:vocabulary_learning_app/Screens/Shared/nav_bar.dart';
 import 'package:vocabulary_learning_app/constants/constants.dart';
+import 'package:vocabulary_learning_app/constants/router_constants.dart';
+import 'package:vocabulary_learning_app/models/app_router.dart';
 import 'package:vocabulary_learning_app/services/database.dart';
-
-String uId = "i2uEzQDBu9GIjnjNnAMr";
 
 class Introduction extends StatefulWidget {
   @override
@@ -18,41 +24,52 @@ class Introduction extends StatefulWidget {
 }
 
 class _IntroductionPage extends State<Introduction> {
-  Stream userStream;
   String code;
   String dialCode;
   String name;
-  String email;
   String password;
+  String userName;
+  String id;
+  bool isloop = false;
+  String introduction;
+  static String userId = FirebaseAuth.instance.currentUser.uid;
+  static String email = FirebaseAuth.instance.currentUser.email;
+  static String displayName = FirebaseAuth.instance.currentUser.displayName;
+  bool isCheck = false;
 
-  DatabaseServices databaseServices = new DatabaseServices();
+  CollectionReference firebaseinstance =
+      FirebaseFirestore.instance.collection('profiles');
 
-  @override
-  void initState() {
-    databaseServices.getUserInfo(uId).then((val) {
-      print(val);
-      userStream = val;
-      setState(() {});
-    });
-
-    super.initState();
-  }
+  DocumentReference docRef = FirebaseFirestore.instance
+      .collection('users')
+      .doc('BXdTNFyd2gajVD4JI4N5EKrVPLA3');
 
   @override
   Widget build(BuildContext context) {
     ScreenUtil.init(context, height: 896, width: 414, allowFontScaling: true);
-    var profileInfo = StreamBuilder(
-        stream: userStream,
-        builder: (context, snapshot) {
-          print(snapshot);
-          this.code = snapshot.data["code"];
+    var profileInfo = FutureBuilder<QuerySnapshot>(
+        future: firebaseinstance.get(),
+        builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
+          if (snapshot.hasError) {
+            return Text("Something went wrong");
+          }
+          if (snapshot.connectionState == ConnectionState.waiting &&
+              isloop == false) {
+            return Text("loading");
+          }
+          isloop = true;
+          for (var document in snapshot.data.docs) {
+            // print(document['user_id'] == '/users/$userId');
+            if (document['user_id'] == '/users/$userId') {
+              introduction = document['introduction'];
+              id = document.id;
+              code = document['code'];
+              dialCode = document['dialCode'];
+              name = document['name'];
+              displayName = document['display_name'];
+            }
+          }
 
-          this.dialCode = snapshot.data["dialCode"];
-
-          this.name = snapshot.data["name"];
-
-          this.email = snapshot.data["email"];
-          this.password = snapshot.data["password"];
           return Expanded(
             child: Column(children: [
               Container(
@@ -62,7 +79,7 @@ class _IntroductionPage extends State<Introduction> {
                 child: Stack(children: [
                   CircleAvatar(
                     radius: 70,
-                    backgroundImage: AssetImage('assets/images/img.png'),
+                    backgroundImage: AssetImage('assets/images/avatar.png'),
                   ),
                   Align(
                     alignment: Alignment.bottomRight,
@@ -86,15 +103,14 @@ class _IntroductionPage extends State<Introduction> {
                 height: 10,
               ),
               Text(
-                snapshot.data["username"],
+                displayName,
                 style: kTitleTextStyle,
               ),
               SizedBox(
                 height: 5,
               ),
               Text(
-                snapshot.data["email"],
-                style: kCaptionTextStyle,
+                email,
               ),
               SizedBox(
                 height: 7,
@@ -104,30 +120,36 @@ class _IntroductionPage extends State<Introduction> {
         });
 
     var themeSwitcher = ThemeSwitcher(builder: (context) {
-      return AnimatedCrossFade(
-          duration: Duration(milliseconds: 200),
-          crossFadeState:
-              ThemeProvider.of(context).brightness == Brightness.dark
-                  ? CrossFadeState.showFirst
-                  : CrossFadeState.showSecond,
-          firstChild: GestureDetector(
-            onTap: () =>
-                ThemeSwitcher.of(context).changeTheme(theme: kLightTheme),
-            child: Icon(
-              LineAwesomeIcons.sun,
-              size: 40,
-            ),
-          ),
-          secondChild: GestureDetector(
-            onTap: () =>
-                ThemeSwitcher.of(context).changeTheme(theme: kDarkTheme),
-            child: Icon(
-              LineAwesomeIcons.moon,
-              size: 40,
-            ),
-          ));
+      return MouseRegion(
+        cursor: SystemMouseCursors.click,
+        child: GestureDetector(
+            onTap: () => AppRouter.router.navigateTo(
+                context, AppRoutes.myLists.route,
+                transition: TransitionType.none),
+            child: AnimatedCrossFade(
+                duration: Duration(milliseconds: 200),
+                crossFadeState:
+                    ThemeProvider.of(context).brightness == Brightness.dark
+                        ? CrossFadeState.showFirst
+                        : CrossFadeState.showSecond,
+                firstChild: GestureDetector(
+                  onTap: () =>
+                      ThemeSwitcher.of(context).changeTheme(theme: kLightTheme),
+                  child: Icon(
+                    LineAwesomeIcons.sun,
+                    size: 40,
+                  ),
+                ),
+                secondChild: GestureDetector(
+                  onTap: () =>
+                      ThemeSwitcher.of(context).changeTheme(theme: kDarkTheme),
+                  child: Icon(
+                    LineAwesomeIcons.moon,
+                    size: 40,
+                  ),
+                ))),
+      );
     });
-
     var header = Container(
         margin: EdgeInsets.symmetric(horizontal: kSpacingUnit.w * 5)
             .copyWith(bottom: 20),
@@ -138,9 +160,9 @@ class _IntroductionPage extends State<Introduction> {
             MouseRegion(
               cursor: SystemMouseCursors.click,
               child: GestureDetector(
-                onTap: () {
-                  Navigator.pushNamed(context, '/my-profile');
-                },
+                onTap: () => AppRouter.router.navigateTo(
+                    context, AppRoutes.myProfile.route,
+                    transition: TransitionType.none),
                 child: Icon(
                   LineAwesomeIcons.arrow_left,
                   size: 40,
@@ -154,59 +176,93 @@ class _IntroductionPage extends State<Introduction> {
 
     return ThemeSwitchingArea(child: Builder(
       builder: (context) {
+        var screenSize = MediaQuery.of(context).size;
         return Scaffold(
-            body: Column(
-          children: <Widget>[
-            SizedBox(height: 15),
-            header,
-            StreamBuilder(
-                stream: userStream,
-                builder: (context, snapshot) {
-                  this.code = snapshot.data["code"];
-
-                  this.dialCode = snapshot.data["dialCode"];
-
-                  this.name = snapshot.data["name"];
-                  return Expanded(
-                    child: ListView(
-                      children: <Widget>[
-                        Padding(
-                          padding: const EdgeInsets.fromLTRB(0, 0, 0, 20),
-                          child: CountryCodePicker(
-                            onChanged: print,
-                            // Initial selection and favorite can be one of code ('IT') OR dial_code('+39')
-                            initialSelection: snapshot.data["code"],
-                            favorite: [
-                              snapshot.data["dialCode"],
-                              snapshot.data["code"]
-                            ],
-                            // optional. Shows only country name and flag
-                            showCountryOnly: true,
-                            // optional. Shows only country name and flag when popup is closed.
-                            showOnlyCountryWhenClosed: false,
-                            enabled: false,
-                            // optional. aligns the fla g and the Text left
-                            alignLeft: false,
-                          ),
-                        ),
-                        IntroductionItem(
-                          text: 'Introduction 1',
-                        ),
-                        IntroductionItem(
-                          text: 'Introduction 2',
-                        ),
-                        IntroductionItem(
-                          text: 'Introduction 3',
-                        ),
-                        IntroductionItem(
-                          text: 'Introduction 4',
-                        ),
-                      ],
+            appBar: screenSize.width > 800
+                ? PreferredSize(
+                    preferredSize: Size(screenSize.width, 1000),
+                    child: NavBar(),
+                  )
+                : AppBar(
+                    backgroundColor: Colors.blueGrey[700],
+                    elevation: 0,
+                    centerTitle: true,
+                    title: Text(
+                      ' VOCABLEARN',
+                      style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold),
                     ),
-                  );
-                }),
-          ],
-        ));
+                    actions: [
+                      IconButton(
+                        icon: Icon(Icons.account_circle),
+                        iconSize: 36,
+                        color: Colors.yellow[600],
+                        splashColor: Colors.transparent,
+                        highlightColor: Colors.transparent,
+                        onPressed: () {},
+                      ),
+                    ],
+                    iconTheme: IconThemeData(color: Colors.white),
+                  ),
+            drawer: DrawerHome(),
+            body: Column(
+              children: <Widget>[
+                SizedBox(height: 15),
+                header,
+                FutureBuilder<QuerySnapshot>(
+                    future: firebaseinstance.get(),
+                    builder: (BuildContext context,
+                        AsyncSnapshot<QuerySnapshot> snapshot) {
+                      if (snapshot.hasError) {
+                        return Text("Something went wrong");
+                      }
+                      if (snapshot.connectionState == ConnectionState.waiting &&
+                          isloop == false) {
+                        return Text("loading");
+                      }
+                      isloop = true;
+                      for (var document in snapshot.data.docs) {
+                       // print(document['user_id'] == '/users/$userId');
+                        if (document['user_id'] == '/users/$userId') {
+                          introduction = document['introduction'];
+                          id = document.id;
+                          code = document['code'];
+                          dialCode = document['dialCode'];
+                          name = document['name'];
+                          displayName = document['display_name'];
+                        }
+                      }
+                      return Expanded(
+                        child: ListView(
+                          children: <Widget>[
+                            Padding(
+                              padding: const EdgeInsets.fromLTRB(0, 0, 0, 20),
+                              child: CountryCodePicker(
+                                onChanged: print,
+                                // Initial selection and favorite can be one of code ('IT') OR dial_code('+39')
+                                initialSelection: code,
+                                favorite: [dialCode, code],
+                                // optional. Shows only country name and flag
+                                showCountryOnly: true,
+                                // optional. Shows only country name and flag when popup is closed.
+                                showOnlyCountryWhenClosed: false,
+                                enabled: false,
+                                // optional. aligns the fla g and the Text left
+                                alignLeft: false,
+                              ),
+                            ),
+                            IntroductionItem(
+                              text: introduction,
+                            ),
+                            Footer()
+                          ],
+                        ),
+                      );
+                    }),
+              ],
+            ));
       },
     ));
   }
@@ -223,7 +279,7 @@ class IntroductionItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 50,
+      height: 200,
       margin: EdgeInsets.symmetric(horizontal: kSpacingUnit.w * 5)
           .copyWith(bottom: 15),
       padding: EdgeInsets.symmetric(horizontal: 20),

@@ -11,6 +11,8 @@ import 'package:vocabulary_learning_app/Screens/course/course.dart';
 import 'package:vocabulary_learning_app/Screens/email_not_verified.dart';
 import 'package:vocabulary_learning_app/Screens/error_pages/page404.dart';
 import 'package:vocabulary_learning_app/Screens/list_word/list_word.dart';
+import 'package:vocabulary_learning_app/Screens/profile/editProfile.dart';
+import 'package:vocabulary_learning_app/Screens/profile/introduction.dart';
 import 'package:vocabulary_learning_app/Screens/profile/profile.dart';
 import 'package:vocabulary_learning_app/Screens/testCRUD/home.dart';
 import 'package:vocabulary_learning_app/Screens/vocab_list/vocab_list.dart';
@@ -84,6 +86,20 @@ class AppRoutes {
     '/my/profile',
     Handler(
       handlerFunc: (context, parameters) => ProfileScreen(),
+    ),
+  );
+
+  static final updateProfile = AppRoute(
+    '/my/profile/update',
+    Handler(
+      handlerFunc: (context, parameters) => EditProfile(),
+    ),
+  );
+
+  static final introduction = AppRoute(
+    '/my/profile/introduction',
+    Handler(
+      handlerFunc: (context, parameters) => Introduction(),
     ),
   );
 
@@ -214,5 +230,7 @@ class AppRoutes {
     emailNotVerified,
     todoTest,
     resetpass,
+    updateProfile,
+    introduction
   ];
 }

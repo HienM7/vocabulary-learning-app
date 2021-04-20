@@ -18,8 +18,9 @@ import 'package:vocabulary_learning_app/Screens/testCRUD/home.dart';
 import 'package:vocabulary_learning_app/Screens/vocab_list/vocab_list.dart';
 import 'package:vocabulary_learning_app/UpdatePass/updatepass.dart';
 import 'package:vocabulary_learning_app/game/quizpage.dart';
-
+import 'dart:convert';
 class AppRoutes {
+  
   static final routeNotFoundHandler = Handler(
       handlerFunc: (BuildContext context, Map<String, List<String>> params) {
     debugPrint("Page not found.");
@@ -141,6 +142,18 @@ class AppRoutes {
       return ListWord(listId); // --> ListDetailPage
     }),
   );
+  static final showWordListDetail = AppRoute(
+    '/wordlists/show/:encode',
+    Handler(
+      handlerFunc: (BuildContext context, Map<String, List<String>> params) {
+        final String encoded = params["encode"][0];
+        Codec<String, String> stringToBase64Url = utf8.fuse(base64Url);
+        // if (listId.trim().isEmpty) return MyList();
+        String listId = stringToBase64Url.decode(encoded);
+        return ListWord(listId);  // --> ListDetailPage
+      }
+    ),
+  );
 
   // static final wordListNew = AppRoute(
   //   '/wordlists/new',
@@ -224,6 +237,7 @@ class AppRoutes {
     // wordLists,
     wordListDetailOrNew,
     // wordListNew,
+    showWordListDetail,
     practice,
     homeAuth,
     passwordChange,

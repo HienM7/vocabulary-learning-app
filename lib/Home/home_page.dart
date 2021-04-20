@@ -1,15 +1,18 @@
+import 'dart:html';
 import 'dart:async';
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:fluro/fluro.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter/services.dart';
 import 'package:vocabulary_learning_app/Screens/Shared/footer.dart';
 import 'package:vocabulary_learning_app/Screens/Shared/nav_bar.dart';
 import 'package:vocabulary_learning_app/constants/router_constants.dart';
 import 'package:vocabulary_learning_app/models/app_router.dart';
 import 'package:vocabulary_learning_app/Home/widgets/drawer.dart';
+import 'dart:convert';
+import 'package:flutter/services.dart';
+import 'package:rflutter_alert/rflutter_alert.dart';
 
 class HomePageUser extends StatefulWidget {
   @override
@@ -24,15 +27,18 @@ class _HomePageStateUser extends State<HomePageUser> {
     auth.authStateChanges().listen((user) {
       // not logged in
       if (user == null) {
-        AppRouter.router.navigateTo(context, AppRoutes.login.route,
-            transition: TransitionType.none);
+        AppRouter.router.navigateTo(
+          context, AppRoutes.login.route,
+          transition: TransitionType.none);
       }
       // not verified
       else if (!user.emailVerified) {
-        AppRouter.router.navigateTo(context, AppRoutes.emailNotVerified.route);
+        AppRouter.router.navigateTo(
+          context, AppRoutes.emailNotVerified.route);
       }
     });
   }
+  
 
   @override
   void initState() {
@@ -45,8 +51,7 @@ class _HomePageStateUser extends State<HomePageUser> {
 
   List<Map<dynamic, dynamic>> lists = [];
   List<String> keys = [];
-  CollectionReference firebaseinstance =
-      FirebaseFirestore.instance.collection("lists");
+  CollectionReference firebaseinstance = FirebaseFirestore.instance.collection("lists");
   final TextEditingController _controller = TextEditingController();
   bool change = false;
   int limits = 9;
@@ -103,7 +108,7 @@ class _HomePageStateUser extends State<HomePageUser> {
 
     var screenSize = MediaQuery.of(context).size;
     return Scaffold(
-      //App bar
+      // App bar
       appBar: screenSize.width > 800
           ? PreferredSize(
               preferredSize: Size(screenSize.width, 1000),
@@ -143,7 +148,7 @@ class _HomePageStateUser extends State<HomePageUser> {
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  //screensize larger
+                  // large screen sizes
                   screenSize.width > 800
                       ? Row(
                           mainAxisSize: MainAxisSize.max,
@@ -184,13 +189,15 @@ class _HomePageStateUser extends State<HomePageUser> {
                                               borderRadius:
                                                   BorderRadius.circular(5),
                                               side: BorderSide(
-                                                  color:
-                                                      Colors.greenAccent[700])))),
+                                                  color: Colors.greenAccent[700]
+                                              )
+                                          )
+                                      )
+                              ),
                             ),
                             SizedBox(width: screenSize.width * 0.05),
                             Container(
-                              padding: EdgeInsets.all(10),
-                              width: screenSize.width * 0.21,
+                              width: screenSize.width*0.78,
                               child: TextField(
                                 controller: _controller,
                                 onSubmitted: (value) {
@@ -203,19 +210,19 @@ class _HomePageStateUser extends State<HomePageUser> {
                                     icon: Icon(Icons.search),
                                     iconSize: 20,
                                     onPressed: () {
-                                      Navigator.of(context).pop();
+                                      
                                     },
                                   ),
                                   contentPadding: EdgeInsets.only(left: 25),
                                   hintText: "Search by list name",
                                   border: OutlineInputBorder(
-                                      borderRadius: BorderRadius.circular(4)),
+                                    borderRadius: BorderRadius.circular(4)),
                                 ),
                               ),
                             ),
                           ],
                         )
-                      //screensize small
+                      // small screen sizes
                       : Column(
                           mainAxisAlignment: MainAxisAlignment.start,
                           crossAxisAlignment: CrossAxisAlignment.start,
@@ -288,65 +295,61 @@ class _HomePageStateUser extends State<HomePageUser> {
                             ),
                           ],
                         ),
-                  //screensize larger
-                  screenSize.width > 800
-                      ? Padding(
-                          padding: EdgeInsets.symmetric(vertical: 30),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Icon(
-                                Icons.library_books,
-                                size: 40,
-                                color: Colors.amber,
-                              ),
-                              SizedBox(
-                                width: 20,
-                              ),
-                              Text(
-                                'Public Word Lists',
-                                style: TextStyle(
-                                  color: Colors.black,
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 34,
-                                ),
-                              ),
-                            ],
+                  // large screen sizes
+                  screenSize.width > 800 ?
+                  Padding(
+                    padding: EdgeInsets.symmetric(vertical: 30),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Icon(
+                          Icons.library_books,
+                          size: 40,
+                          color: Colors.amber,
+                        ),
+                        SizedBox(width: 20,),
+                        Text(
+                          'Public Word Lists',
+                          style: TextStyle(
+                            color: Colors.black,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 34,
                           ),
-                        )
-                      //screensize small
-                      : Padding(
-                          padding: EdgeInsets.symmetric(vertical: 20),
-                          child: Wrap(
-                            alignment: WrapAlignment.center,
-                            children: [
-                              Icon(
-                                Icons.library_books,
-                                size: 30,
-                                color: Colors.amber,
-                              ),
-                              SizedBox(
-                                width: 13,
-                              ),
-                              Text(
-                                'Public Word Lists',
-                                style: TextStyle(
-                                  color: Colors.black,
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 23,
-                                ),
-                              ),
-                            ],
-                          )),
-                  // card list publish
+                        ),
+                      ],
+                    ),
+                  )
+                  // small screen sizes
+                  : Padding(
+                    padding: EdgeInsets.symmetric(vertical: 20),
+                    child: Wrap(
+                      alignment: WrapAlignment.center,
+                      children: [
+                        Icon(
+                          Icons.library_books,
+                          size: 30,
+                          color: Colors.amber,
+                        ),
+                        SizedBox(width: 13,),
+                        Text(
+                          'Public Word Lists',
+                          style: TextStyle(
+                            color: Colors.black,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 23,
+                          ),
+                        ),
+                      ],
+                    )
+                  ),
+                  // public card lists
                   ConstrainedBox(
                     constraints: BoxConstraints(
                       minHeight: 500,
                     ),
                     child: FutureBuilder<QuerySnapshot>(
                       future: firebaseinstance.get(),
-                      builder: (BuildContext context,
-                          AsyncSnapshot<QuerySnapshot> snapshot) {
+                      builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
                         if (snapshot.hasError) {
                           return Text("Something went wrong");
                         }
@@ -365,10 +368,10 @@ class _HomePageStateUser extends State<HomePageUser> {
                             i++;
                             if (i == limits) break;
                           }
-                          if (limits == lists.length) {
+                          if (limits == lists.length)
+                          {
                             equal = true;
-                          } else
-                            equal = false;
+                          } else equal = false;
                         }
                         return ConstrainedBox(
                             constraints: BoxConstraints(
@@ -391,11 +394,10 @@ class _HomePageStateUser extends State<HomePageUser> {
                                           TextButton(
                                             onPressed: () {
                                               AppRouter.router.navigateTo(
-                                                  context,
-                                                  AppRoutes.getDetailRoute(
-                                                      "/wordlists", keys[i]),
-                                                  transition:
-                                                      TransitionType.none);
+                                                context,
+                                              AppRoutes.getDetailRoute(
+                                                "/wordlists", keys[i]),
+                                              transition: TransitionType.none);
                                             },
                                             child: Container(
                                                 height: 200,
@@ -406,8 +408,7 @@ class _HomePageStateUser extends State<HomePageUser> {
                                                         BorderRadius.circular(
                                                             10),
                                                     image: DecorationImage(
-                                                      image: AssetImage(
-                                                          'assets/images/home_background.jpg'),
+                                                      image: AssetImage('assets/images/home_background.jpg'),
                                                       fit: BoxFit.cover,
                                                     ))),
                                           ),
@@ -423,7 +424,22 @@ class _HomePageStateUser extends State<HomePageUser> {
                                                 fontWeight: FontWeight.bold,
                                               ),
                                             ),
-                                          )
+                                          ),
+                                          Container(
+                                            height: 40,
+                                            child: ElevatedButton(
+                                              style: ButtonStyle(
+                                                backgroundColor: MaterialStateProperty.all<Color>(Colors.blue),
+                                              ),
+                                              
+                                              child: Text(
+                                                "Share List"
+                                              ),
+                                              onPressed: () async {
+                                                await share(keys[i]);
+                                              },
+                                            )
+                                          ),
                                         ],
                                       ),
                                     )
@@ -486,4 +502,45 @@ class _HomePageStateUser extends State<HomePageUser> {
       ),
     );
   }
+void share(id) {
+  Codec<String, String> stringToBase64Url = utf8.fuse(base64Url);
+  String encoded = stringToBase64Url.encode(id);
+  Clipboard.setData(new ClipboardData(text: AppRoutes.getDetailRoute("/wordlists/show", encoded))).then((_){
+      Alert(
+      context: context,
+      title: "ALERT",
+      desc: "Copied. Now You can share the link. ",
+      image: Image.asset("images/home_background.jpg"),
+      buttons: [
+        DialogButton(
+          child: Text(
+            "COOL",
+            style: TextStyle(color: Colors.white, fontSize: 20),
+          ),
+          onPressed: () => Navigator.pop(context),
+          width: 120,
+          // color: Colors.blue,
+          gradient: LinearGradient(colors: [
+            Color.fromRGBO(116, 116, 191, 1.0),
+            Color.fromRGBO(52, 138, 199, 1.0)
+          ])
+        )
+      ],
+    ).show();
+});
+
+ 
+  // await FlutterShare.share(
+  //   // title: 'Share',
+  //   // text: 'Share List',
+  //   // linkUrl: AppRoutes.getDetailRoute("/wordlists/show", encoded),
+  //   // chooserTitle: '',
+
+  //   title: 'Example share',
+  //     text: 'Example share text',
+  //     linkUrl: 'https://flutter.dev/',
+  //     chooserTitle: 'Example Chooser Title'
+  // );
+}
+                                                
 }

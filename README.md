@@ -2,9 +2,14 @@
 
 A Flutter progressive web app for building vocabulary.
 
-## Live Demo
+## Demo
 
-[VocabLearn demo app](https://vocab-learning-k.web.app/#/)
+* Live demo (unstable): [VocabLearn demo app](https://vocab-learning-k.web.app/#/)
+* Screenshots
+  * Home Page (logged in)
+  ![Home Page](https://trello-attachments.s3.amazonaws.com/6046fcc9a542f0318e02d253/6048d5ea093af035d4047374/9c5590b278a897f897edb9183e876eea/homepage.png)
+  * Word List Page
+  ![Word List Page](https://trello-attachments.s3.amazonaws.com/6046fcc9a542f0318e02d253/6048d5ea093af035d4047374/044923d324a5c02db7d79b66289bc4e3/listview.png)
 
 ## Installation and Setup
 
@@ -102,7 +107,7 @@ A Flutter progressive web app for building vocabulary.
 | `/wordlists/:id`  | Word List Detail page | The page showing a (public or shared) word list with details like words, meanings, etc., where `:id` is the list's id         |
 | `/wordlists/new`  | New Word List page | The page for creating a new word list         |
 | `/users/:id`  | User page | The page showing a user's profile with the id `:id`         |
-| `/practice`  | Practice page | The page providing the user with a MCQ game that helps him/her remember the words better         |
+| `/quizgame`  | Practice page | The page providing the user with a MCQ game that helps him/her remember the words better         |
 | `/changepass`  | Password Change page | The page where the user can change his/her password |
 
 ## Testing

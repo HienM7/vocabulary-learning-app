@@ -13,6 +13,7 @@ import 'package:vocabulary_learning_app/Screens/error_pages/page404.dart';
 import 'package:vocabulary_learning_app/Screens/list_word/list_word.dart';
 import 'package:vocabulary_learning_app/Screens/profile/editProfile.dart';
 import 'package:vocabulary_learning_app/Screens/profile/introduction.dart';
+import 'package:vocabulary_learning_app/Screens/notification/notification_page.dart';
 import 'package:vocabulary_learning_app/Screens/profile/profile.dart';
 import 'package:vocabulary_learning_app/Screens/testCRUD/home.dart';
 import 'package:vocabulary_learning_app/Screens/vocab_list/vocab_list.dart';
@@ -101,6 +102,13 @@ class AppRoutes {
     '/my/profile/introduction',
     Handler(
       handlerFunc: (context, parameters) => Introduction(),
+    )
+  );
+
+  static final notifications = AppRoute(
+    '/my/notifications',
+    Handler(
+      handlerFunc: (context, parameters) => NotificationPage(),
     ),
   );
 
@@ -245,6 +253,7 @@ class AppRoutes {
     todoTest,
     resetpass,
     updateProfile,
-    introduction
+    introduction,
+    notifications,
   ];
 }

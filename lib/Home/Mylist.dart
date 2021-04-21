@@ -53,9 +53,7 @@ class _MyList extends State<MyList> {
   int limits = 9;
   bool equal = true;
   bool isloop = false;
-  DocumentReference docRef = FirebaseFirestore.instance
-      .collection('users')
-      .doc('BXdTNFyd2gajVD4JI4N5EKrVPLA3');
+  DocumentReference docRef;
 
   initiateSearch(value) {
     change = true;
@@ -63,7 +61,7 @@ class _MyList extends State<MyList> {
       setState(() {
         lists.clear();
         firebaseinstance
-            .where("creator_id", isEqualTo: docRef)
+            .where("creator_id", isEqualTo: 'K4gA9CONDSX7tWFiHAc7VHzyor23')
             .get()
             .then((querySnapshot) {
           int i = 0;
@@ -83,7 +81,7 @@ class _MyList extends State<MyList> {
       setState(() {
         lists.clear();
         firebaseinstance
-            .where("creator_id", isEqualTo: docRef)
+            .where("creator_id", isEqualTo: 'K4gA9CONDSX7tWFiHAc7VHzyor23')
             .get()
             .then((querySnapshot) {
           querySnapshot.docs.forEach((document) {
@@ -119,6 +117,9 @@ class _MyList extends State<MyList> {
       primaryColor: Theme.of(context).primaryColor.value,
     ));
 
+    docRef = FirebaseFirestore.instance
+      .collection('users')
+      .doc('K4gA9CONDSX7tWFiHAc7VHzyor23');
     var screenSize = MediaQuery.of(context).size;
     return Scaffold(
       //App bar
@@ -208,7 +209,7 @@ class _MyList extends State<MyList> {
                             SizedBox(width: screenSize.width * 0.05),
                             Container(
                               padding: EdgeInsets.all(10),
-                              width: screenSize.width * 0.21,
+                              width: screenSize.width * 0.23,
                               child: TextField(
                                 controller: _controller,
                                 onSubmitted: (value) {
@@ -364,7 +365,7 @@ class _MyList extends State<MyList> {
                     ),
                     child: FutureBuilder<QuerySnapshot>(
                       future: firebaseinstance
-                          .where("creator_id", isEqualTo: docRef)
+                          .where("creator_id", isEqualTo: 'K4gA9CONDSX7tWFiHAc7VHzyor23')
                           .get(),
                       builder: (BuildContext context,
                           AsyncSnapshot<QuerySnapshot> snapshot) {
@@ -445,7 +446,79 @@ class _MyList extends State<MyList> {
                                                 fontWeight: FontWeight.bold,
                                               ),
                                             ),
-                                          )
+                                          ),
+                                          Padding(
+                                            padding: EdgeInsets.only(bottom: 10),
+                                            child: Row(
+                                              mainAxisSize: MainAxisSize.min,
+                                              mainAxisAlignment: MainAxisAlignment.start,
+                                              crossAxisAlignment: CrossAxisAlignment.center,
+                                              children: [
+                                                SizedBox(width: 15,),
+                                                TextButton(
+                                                  onPressed: () {
+                                                    
+                                                  },
+                                                  child: Padding(
+                                                    padding: EdgeInsets.all(5),
+                                                    child: Row(
+                                                      mainAxisAlignment:MainAxisAlignment.center,
+                                                      children: [
+                                                        Icon(
+                                                          Icons.games,
+                                                          color: Colors.grey[600],
+                                                          size: 20,
+                                                        ),
+                                                        SizedBox(width: 5,),
+                                                        Text(
+                                                          "Game",
+                                                          style: TextStyle(
+                                                              color: Colors.black,
+                                                              fontSize: 18,
+                                                              fontWeight: FontWeight.w400),
+                                                        )
+                                                      ],
+                                                    ),
+                                                  ),
+                                                  style: ButtonStyle(
+                                                    backgroundColor: MaterialStateProperty.all<Color>(Colors.grey[200]),
+                                                    side: MaterialStateProperty.all<BorderSide>(BorderSide(color: Colors.grey)),
+                                                  ),
+                                                ),
+                                                SizedBox(width: screenSize.width*0.05,),
+                                                TextButton(
+                                                  onPressed: () {
+                                                    
+                                                  },
+                                                  child: Padding(
+                                                    padding: EdgeInsets.all(5),
+                                                    child: Row(
+                                                      mainAxisAlignment:MainAxisAlignment.center,
+                                                      children: [
+                                                        Icon(
+                                                          Icons.person_add_alt_1_rounded,
+                                                          color: Colors.grey[600],
+                                                          size: 20,
+                                                        ),
+                                                        SizedBox(width: 5,),
+                                                        Text(
+                                                          "Add Colloborator",
+                                                          style: TextStyle(
+                                                              color: Colors.black,
+                                                              fontSize: 17,
+                                                              fontWeight: FontWeight.w400),
+                                                        )
+                                                      ],
+                                                    ),
+                                                  ),
+                                                  style: ButtonStyle(
+                                                    backgroundColor: MaterialStateProperty.all<Color>(Colors.grey[200]),
+                                                    side: MaterialStateProperty.all<BorderSide>(BorderSide(color: Colors.grey)),
+                                                  ),
+                                                ),
+                                              ],
+                                            )
+                                          ),
                                         ],
                                       ),
                                     )

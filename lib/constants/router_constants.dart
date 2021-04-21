@@ -70,11 +70,13 @@ class AppRoutes {
     ),
   );
 
-  static final quizpage = AppRoute(
-    '/quizpage',
+  static final quizpageDetail = AppRoute(
+    '/quizpage/:id',
     Handler(
-      handlerFunc: (context, parameters) => QuizPage(),
-    ),
+      handlerFunc: (BuildContext context, Map<String, List<String>> params) {
+        final String listId = params["id"][0];
+        return QuizPage(listId);
+      }),
   );
 
   static final my = AppRoute(
@@ -231,7 +233,7 @@ class AppRoutes {
     homePage,
     login,
     signup,
-    quizpage,
+    quizpageDetail,
     my,
     myProfile,
     myLists,

@@ -123,7 +123,6 @@ class AppRoutes {
     '/my/lists/:id',
     Handler(
         handlerFunc: (BuildContext context, Map<String, List<String>> params) {
-      // ignore: unused_local_variable
       final String listId = params["id"][0];
       if (listId.trim().isEmpty) return MyList();
 
@@ -142,19 +141,19 @@ class AppRoutes {
     '/wordlists/:id',
     Handler(
         handlerFunc: (BuildContext context, Map<String, List<String>> params) {
-      final String listId = params["id"][0];
+      final String listId = params["id"][0].trim();
 
-      // if (listId.trim().isEmpty) return MyList();
+      // if (listId.isEmpty) return MyList();
       if (listId == 'new') return CoursePage();
 
       return ListWord(listId); // --> ListDetailPage
     }),
   );
   static final showWordListDetail = AppRoute(
-    '/wordlists/show/:encode',
+    '/wordlists-show/:encode',
     Handler(
       handlerFunc: (BuildContext context, Map<String, List<String>> params) {
-        final String encoded = params["encode"][0];
+        final String encoded = params["encode"][0].trim();
         Codec<String, String> stringToBase64Url = utf8.fuse(base64Url);
         // if (listId.trim().isEmpty) return MyList();
         String listId = stringToBase64Url.decode(encoded);
@@ -190,11 +189,6 @@ class AppRoutes {
 
   static final practice = AppRoute(
     '/practice',
-    // TODO:
-    // 3 screens:
-    //    1. Game setup: choose a word list to practice
-    //    2. Practice with questions
-    //    3. Result: List of correct and incorrect answers + total
     Handler(
       handlerFunc: (context, parameters) => HomePage(), // --> GamePage
     ),

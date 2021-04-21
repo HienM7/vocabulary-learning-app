@@ -113,7 +113,7 @@ class _TablePageState extends State<TablePage> {
                           style: TextStyle(
                               fontSize: 15, fontWeight: FontWeight.bold))),
                   DataColumn(
-                      label: Text('Edit',
+                      label: Text('Update',
                           style: TextStyle(
                               fontSize: 15, fontWeight: FontWeight.bold))),
                   DataColumn(

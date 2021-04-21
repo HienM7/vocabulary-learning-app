@@ -2,6 +2,8 @@
 
 A Flutter progressive web app for building vocabulary.
 
+[![App Build & Deploy](https://github.com/HienM7/vocabulary-learning-app/actions/workflows/firebase_deploy.yml/badge.svg?branch=master)](https://github.com/HienM7/vocabulary-learning-app/actions/workflows/firebase_deploy.yml)
+
 ## Demo
 
 * Live demo (unstable): [VocabLearn demo app](https://vocab-learning-k.web.app/#/)

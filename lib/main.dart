@@ -38,7 +38,29 @@ class _MyAppState extends State<MyApp> {
             theme: ThemeProvider.of(context),
             debugShowCheckedModeBanner: false,
 
+<<<<<<< HEAD
             onGenerateRoute: AppRouter.router.generator,
+=======
+            initialRoute: '/',
+            routes: {
+              '/login': (context) => LoginPage(),
+              '/signup': (context) => RegisterPage(),
+              '/my-profile': (context) => ProfileScreen(),
+              '/list': (context) => TablePage(),
+              '/todo-test': (context) => Home(),
+              '/home': (context) => HomePage(),
+              '/home-page': (context) => HomePageUser(),
+<<<<<<< HEAD
+=======
+              '/my-list': (context) => MyList(),
+              '/list-word': (context) => ListWord('DfsZ7qHrewovv309K2WV'),
+              '/edit-profile': (context) => EditProfile(),
+              '/my-profile/introduction': (context) => Introduction()
+>>>>>>> 262a0f9 (commit 2)
+            },
+
+            home: LoginPage(),
+>>>>>>> d329a0a (commit)
             // home: MyHomePage(title: 'Flutter Demo Home Page'),
           );
         }));

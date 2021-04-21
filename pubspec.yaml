@@ -66,11 +66,24 @@ flutter:
 
   # To add assets to your application, add an assets section, like this:
   assets:
+<<<<<<< HEAD
     - assets/images/success_alert.png
+=======
+<<<<<<< HEAD
+    # - images/a_dot_burr.jpeg
+    # - images/a_dot_ham.jpeg
+    - assets/images/img.png
+
+=======
+>>>>>>> d329a0a (commit)
     - assets/images/avatar.png
     - assets/images/home_background.jpg
     - assets/images/home_background_piece.png
     - assets/images/VocabLearn_logo_Wix.jpg
+<<<<<<< HEAD
+=======
+>>>>>>> 262a0f9 (commit 2)
+>>>>>>> d329a0a (commit)
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
 

@@ -271,7 +271,7 @@ class _HomePageState extends State<HomePage> {
                         context,
                         FirebaseAuth.instance.currentUser != null
                           ? AppRoutes.homePage.route
-                          : AppRoutes.home.route,
+                          : AppRoutes.login.route,
                         transition: TransitionType.none),
                       child: Text(
                         'Get started',
@@ -316,7 +316,7 @@ class _HomePageState extends State<HomePage> {
                         context,
                         FirebaseAuth.instance.currentUser != null
                           ? AppRoutes.homePage.route
-                          : AppRoutes.home.route,
+                          : AppRoutes.login.route,
                         transition: TransitionType.none),
                       child: Text(
                         'Get started',

@@ -1,8 +1,10 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:fluro/fluro.dart';
 import 'package:flutter/material.dart';
 import 'package:vocabulary_learning_app/constants/router_constants.dart';
 import 'package:vocabulary_learning_app/models/app_router.dart';
+import 'package:vocabulary_learning_app/services/notification.dart';
 
 class NavBar extends StatefulWidget {
   @override
@@ -10,7 +12,11 @@ class NavBar extends StatefulWidget {
 }
 
 class _NavBar extends State<NavBar> {
+  NotifService notifService = new NotifService();
   List _isHovering = [false, false, false];
+  bool newNotifs = false;
+  DateTime lastCheck = DateTime.now().subtract(Duration(minutes: 5));
+
   @override
   Widget build(BuildContext context) {
     var screenSize = MediaQuery.of(context).size;
@@ -141,6 +147,60 @@ class _NavBar extends State<NavBar> {
             ),
             Row(
               children: [
+                if (DateTime.now().difference(lastCheck).inMinutes > 3)
+                //>>>>>>
+                FutureBuilder<bool>(
+                  future: notifService.checkAnyUnseen(
+                    FirebaseFirestore.instance.doc(
+                      "/users/" + FirebaseAuth.instance.currentUser.uid
+                    ),
+                  ),
+                  builder: (BuildContext context,
+                      AsyncSnapshot<bool> snapshot) {
+                    if (snapshot.hasData) {
+                      lastCheck = DateTime.now();
+                      newNotifs = snapshot.data;
+                      
+                      return IconButton(
+                        icon: Icon(
+                          newNotifs
+                          ? Icons.notifications_active
+                          : Icons.notifications
+                        ),
+                        iconSize: 32,
+                        color: newNotifs ? Colors.yellow[400] : Colors.white,
+                        onPressed: () => AppRouter.router.navigateTo(
+                          context, AppRoutes.notifications.route,
+                          transition: TransitionType.none),
+                      );
+                    } // end if
+                    else {
+                      return IconButton(
+                        icon: Icon(Icons.notifications),
+                        iconSize: 32,
+                        color: Colors.white,
+                        onPressed: () => AppRouter.router.navigateTo(
+                          context, AppRoutes.notifications.route,
+                          transition: TransitionType.none),
+                      );
+                    }
+                  },
+                )
+                else
+                //>>>>>>
+                IconButton(
+                  icon: Icon(
+                    newNotifs
+                    ? Icons.notifications_active
+                    : Icons.notifications
+                  ),
+                  iconSize: 32,
+                  color: newNotifs ? Colors.yellow[400] : Colors.white,
+                  onPressed: () => AppRouter.router.navigateTo(
+                    context, AppRoutes.notifications.route,
+                    transition: TransitionType.none),
+                ),
+
                 IconButton(
                   icon: Icon(Icons.account_circle),
                   iconSize: 40,

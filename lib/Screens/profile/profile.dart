@@ -56,10 +56,6 @@ class _ProfilePageState extends State<ProfileScreen> {
   CollectionReference firebaseinstance =
       FirebaseFirestore.instance.collection('profiles');
 
-  DocumentReference docRef = FirebaseFirestore.instance
-      .collection('users')
-      .doc('BXdTNFyd2gajVD4JI4N5EKrVPLA3');
-
   @override
   void initState() {
     Timer(Duration(seconds: 2), () {
@@ -294,7 +290,7 @@ class _ProfilePageState extends State<ProfileScreen> {
                               showCountryOnly: true,
                               // optional. Shows only country name and flag when popup is closed.
                               showOnlyCountryWhenClosed: true,
-                              enabled: true,
+                              enabled: false,
                               // optional. aligns the fla g and the Text left
                               alignLeft: false,
                             ),

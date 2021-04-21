@@ -506,7 +506,12 @@ class _HomePageStateUser extends State<HomePageUser> {
 void share(id) {
   Codec<String, String> stringToBase64Url = utf8.fuse(base64Url);
   String encoded = stringToBase64Url.encode(id);
-  Clipboard.setData(new ClipboardData(text: AppRoutes.getDetailRoute("/wordlists/show", encoded))).then((_){
+  Clipboard.setData(
+    new ClipboardData(
+      text: window.location.origin + "#" +
+            AppRoutes.getDetailRoute("/wordlists-show", encoded)
+    )
+  ).then((_) {
       Alert(
       context: context,
       title: "ALERT",

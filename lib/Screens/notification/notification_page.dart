@@ -1,3 +1,4 @@
+import 'dart:collection';
 import 'dart:html';
 
 import 'package:firebase_auth/firebase_auth.dart';
@@ -20,6 +21,7 @@ class NotificationPage extends StatefulWidget {
 
 class _PageState extends State<NotificationPage> {
   final auth = FirebaseAuth.instance;
+  final fireStore = FirebaseFirestore.instance;
   final NotifService notifService = NotifService();
 
   checkAuth() async {
@@ -44,8 +46,25 @@ class _PageState extends State<NotificationPage> {
     this.checkAuth();
   }
 
-  static const int PG_SIZE = 1;
+  void actionDone(DocumentSnapshot notif, String actionText) {
+    notifService.update(notif, {"seen": true});
+
+    if (notif.data()["type"].toLowerCase() == "invite") {
+      if (actionText == "accept") {
+        fireStore
+        .collection("lists")
+        .doc(notif.data()["action_data"]["list_id"])
+        .update({
+          "collab_ids": FieldValue.arrayUnion(
+            [auth.currentUser.uid])
+        });
+      }
+    }
+  }
+
+  static const int PG_SIZE = 5;
   List<DocumentSnapshot> shownDocs = [];
+  Map<DocumentSnapshot,bool> pressed = new LinkedHashMap();
 
   @override
   Widget build(BuildContext context) {
@@ -152,23 +171,30 @@ class _PageState extends State<NotificationPage> {
                     ),
                     child: FutureBuilder<QuerySnapshot>(
                       future: notifService.fetchBatch(
-                        FirebaseFirestore.instance.doc(
-                          "/users/" + auth.currentUser.uid
-                        ),
+                        auth.currentUser.uid,
                         shownDocs,
                         PG_SIZE
                       ),
                       builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
                         if (snapshot.hasError) {
+                          //>>>
                           print(snapshot.error);
                           print(snapshot.stackTrace);
+                          //>>>
                           return Text("Something went wrong");
                         }
                         if (snapshot.connectionState == ConnectionState.waiting) {
                           return Text("Loading...");
                         }
 
-                        shownDocs.addAll(snapshot.data.docs);
+                        // shownDocs.addAll(snapshot.data.docs);
+                        for (var notif in snapshot.data.docs) {
+                          shownDocs.add(notif);
+                          pressed[notif] = notif.data()["seen"];
+                        }
+                        //>>>
+                        print(snapshot.data.size);
+                        //>>>
 
                         return ConstrainedBox(
                           constraints: BoxConstraints(
@@ -194,9 +220,13 @@ class _PageState extends State<NotificationPage> {
                                           child: TextButton(
                                             onPressed: () {},  // show Sender
                                             child: Container(
-                                              width: screenSize.width*0.8,
+                                              width: screenSize.width*0.64,
                                               child: Text(
-                                                "Collaboration Invite",
+                                                notif.data()["type"] == "invite" ?
+                                                "Collaboration Invitation" :
+                                                notif.data()["type"] == "update" ?
+                                                "App Updates" :
+                                                "General Notification",
                                                 style: TextStyle(
                                                   fontSize: 20
                                                 )
@@ -228,6 +258,7 @@ class _PageState extends State<NotificationPage> {
                                               notif.data()["content"],
                                               style: TextStyle(
                                                 color: Colors.black,
+                                                fontSize: 18,
                                               ),
                                             ),
                                           ),
@@ -236,6 +267,8 @@ class _PageState extends State<NotificationPage> {
                                           padding: EdgeInsets.all(12),
                                           child: Row(
                                             children: [
+                                            
+                                            if (!notif.data()["seen"])
                                             for (var actionText in notif.data()["actions"])
                                             Padding(
                                               padding: EdgeInsets.only(right: 12),
@@ -244,10 +277,27 @@ class _PageState extends State<NotificationPage> {
                                                   " " + actionText + " ",
                                                   style: TextStyle(fontSize: 16, color: Colors.white),
                                                 ),
-                                                onPressed: () {},
+                                                onPressed:
+                                                // notif.data()["seen"]
+                                                pressed[notif]
+                                                ? () {}
+                                                : () {
+                                                  setState(() {
+                                                    pressed[notif] = true;
+                                                    // notif.data()["seen"] = true;
+                                                  });
+                                                  return actionDone(
+                                                    notif,
+                                                    actionText.toLowerCase()
+                                                  );
+                                                },
                                                 style: ButtonStyle(
                                                   backgroundColor:
-                                                    MaterialStateProperty
+                                                    // notif.data()["seen"]
+                                                    pressed[notif]
+                                                    ? MaterialStateProperty
+                                                    .all<Color>(Colors.grey[400])
+                                                    : MaterialStateProperty
                                                     .all<Color>(
                                                       actionText.toLowerCase() == "accept" ? Colors.greenAccent[400] :
                                                       actionText.toLowerCase() == "decline" ?
@@ -261,6 +311,7 @@ class _PageState extends State<NotificationPage> {
                                                 ),
                                               ),
                                             ),
+
                                             ]
                                           )
                                         ),
@@ -271,7 +322,7 @@ class _PageState extends State<NotificationPage> {
                               
                               if (snapshot.data.size == PG_SIZE)
                                 Container(
-                                  width: screenSize.width*0.3,
+                                  width: screenSize.width*0.24,
                                   height: 50,
                                   margin: EdgeInsets.only(top: 30),
                                   child: TextButton(

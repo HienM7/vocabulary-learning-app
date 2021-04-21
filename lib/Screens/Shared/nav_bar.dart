@@ -151,9 +151,7 @@ class _NavBar extends State<NavBar> {
                 //>>>>>>
                 FutureBuilder<bool>(
                   future: notifService.checkAnyUnseen(
-                    FirebaseFirestore.instance.doc(
-                      "/users/" + FirebaseAuth.instance.currentUser.uid
-                    ),
+                    FirebaseAuth.instance.currentUser.uid
                   ),
                   builder: (BuildContext context,
                       AsyncSnapshot<bool> snapshot) {

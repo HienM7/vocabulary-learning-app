@@ -22,6 +22,10 @@ class _EditProfilePage extends State<EditProfile> {
   String dialCode;
   String name;
   String email;
+<<<<<<< HEAD
+=======
+  String password;
+>>>>>>> 99df823 (commit)
   static String userName = " ";
   String id;
   bool _isEditingText = false;
@@ -43,7 +47,10 @@ class _EditProfilePage extends State<EditProfile> {
 
   DocumentReference docRef =
       FirebaseFirestore.instance.collection('users').doc('uid');
+<<<<<<< HEAD
   
+=======
+>>>>>>> 99df823 (commit)
   @override
   Widget build(BuildContext context) {
     var screenSize = MediaQuery.of(context).size;

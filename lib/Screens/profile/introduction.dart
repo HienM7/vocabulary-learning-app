@@ -40,6 +40,13 @@ class _IntroductionPage extends State<Introduction> {
   CollectionReference firebaseinstance =
       FirebaseFirestore.instance.collection('profiles');
 
+<<<<<<< HEAD
+=======
+  DocumentReference docRef = FirebaseFirestore.instance
+      .collection('users')
+      .doc('BXdTNFyd2gajVD4JI4N5EKrVPLA3');
+
+>>>>>>> 99df823 (commit)
   @override
   Widget build(BuildContext context) {
     ScreenUtil.init(context, height: 896, width: 414, allowFontScaling: true);

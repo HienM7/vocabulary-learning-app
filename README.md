@@ -6,11 +6,14 @@ A Flutter progressive web app for building vocabulary.
 
 ## Demo
 
-* Live demo (unstable): [VocabLearn demo app](https://vocab-learning-k.web.app/#/)
+* Live demo (unstable): [VocabLearn demo app](https://vocablearn-g3.web.app/#/)
 * Screenshots
   * Home Page (logged in)
+ 
   ![Home Page](https://trello-attachments.s3.amazonaws.com/6046fcc9a542f0318e02d253/6048d5ea093af035d4047374/9c5590b278a897f897edb9183e876eea/homepage.png)
+  
   * Word List Page
+
   ![Word List Page](https://trello-attachments.s3.amazonaws.com/6046fcc9a542f0318e02d253/6048d5ea093af035d4047374/044923d324a5c02db7d79b66289bc4e3/listview.png)
 
 ## Installation and Setup
@@ -39,18 +42,18 @@ A Flutter progressive web app for building vocabulary.
     id: "ibOLQZDHV1Wz6vNzCy5L",
     name: "Default list name",
     description: "Sample list description.",
-    creator: "/users/BXdTNFyd2gajVD4JI4N5EKrVPLA3",
+    creator_id: "BXdTNFyd2gajVD4JI4N5EKrVPLA3",
     created_at: "April 12, 2021 at 11:11:11 AM UTC+7",
-    collaborators: [
-      "/users/oTRDemURxOY9ZnC4XH9kpl9KafD3"
+    collab_ids: [
+      "oTRDemURxOY9ZnC4XH9kpl9KafD3"
     ],
+    tags: [ "animal", "four-legged" ],
     words: [
       {
         id: "uejbmo9OdocqMP83KaHr",
         definition: "feline, puss, kitty, kitten",
         level: 1,
-        created_at: "April 13, 2021 at 12:12:12 PM UTC+7",
-        tags: [ "animal", "four-legged" ]
+        created_at: "April 13, 2021 at 12:12:12 PM UTC+7"
       }
     ]
   }
@@ -67,7 +70,7 @@ A Flutter progressive web app for building vocabulary.
     first_language: "Indian",
     introduction: "Hi, my name is John Doe. Just call me John.",
     name: "John Doe",
-    user: "/users/BXdTNFyd2gajVD4JI4N5EKrVPLA3"
+    user_id: "BXdTNFyd2gajVD4JI4N5EKrVPLA3"
   }
   ```
   
@@ -75,7 +78,7 @@ A Flutter progressive web app for building vocabulary.
   ```javascript
   {
     id: "Gpgd9QKV4G7E0nI8V5Gl",
-    list: "/lists/ibOLQZDHV1Wz6vNzCy5L",
+    list_id: "ibOLQZDHV1Wz6vNzCy5L",
     rem_word_ids: [
       "uejbmo9OdocqMP83KaHr"
     ],
@@ -90,7 +93,14 @@ A Flutter progressive web app for building vocabulary.
     type: "invite",
     seen: false,
     actions: [ "accept", "decline" ],
-    created_at: "April 13, 2021 at 9:09:09 AM UTC+7"
+    created_at: "April 13, 2021 at 9:09:09 AM UTC+7",
+    sender_id: "BXdTNFyd2gajVD4JI4N5EKrVPLA3",
+    receiver_ids: [
+      "oTRDemURxOY9ZnC4XH9kpl9KafD3"
+    ]
+    action_data: {
+      list_id: "ibOLQZDHV1Wz6vNzCy5L"
+    }
   }
   ```
 
@@ -107,9 +117,10 @@ A Flutter progressive web app for building vocabulary.
 | `/my/lists/:id`  | My List Detail page | The page showing a word list of the user with details like words, meanings, etc., where `:id` is the list's id         |
 | `/wordlists`  | Word Lists page | The page showing all public lists         |
 | `/wordlists/:id`  | Word List Detail page | The page showing a (public or shared) word list with details like words, meanings, etc., where `:id` is the list's id         |
+| `/wordlists-show/:id_encoded`  | Word List Detail page | The page showing a (public or shared) word list with details like words, meanings, etc., where `:id_encoded` is the list's id encoded in base64 (for sharing purposes)        |
 | `/wordlists/new`  | New Word List page | The page for creating a new word list         |
 | `/users/:id`  | User page | The page showing a user's profile with the id `:id`         |
-| `/quizgame`  | Practice page | The page providing the user with a MCQ game that helps him/her remember the words better         |
+| `/quizgame/:id`  | Practice page | The page providing the user with a MCQ game that helps him/her remember the words better         |
 | `/changepass`  | Password Change page | The page where the user can change his/her password |
 
 ## Testing
@@ -132,12 +143,16 @@ A Flutter progressive web app for building vocabulary.
 
 ## App features
 
+* Authentication with email verification
+
 * CRUD vocabulary lists
 
 * CRUD words in lists
 
-* Share lists by links (view-only) and by adding collaborators (view & update)
+* Share lists by links (view-only permission) and by adding collaborators (view & update permissions)
 
 * View and update profile
 
-* Practice to remember vocabulary with games (multiple choice questions)
+* Practice to remember vocabulary with quiz games (multiple choice questions)
+
+* Dark theme

@@ -352,6 +352,9 @@ class _HomePageStateUser extends State<HomePageUser> {
                       future: firebaseinstance.get(),
                       builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
                         if (snapshot.hasError) {
+                          //>>>
+                          print(snapshot.error);
+                          //>>>
                           return Text("Something went wrong");
                         }
                         if (snapshot.connectionState ==

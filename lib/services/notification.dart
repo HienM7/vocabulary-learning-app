@@ -10,23 +10,23 @@ class NotifService {
       .add(notifData);
   }
 
-  Future<QuerySnapshot> fetchAll(DocumentReference receiver) async {
+  Future<QuerySnapshot> fetchAll(String recvId) async {
     return db
       .collection("notifs")
-      .where("receivers", arrayContains: receiver)
+      .where("receiver_ids", arrayContains: recvId)
       .orderBy('created_at', descending: true)
       .get();
   }
 
   Future<QuerySnapshot> fetchBatch(
-    DocumentReference receiver,
+    String recvId,
     List<DocumentSnapshot> shownDocs,
     int batchSize) async {
 
     if (shownDocs.isEmpty)
       return db
       .collection("notifs")
-      .where("receivers", arrayContains: receiver)
+      .where("receiver_ids", arrayContains: recvId)
       .orderBy('created_at', descending: true)
       .limit(batchSize)
       .get();
@@ -34,7 +34,7 @@ class NotifService {
     else
       return db
       .collection("notifs")
-      .where("receivers", arrayContains: receiver)
+      .where("receiver_ids", arrayContains: recvId)
       .orderBy('created_at', descending: true)
       .startAfter(
         [shownDocs[shownDocs.length-1].data()["created_at"]]
@@ -43,15 +43,14 @@ class NotifService {
       .get();
   }
 
-  // not used
-  update(Notification notif, Map notifData) {
+  update(DocumentSnapshot notif, Map<String, dynamic> notifData) {
     db
       .collection("notifs")
       .doc(notif.id)
-      .set(notifData);
+      .update(notifData);
   }
 
-  delete(Notification notif) {
+  delete(DocumentSnapshot notif) {
     db
       .collection("notifs")
       .doc(notif.id)
@@ -61,11 +60,11 @@ class NotifService {
       });
   }
 
-  Future<bool> checkAnyUnseen(DocumentReference user) {
+  Future<bool> checkAnyUnseen(String userId) {
     return db
       .collection("notifs")
       .where("seen", isEqualTo: false)
-      .where("receivers", arrayContains: user)
+      .where("receiver_ids", arrayContains: userId)
       .get()
       .then((snapshot) => snapshot.size > 0);
   }

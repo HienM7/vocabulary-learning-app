@@ -34,7 +34,8 @@ class _HomePageStateUser extends State<HomePageUser> {
       // not verified
       else if (!user.emailVerified) {
         AppRouter.router.navigateTo(
-          context, AppRoutes.emailNotVerified.route);
+          context, AppRoutes.emailNotVerified.route,
+          transition: TransitionType.none);
       }
     });
   }

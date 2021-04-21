@@ -260,54 +260,62 @@ class _ListWord extends State<ListWord> {
       definecontrollers[i].text = list[i]["definition"];
     }
     return Container(
-      width: size.width * 0.8,
-      child: DataTable(sortColumnIndex: 0, sortAscending: true, columns: [
-        DataColumn(
-            label: Text('Word',
-                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold))),
-        DataColumn(
-            label: Text('Definition',
-                style: TextStyle(
-                  fontSize: 20,
-                  fontWeight: FontWeight.bold,
-                ))),
-        DataColumn(
-            label: Text('Level',
-                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold))),
-        DataColumn(
-            label: Text('Edit',
-                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold))),
-        DataColumn(
-            label: Text('Delete',
-                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold))),
-      ], rows: [
-        for (var i = 0; i < list.length; i++)
-          DataRow(cells: <DataCell>[
-            DataCell(
-              TextFormField(
-                controller: wordcontrollers[i],
-                keyboardType: TextInputType.text,
-                decoration: InputDecoration(border: InputBorder.none),
-                style: TextStyle(fontSize: 16, fontWeight: FontWeight.w400),
-              ),
-              showEditIcon: true,
-            ),
-            DataCell(
+      width: size.width*0.8,
+      child: DataTable(
+        sortColumnIndex: 0,
+        sortAscending: true,
+        columns: [
+          DataColumn(
+              label: Text('Word',
+                  style: TextStyle(
+                      fontSize: 20, fontWeight: FontWeight.bold))),
+          DataColumn(
+              label: Text('Definition',
+                  style: TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
+                  ))),
+          DataColumn(
+              label: Text('Level',
+                  style: TextStyle(
+                      fontSize: 20, fontWeight: FontWeight.bold))),
+          DataColumn(
+              label: Text('Update',
+                  style: TextStyle(
+                      fontSize: 20, fontWeight: FontWeight.bold))),
+          DataColumn(
+              label: Text('Delete',
+                  style: TextStyle(
+                      fontSize: 20, fontWeight: FontWeight.bold))),
+        ],
+        rows: [
+          for (var i = 0; i < list.length; i++)
+            DataRow(cells: <DataCell>[
+              DataCell(
                 TextFormField(
                   controller: definecontrollers[i],
                   keyboardType: TextInputType.text,
                   decoration: InputDecoration(border: InputBorder.none),
                   style: TextStyle(fontSize: 16, fontWeight: FontWeight.w400),
                 ),
-                showEditIcon: true),
-            DataCell(Text(
-              "${list[i]['level']}",
-              style: TextStyle(fontSize: 16, fontWeight: FontWeight.w400),
-            )),
-            DataCell(
-              TextButton(
-                  child: Text("Edit",
-                      style: TextStyle(fontSize: 16, color: Colors.white)),
+                showEditIcon: true,
+              ),
+              DataCell(
+                  TextFormField(
+                    controller: definecontrollers[i],
+                    keyboardType: TextInputType.text,
+                    decoration: InputDecoration(
+                      border: InputBorder.none
+                    ),
+                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.w400),
+                  ),
+                  showEditIcon: true),
+              DataCell(Text("${list[i]['level']}", style: TextStyle(fontSize: 16, fontWeight: FontWeight.w400),)),
+              DataCell(
+                TextButton(
+                  child: Text(
+                    "Update",
+                    style: TextStyle(fontSize: 16, color: Colors.white)),
                   onPressed: () {
                     setState(() {
                       firebaseinstance.doc(keys[i]).update({

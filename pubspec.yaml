@@ -45,6 +45,8 @@ dependencies:
   firebase_auth: ^0.18.0+1
   provider: ^4.0.4
   fluro: ^2.0.3
+  country_calling_code_picker: ^1.0.2
+  country_code_picker: ^2.0.1
   rflutter_alert: ^2.0.2
 
 dev_dependencies:
@@ -68,7 +70,6 @@ flutter:
     - assets/images/home_background.jpg
     - assets/images/home_background_piece.png
     - assets/images/VocabLearn_logo_Wix.jpg
-
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
 

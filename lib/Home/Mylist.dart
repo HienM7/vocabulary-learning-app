@@ -170,8 +170,7 @@ class _MyList extends State<MyList> {
                           children: [
                             GestureDetector(
                               onTap: () => AppRouter.router.navigateTo(
-                                  context, AppRoutes.homePage.route,
-                                  transition: TransitionType.none),
+                                  context, AppRoutes.homePage.route),
                               child: Text(
                                 'My List',
                                 style: TextStyle(
@@ -185,6 +184,7 @@ class _MyList extends State<MyList> {
                               onPressed: () => AppRouter.router.navigateTo(
                                   context, AppRoutes.wordListDetailOrNew.route,
                                   transition: TransitionType.none),
+                                 
                               child: Text('Create a list',
                                   style: TextStyle(
                                       color: Colors.white, fontSize: 18)),
@@ -247,6 +247,7 @@ class _MyList extends State<MyList> {
                                   onTap: () => AppRouter.router.navigateTo(
                                       context, AppRoutes.homePage.route,
                                       transition: TransitionType.none),
+               
                                   child: Text(
                                     'My List',
                                     style: TextStyle(
@@ -416,6 +417,7 @@ class _MyList extends State<MyList> {
                                                       "/wordlists", keys[i]),
                                                   transition:
                                                       TransitionType.none);
+                                                   
                                             },
                                             child: Container(
                                                 height: 200,

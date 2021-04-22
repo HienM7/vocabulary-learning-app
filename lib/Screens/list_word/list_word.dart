@@ -53,6 +53,8 @@ class _ListWord extends State<ListWord> {
   List<TextEditingController> wordcontrollers = [];
   List<TextEditingController> definecontrollers = [];
   List<String> keys = [];
+  final TextEditingController _controller = TextEditingController();
+  bool published = false;
   TextEditingController addword = new TextEditingController();
   TextEditingController adddefine = new TextEditingController();
   TextEditingController addlevel = new TextEditingController();
@@ -105,6 +107,110 @@ class _ListWord extends State<ListWord> {
                           )
                         ],
                       )),
+                  Padding(
+                    padding: EdgeInsets.only(bottom: 15),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        FutureBuilder(
+                          future: FirebaseFirestore.instance.collection("lists").doc(_listId).get(),
+                          builder: (BuildContext context, AsyncSnapshot<DocumentSnapshot> snapshot) {
+                            if (snapshot.hasError) {
+                              return Text("Something went wrong");
+                            }
+                            if (snapshot.connectionState ==
+                                    ConnectionState.waiting &&
+                                isloop == false) {
+                              return Text("Loading...");
+                            }
+                            published = snapshot.data.data()["is_public"];
+                            return published?
+                            TextButton(
+                              onPressed: () {
+                                setState(() {
+                                  FirebaseFirestore.instance.collection("lists").doc(_listId).update({"is_public" : false});
+                                });
+                              },
+                              child: Padding(
+                                padding: EdgeInsets.all(10),
+                                child: Text(
+                                  "Unpublic",
+                                  style: TextStyle(
+                                      color: Colors.white,
+                                      fontSize: 20),
+                                )
+                              ),
+                              style: ButtonStyle(
+                                backgroundColor: MaterialStateProperty.all<Color>(Colors.blue),
+                              ),
+                            )
+                            : TextButton(
+                              onPressed: () {
+                                setState(() {
+                                  FirebaseFirestore.instance.collection("lists").doc(_listId).update({"is_public" : true});
+                                });
+                              },
+                              child: Padding(
+                                padding: EdgeInsets.all(10),
+                                child: Text(
+                                  "Public",
+                                  style: TextStyle(
+                                      color: Colors.white,
+                                      fontSize: 20),
+                                )
+                              ),
+                              style: ButtonStyle(
+                                backgroundColor: MaterialStateProperty.all<Color>(Colors.blue),
+                              ),
+                            );
+                          }
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            Container(
+                              width: screenSize.width * 0.23,
+                              child: TextField(
+                                controller: _controller,
+                                onSubmitted: (value) {
+                                  
+                                },
+                                textInputAction: TextInputAction.newline,
+                                decoration: InputDecoration(
+                                  hintText: "Add Colloborator",
+                                  labelText: "Add Colloborator",
+                                  labelStyle:
+                                    TextStyle(color: Colors.black),
+                                  border: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(4)),
+                                ),
+                              ),
+                            ),
+                            SizedBox(width: screenSize.width * 0.035),
+                            TextButton(
+                              onPressed: () {
+                                
+                              },
+                              child: Padding(
+                                padding: EdgeInsets.all(10),
+                                child: Text(
+                                  "Add Colloborator",
+                                  style: TextStyle(
+                                      color: Colors.white,
+                                      fontSize: 20),
+                                )
+                              ),
+                              style: ButtonStyle(
+                                backgroundColor: MaterialStateProperty.all<Color>(Colors.blue),
+                              ),
+                            ),
+                          ],
+                        )
+                      ],
+                    ),
+                  ),
                   ConstrainedBox(
                     constraints: BoxConstraints(
                       minHeight: 600,

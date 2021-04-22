@@ -53,18 +53,19 @@ class _MyList extends State<MyList> {
   int limits = 9;
   bool equal = true;
   bool isloop = false;
-  DocumentReference docRef;
 
   initiateSearch(value) {
+    String searchText = value.toString().trim().toLowerCase();
     change = true;
     if (value.length == 0) {
       setState(() {
         lists.clear();
+        keys.clear();
+        int i = 0;
         firebaseinstance
-            .where("creator_id", isEqualTo: 'K4gA9CONDSX7tWFiHAc7VHzyor23')
+            .where("creator_id", isEqualTo: auth.currentUser.uid)
             .get()
             .then((querySnapshot) {
-          int i = 0;
           for (var document in querySnapshot.docs) {
             lists.add(document.data());
             keys.add(document.id);
@@ -76,35 +77,64 @@ class _MyList extends State<MyList> {
           } else
             equal = false;
         });
+        if(i<limits)
+        {
+          firebaseinstance
+            .where("collab_ids", arrayContains: auth.currentUser.uid)
+            .get()
+            .then((querySnapshot) {
+              for (var document in querySnapshot.docs) {
+                lists.add(document.data());
+                keys.add(document.id);
+                i++;
+                if(i==limits) break;
+              }
+              if(limits==lists.length)
+              {
+                equal = true;
+              } else
+                equal = false;
+          });
+        }
       });
     } else {
       setState(() {
         lists.clear();
-        firebaseinstance
-            .where("creator_id", isEqualTo: 'K4gA9CONDSX7tWFiHAc7VHzyor23')
-            .get()
-            .then((querySnapshot) {
-          querySnapshot.docs.forEach((document) {
-            List<String> strs = [];
-            String str = "";
-            for (int i = 0;
-                i < document.data()["name"].toString().length;
-                i++) {
-              str += document.data()["name"][i];
-              strs.add(str);
+        keys.clear();
+        int i = 0;
+        firebaseinstance.where("creator_id", isEqualTo: auth.currentUser.uid).get().then((querySnapshot) {
+          for (var document in querySnapshot.docs) {
+            String listName = document.data()["name"].toString();
+            if (listName.trim().toLowerCase().contains(searchText)) {
+              lists.add(document.data());
+              keys.add(document.id);
+              i++;
             }
-            strs.forEach((element) {
-              if (element == value.toString()) {
-                lists.add(document.data());
-                keys.add(document.id);
-              }
-            });
-          });
+            if(i==limits) break;
+          }
           if (limits == lists.length) {
             equal = true;
           } else
             equal = false;
         });
+        if(i<limits)
+        {
+          firebaseinstance.where("collab_ids", arrayContains: auth.currentUser.uid).get().then((querySnapshot) {
+            for (var document in querySnapshot.docs) {
+              String listName = document.data()["name"].toString();
+              if (listName.trim().toLowerCase().contains(searchText)) {
+                lists.add(document.data());
+                keys.add(document.id);
+                i++;
+              }
+              if(i==limits) break;
+            }
+            if (limits == lists.length) {
+              equal = true;
+            } else
+              equal = false;
+          });
+        }
       });
     }
   }
@@ -116,10 +146,7 @@ class _MyList extends State<MyList> {
       label: 'VocabLearn | My Lists',
       primaryColor: Theme.of(context).primaryColor.value,
     ));
-
-    docRef = FirebaseFirestore.instance
-      .collection('users')
-      .doc('K4gA9CONDSX7tWFiHAc7VHzyor23');
+    
     var screenSize = MediaQuery.of(context).size;
     return Scaffold(
       //App bar
@@ -365,7 +392,7 @@ class _MyList extends State<MyList> {
                     ),
                     child: FutureBuilder<QuerySnapshot>(
                       future: firebaseinstance
-                          .where("creator_id", isEqualTo: 'K4gA9CONDSX7tWFiHAc7VHzyor23')
+                          .where("creator_id", isEqualTo: auth.currentUser.uid)
                           .get(),
                       builder: (BuildContext context,
                           AsyncSnapshot<QuerySnapshot> snapshot) {
@@ -377,9 +404,9 @@ class _MyList extends State<MyList> {
                             isloop == false) {
                           return Text("loading");
                         }
-                        isloop = true;
                         if (change == false) {
                           lists.clear();
+                          keys.clear();
                           int i = 0;
                           for (var document in snapshot.data.docs) {
                             lists.add(document.data());
@@ -396,180 +423,186 @@ class _MyList extends State<MyList> {
                             constraints: BoxConstraints(
                               minHeight: 500,
                             ),
-                            child: Column(
-                              children: [
-                                Wrap(spacing: 10, runSpacing: 10, children: [
-                                  for (var i = 0; i < lists.length; i++)
-                                    Card(
-                                      borderOnForeground: true,
-                                      shape: RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.circular(10),
-                                      ),
-                                      color: Colors.grey[200],
-                                      child: Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: [
-                                          TextButton(
-                                            onPressed: () {
-                                              AppRouter.router.navigateTo(
-                                                  context,
-                                                  AppRoutes.getDetailRoute(
-                                                      "/wordlists", keys[i]),
-                                                  transition:
-                                                      TransitionType.none);
-                                                   
-                                            },
-                                            child: Container(
-                                                height: 200,
-                                                width: 360,
-                                                decoration: BoxDecoration(
-                                                    shape: BoxShape.rectangle,
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            10),
-                                                    image: DecorationImage(
-                                                      image: AssetImage(
-                                                          'assets/images/home_background.jpg'),
-                                                      fit: BoxFit.cover,
-                                                    ))),
+                            child: FutureBuilder(
+                              future: firebaseinstance
+                                  .where("collab_ids", arrayContains: auth.currentUser.uid)
+                                  .get(),
+                              builder: (BuildContext context,
+                                  AsyncSnapshot<QuerySnapshot> snapshot) {
+                                if (snapshot.hasError) {
+                                  return Text("Something went wrong");
+                                }
+                                if (snapshot.connectionState ==
+                                        ConnectionState.waiting &&
+                                    isloop == false) {
+                                  return Text("loading");
+                                }
+                                isloop = true;
+                                if (change == false) {
+                                  int i = lists.length;
+                                  if(i<limits)
+                                  {
+                                    for (var document in snapshot.data.docs) {
+                                      lists.add(document.data());
+                                      keys.add(document.id);
+                                      i++;
+                                      if (i == limits) break;
+                                    }
+                                    if (limits == lists.length) {
+                                      equal = true;
+                                    } else
+                                      equal = false;
+                                  }
+                                }
+                                return Column(
+                                  children: [
+                                    Wrap(spacing: 10, runSpacing: 10, children: [
+                                      for (var i = 0; i < lists.length; i++)
+                                        Card(
+                                          borderOnForeground: true,
+                                          shape: RoundedRectangleBorder(
+                                            borderRadius: BorderRadius.circular(10),
                                           ),
-                                          Container(
-                                            height: 40,
-                                            margin: EdgeInsets.only(
-                                                top: 15, bottom: 10, left: 15),
-                                            child: Text(
-                                              lists[i]['name'],
-                                              style: TextStyle(
-                                                fontSize: 19,
-                                                color: Colors.black,
-                                                fontWeight: FontWeight.bold,
+                                          color: Colors.grey[200],
+                                          child: Column(
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            children: [
+                                              TextButton(
+                                                onPressed: () {
+                                                  AppRouter.router.navigateTo(
+                                                      context,
+                                                      AppRoutes.getDetailRoute(
+                                                          "/wordlists", keys[i]),
+                                                      transition:
+                                                          TransitionType.none);
+                                                      
+                                                },
+                                                child: Container(
+                                                    height: 200,
+                                                    width: 360,
+                                                    decoration: BoxDecoration(
+                                                        shape: BoxShape.rectangle,
+                                                        borderRadius:
+                                                            BorderRadius.circular(
+                                                                10),
+                                                        image: DecorationImage(
+                                                          image: AssetImage(
+                                                              'assets/images/home_background.jpg'),
+                                                          fit: BoxFit.cover,
+                                                        ))),
                                               ),
-                                            ),
+                                              Container(
+                                                height: 40,
+                                                margin: EdgeInsets.only(
+                                                    top: 15, bottom: 10, left: 15),
+                                                child: Text(
+                                                  lists[i]['name'],
+                                                  style: TextStyle(
+                                                    fontSize: 19,
+                                                    color: Colors.black,
+                                                    fontWeight: FontWeight.bold,
+                                                  ),
+                                                ),
+                                              ),
+                                              Padding(
+                                                padding: EdgeInsets.only(bottom: 10),
+                                                child: Row(
+                                                  mainAxisSize: MainAxisSize.min,
+                                                  mainAxisAlignment: MainAxisAlignment.start,
+                                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                                  children: [
+                                                    SizedBox(width: 15,),
+                                                    TextButton(
+                                                      onPressed: () {
+                                                        AppRouter.router.navigateTo(
+                                                          context,
+                                                        AppRoutes.getDetailRoute(
+                                                          "/quizpage", keys[i]),
+                                                        transition: TransitionType.none);
+                                                      },
+                                                      child: Padding(
+                                                        padding: EdgeInsets.all(5),
+                                                        child: Row(
+                                                          mainAxisAlignment:MainAxisAlignment.center,
+                                                          children: [
+                                                            Icon(
+                                                              Icons.games,
+                                                              color: Colors.white,
+                                                              size: 20,
+                                                            ),
+                                                            SizedBox(width: 5,),
+                                                            Text(
+                                                              "Game",
+                                                              style: TextStyle(
+                                                                  color: Colors.white,
+                                                                  fontSize: 18,
+                                                                  fontWeight: FontWeight.w400),
+                                                            )
+                                                          ],
+                                                        ),
+                                                      ),
+                                                      style: ButtonStyle(
+                                                        backgroundColor: MaterialStateProperty.all<Color>(Colors.blue)
+                                                      ),
+                                                    ),
+                                                  ],
+                                                )
+                                              ),
+                                            ],
                                           ),
-                                          Padding(
-                                            padding: EdgeInsets.only(bottom: 10),
+                                        )
+                                    ]),
+                                    if (equal == true)
+                                      Container(
+                                          width: 300,
+                                          height: 50,
+                                          margin: EdgeInsets.only(top: 30),
+                                          child: TextButton(
+                                            onPressed: () {
+                                              setState(() {
+                                                limits += 9;
+                                                initiateSearch(_controller.text);
+                                              });
+                                            },
                                             child: Row(
-                                              mainAxisSize: MainAxisSize.min,
-                                              mainAxisAlignment: MainAxisAlignment.start,
-                                              crossAxisAlignment: CrossAxisAlignment.center,
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.center,
                                               children: [
-                                                SizedBox(width: 15,),
-                                                TextButton(
-                                                  onPressed: () {
-                                                    
-                                                  },
-                                                  child: Padding(
-                                                    padding: EdgeInsets.all(5),
-                                                    child: Row(
-                                                      mainAxisAlignment:MainAxisAlignment.center,
-                                                      children: [
-                                                        Icon(
-                                                          Icons.games,
-                                                          color: Colors.grey[600],
-                                                          size: 20,
-                                                        ),
-                                                        SizedBox(width: 5,),
-                                                        Text(
-                                                          "Game",
-                                                          style: TextStyle(
-                                                              color: Colors.black,
-                                                              fontSize: 18,
-                                                              fontWeight: FontWeight.w400),
-                                                        )
-                                                      ],
-                                                    ),
-                                                  ),
-                                                  style: ButtonStyle(
-                                                    backgroundColor: MaterialStateProperty.all<Color>(Colors.grey[200]),
-                                                    side: MaterialStateProperty.all<BorderSide>(BorderSide(color: Colors.grey)),
-                                                  ),
-                                                ),
-                                                SizedBox(width: screenSize.width*0.05,),
-                                                TextButton(
-                                                  onPressed: () {
-                                                    
-                                                  },
-                                                  child: Padding(
-                                                    padding: EdgeInsets.all(5),
-                                                    child: Row(
-                                                      mainAxisAlignment:MainAxisAlignment.center,
-                                                      children: [
-                                                        Icon(
-                                                          Icons.person_add_alt_1_rounded,
-                                                          color: Colors.grey[600],
-                                                          size: 20,
-                                                        ),
-                                                        SizedBox(width: 5,),
-                                                        Text(
-                                                          "Add Colloborator",
-                                                          style: TextStyle(
-                                                              color: Colors.black,
-                                                              fontSize: 17,
-                                                              fontWeight: FontWeight.w400),
-                                                        )
-                                                      ],
-                                                    ),
-                                                  ),
-                                                  style: ButtonStyle(
-                                                    backgroundColor: MaterialStateProperty.all<Color>(Colors.grey[200]),
-                                                    side: MaterialStateProperty.all<BorderSide>(BorderSide(color: Colors.grey)),
-                                                  ),
-                                                ),
-                                              ],
-                                            )
-                                          ),
-                                        ],
-                                      ),
-                                    )
-                                ]),
-                                if (equal == true)
-                                  Container(
-                                      width: 300,
-                                      height: 50,
-                                      margin: EdgeInsets.only(top: 30),
-                                      child: TextButton(
-                                        onPressed: () {
-                                          setState(() {
-                                            limits += 9;
-                                            initiateSearch(_controller.text);
-                                          });
-                                        },
-                                        child: Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.center,
-                                          children: [
-                                            Icon(
-                                              Icons.sync_rounded,
-                                              color: Colors.black,
-                                              size: 22,
-                                            ),
-                                            Text(
-                                              "Load more",
-                                              style: TextStyle(
+                                                Icon(
+                                                  Icons.sync_rounded,
                                                   color: Colors.black,
-                                                  fontSize: 20,
-                                                  fontWeight: FontWeight.w300),
-                                            )
-                                          ],
-                                        ),
-                                        style: ButtonStyle(
-                                            backgroundColor:
-                                                MaterialStateProperty.all<
-                                                    Color>(Colors.grey[200]),
-                                            shape: MaterialStateProperty.all<
-                                                    RoundedRectangleBorder>(
-                                                RoundedRectangleBorder(
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            10),
-                                                    side: BorderSide(
-                                                        color: Colors.amber)))),
-                                      ))
-                                else
-                                  Wrap()
-                              ],
-                            ));
+                                                  size: 22,
+                                                ),
+                                                Text(
+                                                  "Load more",
+                                                  style: TextStyle(
+                                                      color: Colors.black,
+                                                      fontSize: 20,
+                                                      fontWeight: FontWeight.w300),
+                                                )
+                                              ],
+                                            ),
+                                            style: ButtonStyle(
+                                                backgroundColor:
+                                                    MaterialStateProperty.all<
+                                                        Color>(Colors.grey[200]),
+                                                shape: MaterialStateProperty.all<
+                                                        RoundedRectangleBorder>(
+                                                    RoundedRectangleBorder(
+                                                        borderRadius:
+                                                            BorderRadius.circular(
+                                                                10),
+                                                        side: BorderSide(
+                                                            color: Colors.amber)))),
+                                          ))
+                                    else
+                                      Wrap()
+                                  ],
+                                );
+                              }
+                            ),
+                          );
                       },
                     ),
                   ),

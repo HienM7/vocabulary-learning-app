@@ -65,7 +65,7 @@ class _HomePageStateUser extends State<HomePageUser> {
     if (searchText.length == 0) {
       setState(() {
         lists.clear();
-        firebaseinstance.get().then((querySnapshot) {
+        firebaseinstance.where("is_public", isEqualTo: true).get().then((querySnapshot) {
           int i = 0;
           for (var document in querySnapshot.docs) {
             lists.add(document.data());
@@ -82,7 +82,7 @@ class _HomePageStateUser extends State<HomePageUser> {
     } else {
       setState(() {
         lists.clear();
-        firebaseinstance.get().then((querySnapshot) {
+        firebaseinstance.where("is_public", isEqualTo: true).get().then((querySnapshot) {
           querySnapshot.docs.forEach((document) {
             String listName = document.data()["name"].toString();
             if (listName.trim().toLowerCase().contains(searchText)) {
@@ -350,7 +350,7 @@ class _HomePageStateUser extends State<HomePageUser> {
                       minHeight: 500,
                     ),
                     child: FutureBuilder<QuerySnapshot>(
-                      future: firebaseinstance.get(),
+                      future: firebaseinstance.where("is_public", isEqualTo: true).get(),
                       builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
                         if (snapshot.hasError) {
                           //>>>
@@ -453,14 +453,14 @@ class _HomePageStateUser extends State<HomePageUser> {
                                                       children: [
                                                         Icon(
                                                           Icons.games,
-                                                          color: Colors.grey[600],
+                                                          color: Colors.white,
                                                           size: 20,
                                                         ),
                                                         SizedBox(width: 5,),
                                                         Text(
                                                           "Game",
                                                           style: TextStyle(
-                                                              color: Colors.black,
+                                                              color: Colors.white,
                                                               fontSize: 18,
                                                               fontWeight: FontWeight.w400),
                                                         )
@@ -468,8 +468,7 @@ class _HomePageStateUser extends State<HomePageUser> {
                                                     ),
                                                   ),
                                                   style: ButtonStyle(
-                                                    backgroundColor: MaterialStateProperty.all<Color>(Colors.grey[200]),
-                                                    side: MaterialStateProperty.all<BorderSide>(BorderSide(color: Colors.grey)),
+                                                    backgroundColor: MaterialStateProperty.all<Color>(Colors.blue),
                                                   ),
                                                 ),
                                                 SizedBox(width: screenSize.width*0.1,),

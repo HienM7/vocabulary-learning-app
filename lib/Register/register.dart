@@ -23,9 +23,8 @@ class _RegisterPage extends State<RegisterPage> {
             content: Text(errormessage),
             actions: <Widget>[
               TextButton(
-                onPressed: () => Navigator.of(context).pop(),
-                child: Text('OK')
-              )
+                  onPressed: () => Navigator.of(context).pop(),
+                  child: Text('OK'))
             ],
           );
         });
@@ -49,146 +48,152 @@ class _RegisterPage extends State<RegisterPage> {
 
   @override
   Widget build(BuildContext context) {
-    SystemChrome.setApplicationSwitcherDescription(ApplicationSwitcherDescription(
+    SystemChrome.setApplicationSwitcherDescription(
+        ApplicationSwitcherDescription(
       label: 'VocabLearn | Signup',
       primaryColor: Theme.of(context).primaryColor.value,
     ));
-    
+
     return Scaffold(
-      body: Center(
-      child: Container(
-        width: 500,
-        padding: EdgeInsets.fromLTRB(30, 0, 30, 0),
-        // constraints: BoxConstraints.expand(),
-        color: Colors.white,
-        child: Column(
-          // mainAxisAlignment: MainAxisAlignment.end,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
-            Padding(
-              padding: const EdgeInsets.fromLTRB(0, 50, 0, 40),
-              child: Container(
-                  width: 130,
-                  height: 130,
-                  // padding: EdgeInsets.all(15),
-                  decoration: BoxDecoration(
-                      shape: BoxShape.rectangle, color: Color(0xffd8d8d8)),
-                  child: InkWell(
-                    onTap: () => AppRouter.router.navigateTo(
-                      context, AppRoutes.home.route,
-                      transition: TransitionType.none),
-                    child: Image.asset(
-                      'assets/images/VocabLearn_logo_Wix.jpg'))
-                  )
-            ),
-            Padding(
-              padding: const EdgeInsets.fromLTRB(0, 0, 0, 50),
-              child: Text(
-                "CREATE YOUR ACCOUNT",
-                style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    color: Colors.black,
-                    fontSize: 30),
-              )
-            ),
-            Padding(
-              padding: const EdgeInsets.fromLTRB(0, 0, 0, 35),
-              child: TextField(
-                controller: _userController,
-                style: TextStyle(fontSize: 18, color: Colors.black),
-                decoration: InputDecoration(
-                    errorText: _userinvalid ? _usererr : null,
-                    labelText: "USERNAME",
-                    labelStyle:
-                        TextStyle(color: Color(0xff888888), fontSize: 15)),
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.fromLTRB(0, 0, 0, 35),
-              child: TextField(
-                controller: _emailController,
-                style: TextStyle(fontSize: 18, color: Colors.black),
-                decoration: InputDecoration(
-                    errorText: _emailinvalid ? _emailerr : null,
-                    labelText: "EMAIL",
-                    labelStyle:
-                        TextStyle(color: Color(0xff888888), fontSize: 15)),
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.fromLTRB(0, 0, 0, 35),
-              child: Stack(
-                alignment: AlignmentDirectional.centerEnd,
-                children: <Widget>[
-                  TextField(
-                    controller: _passController,
-                    style: TextStyle(fontSize: 18, color: Colors.black),
-                    obscureText: !_showPass,
-                    decoration: InputDecoration(
-                        errorText: _passinvalid ? _passerr : null,
-                        labelText: "PASSWORD",
-                        labelStyle: TextStyle(
-                            color: Color(0xff888888), fontSize: 15)),
-                  ),
-                  GestureDetector(
-                    onTap: onToggleShowPass,
+      body: SingleChildScrollView(
+        child: Center(
+          child: Container(
+            width: 500,
+            padding: EdgeInsets.fromLTRB(30, 0, 30, 0),
+            // constraints: BoxConstraints.expand(),
+            color: Colors.white,
+            child: Column(
+              // mainAxisAlignment: MainAxisAlignment.end,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                Padding(
+                    padding: const EdgeInsets.fromLTRB(0, 50, 0, 40),
+                    child: Container(
+                        width: 130,
+                        height: 130,
+                        // padding: EdgeInsets.all(15),
+                        decoration: BoxDecoration(
+                            shape: BoxShape.rectangle,
+                            color: Color(0xffd8d8d8)),
+                        child: InkWell(
+                            onTap: () => AppRouter.router.navigateTo(
+                                context, AppRoutes.home.route,
+                                transition: TransitionType.none),
+                            child: Image.asset(
+                                'assets/images/VocabLearn_logo_Wix.jpg')))),
+                Padding(
+                    padding: const EdgeInsets.fromLTRB(0, 0, 0, 50),
                     child: Text(
-                      _showPass ? "HIDE" : "SHOW",
+                      "CREATE YOUR ACCOUNT",
                       style: TextStyle(
-                          color: Colors.blue,
-                          fontSize: 13,
-                          fontWeight: FontWeight.bold),
-                    ),
+                          fontWeight: FontWeight.bold,
+                          color: Colors.black,
+                          fontSize: 30),
+                    )),
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(0, 0, 0, 35),
+                  child: TextField(
+                    controller: _userController,
+                    style: TextStyle(fontSize: 18, color: Colors.black),
+                    decoration: InputDecoration(
+                        errorText: _userinvalid ? _usererr : null,
+                        labelText: "USERNAME",
+                        labelStyle:
+                            TextStyle(color: Color(0xff888888), fontSize: 15)),
                   ),
-                ],
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.fromLTRB(0, 0, 0, 35),
-              child: SizedBox(
-                width: double.infinity,
-                height: 56,
-                child: ElevatedButton(
-                  onPressed: onSignUpClicked,
-                  style: ButtonStyle(
-                    backgroundColor: MaterialStateProperty.all<Color>(Colors.blue),
-                    shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                      RoundedRectangleBorder(
-                        borderRadius: BorderRadius.all(Radius.circular(10)))),
-                    textStyle: MaterialStateProperty.all(
-                      TextStyle(color: Colors.white)),
+                ),
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(0, 0, 0, 35),
+                  child: TextField(
+                    controller: _emailController,
+                    style: TextStyle(fontSize: 18, color: Colors.black),
+                    decoration: InputDecoration(
+                        errorText: _emailinvalid ? _emailerr : null,
+                        labelText: "EMAIL",
+                        labelStyle:
+                            TextStyle(color: Color(0xff888888), fontSize: 15)),
                   ),
-                  child: Text(
-                    'REGISTER',
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 16,
+                ),
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(0, 0, 0, 35),
+                  child: Stack(
+                    alignment: AlignmentDirectional.centerEnd,
+                    children: <Widget>[
+                      TextField(
+                        controller: _passController,
+                        style: TextStyle(fontSize: 18, color: Colors.black),
+                        obscureText: !_showPass,
+                        decoration: InputDecoration(
+                            errorText: _passinvalid ? _passerr : null,
+                            labelText: "PASSWORD",
+                            labelStyle: TextStyle(
+                                color: Color(0xff888888), fontSize: 15)),
+                      ),
+                      GestureDetector(
+                        onTap: onToggleShowPass,
+                        child: Text(
+                          _showPass ? "HIDE" : "SHOW",
+                          style: TextStyle(
+                              color: Colors.blue,
+                              fontSize: 13,
+                              fontWeight: FontWeight.bold),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(0, 0, 0, 35),
+                  child: SizedBox(
+                    width: double.infinity,
+                    height: 56,
+                    child: ElevatedButton(
+                      onPressed: onSignUpClicked,
+                      style: ButtonStyle(
+                        backgroundColor:
+                            MaterialStateProperty.all<Color>(Colors.blue),
+                        shape:
+                            MaterialStateProperty.all<RoundedRectangleBorder>(
+                                RoundedRectangleBorder(
+                                    borderRadius:
+                                        BorderRadius.all(Radius.circular(10)))),
+                        textStyle: MaterialStateProperty.all(
+                            TextStyle(color: Colors.white)),
+                      ),
+                      child: Text(
+                        'REGISTER',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 16,
+                        ),
+                      ),
                     ),
                   ),
                 ),
-              ),
+                // SizedBox(
+                //   height: 130,
+                // ),
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(0, 0, 0, 35),
+                  child: Container(
+                      width: double.infinity,
+                      child: InkWell(
+                          onTap: () => AppRouter.router.navigateTo(
+                              context, AppRoutes.login.route,
+                              transition: TransitionType.none),
+                          child: MouseRegion(
+                            cursor: SystemMouseCursors.click,
+                            child: Text(
+                              "ALREADY HAVE AN ACCOUNT ? SIGN IN",
+                              style:
+                                  TextStyle(fontSize: 15, color: Colors.blue),
+                            ),
+                          ))),
+                ),
+              ],
             ),
-            // SizedBox(
-            //   height: 130,
-            // ),
-            Container(
-              width: double.infinity,
-              child: InkWell(
-                onTap: () => AppRouter.router.navigateTo(
-                  context, AppRoutes.login.route,
-                  transition: TransitionType.none),
-                child: MouseRegion(
-                  cursor: SystemMouseCursors.click,
-                  child: Text(
-                    "ALREADY HAVE AN ACCOUNT ? SIGN IN",
-                    style: TextStyle(fontSize: 15, color: Colors.blue),
-                  ),
-                )
-              )
-            ),
-          ],
+          ),
         ),
-      ),
       ),
     );
   }
@@ -225,12 +230,11 @@ class _RegisterPage extends State<RegisterPage> {
         if (user != null) {
           await auth.currentUser
               .updateProfile(displayName: _userController.text);
-          
+
           auth.currentUser.sendEmailVerification();
-          
-          AppRouter.router.navigateTo(
-            context, AppRoutes.homePage.route,
-            transition: TransitionType.none);
+
+          AppRouter.router.navigateTo(context, AppRoutes.homePage.route,
+              transition: TransitionType.none);
           // await Navigator.pushReplacementNamed(context,"/") ;
           // AppRouter.router.navigateTo(
           //   context, AppRoutes.homeAuth.route,

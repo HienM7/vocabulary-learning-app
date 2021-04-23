@@ -39,9 +39,9 @@ class _RegisterPage extends State<RegisterPage> {
   TextEditingController _userController = new TextEditingController();
   TextEditingController _passController = new TextEditingController();
   TextEditingController _emailController = new TextEditingController();
-  var _usererr = "username empty";
-  var _emailerr = "email khong hop le";
-  var _passerr = "pass phai tren 6 ki tu";
+  var _usererr = "Your username is empty.";
+  var _emailerr = "Your email is invalid.";
+  var _passerr = "Password must be longer than 6 characters.";
   var _userinvalid = false;
   var _emailinvalid = false;
   var _passinvalid = false;

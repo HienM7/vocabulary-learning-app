@@ -39,8 +39,8 @@ class _LoginPageState extends State<LoginPage> {
   bool _showPass = false;
   TextEditingController _emailController = new TextEditingController();
   TextEditingController _passController = new TextEditingController();
-  var _emailerr = "email khong hop le";
-  var _passerr = "pass phai tren 6 ki tu";
+  var _emailerr = "This email is invalid.";
+  var _passerr = "Password must be longer than 6 characters.";
   var _emailinvalid = false;
   var _passinvalid = false;
 

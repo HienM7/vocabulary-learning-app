@@ -6,9 +6,9 @@ A Flutter progressive web app for building vocabulary.
 
 ## Demo
 
-* Live demo (unstable): [VocabLearn demo app](https://vocablearn-g3.web.app/#/)
+* Live demo: [VocabLearn demo app](https://vocablearn-g3.web.app/#/)
 * Screenshots
-  * Home Page (logged in)
+  * Home Page (for logged-in users)
  
   ![Home Page](https://trello-attachments.s3.amazonaws.com/6046fcc9a542f0318e02d253/6048d5ea093af035d4047374/9c5590b278a897f897edb9183e876eea/homepage.png)
   
@@ -59,7 +59,7 @@ A Flutter progressive web app for building vocabulary.
   }
   ```
 
-* User/Profile: `/users/BXdTNFyd2gajVD4JI4N5EKrVPLA3`
+* User / Profile: `/profiles/BXdTNFyd2gajVD4JI4N5EKrVPLA3`
   ```javascript
   {
     code: "VN"
@@ -74,7 +74,7 @@ A Flutter progressive web app for building vocabulary.
   }
   ```
   
-* Game: `/games/Gpgd9QKV4G7E0nI8V5Gl`
+* Game: `/quizgames/Gpgd9QKV4G7E0nI8V5Gl`
   ```javascript
   {
     id: "Gpgd9QKV4G7E0nI8V5Gl",

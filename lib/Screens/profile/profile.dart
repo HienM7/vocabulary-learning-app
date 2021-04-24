@@ -284,8 +284,10 @@ class _ProfilePageState extends State<ProfileScreen> {
                                 });
                               },
                               // Initial selection and favorite can be one of code ('IT') OR dial_code('+39')
-                              initialSelection: code,
-                              favorite: [code, dialCode],
+                              initialSelection: code == null ? "VN" : code,
+                              favorite: [
+                                 dialCode == null ? "+84" : dialCode, code == null ? "VN" : code
+                              ],
                               // optional. Shows only country name and flag
                               showCountryOnly: true,
                               // optional. Shows only country name and flag when popup is closed.

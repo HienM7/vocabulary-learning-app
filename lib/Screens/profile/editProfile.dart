@@ -22,11 +22,11 @@ class _EditProfilePage extends State<EditProfile> {
   String dialCode;
   String name;
   String email;
-  static String userName = " ";
+  static String userName = "";
+  static String myIntroduction = "";
   String id;
-  bool _isEditingText = false;
-  TextEditingController username; 
-
+  TextEditingController username;
+  TextEditingController introduction;
   @override
   void dispose() {
     username.dispose();
@@ -43,7 +43,7 @@ class _EditProfilePage extends State<EditProfile> {
 
   DocumentReference docRef =
       FirebaseFirestore.instance.collection('users').doc('uid');
-  
+
   @override
   Widget build(BuildContext context) {
     var screenSize = MediaQuery.of(context).size;
@@ -85,21 +85,18 @@ class _EditProfilePage extends State<EditProfile> {
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            SizedBox(
-              height: 30,
-            ),
             Padding(
-              padding: const EdgeInsets.fromLTRB(0, 0, 0, 40),
+              padding: const EdgeInsets.fromLTRB(300, 0, 0, 20),
               child: Container(
-                  width: 130,
-                  height: 130,
+                  width: 150,
+                  height: 150,
                   padding: EdgeInsets.all(15),
-                  decoration: BoxDecoration(
-                      shape: BoxShape.circle, color: Color(0xffd8d8d8)),
-                  child: Image.asset('assets/images/VocabLearn_logo_Wix.jpg')),
+                  // decoration: BoxDecoration(
+                  //     shape: BoxShape.circle, color: Color(0xffd8d8d8)),
+                  child: Image.asset('assets/images/avatar.png')),
             ),
             Padding(
-              padding: const EdgeInsets.fromLTRB(0, 0, 0, 60),
+              padding: const EdgeInsets.fromLTRB(250, 0, 0, 20),
               child: Text(
                 "UPDATE PROFILE",
                 style: TextStyle(
@@ -128,20 +125,22 @@ class _EditProfilePage extends State<EditProfile> {
                     dialCode = document['dialCode'];
                     name = document['name'];
                     userName = document['display_name'];
+                    myIntroduction = document['introduction'];
                   }
                 }
                 username = new TextEditingController(text: userName);
+                introduction = new TextEditingController(text: myIntroduction);
                 return Container(
                   child: Column(
                     children: <Widget>[
                       Padding(
-                        padding: const EdgeInsets.fromLTRB(0, 0, 0, 40),
+                        padding: const EdgeInsets.fromLTRB(0, 0, 0, 20),
                         child: TextField(
                           controller: username,
                           style: TextStyle(fontSize: 18, color: Colors.black),
                           keyboardType: TextInputType.name,
                           onChanged: (val) {
-                              userName = val; 
+                            userName = val;
                           },
                           decoration: InputDecoration(
                               labelText: "USERNAME",
@@ -150,7 +149,22 @@ class _EditProfilePage extends State<EditProfile> {
                         ),
                       ),
                       Padding(
-                        padding: const EdgeInsets.fromLTRB(0, 0, 0, 40),
+                        padding: const EdgeInsets.fromLTRB(0, 0, 0, 20),
+                        child: TextField(
+                          controller: introduction,
+                          style: TextStyle(fontSize: 18, color: Colors.black),
+                          keyboardType: TextInputType.name,
+                          onChanged: (val) {
+                            myIntroduction = val;
+                          },
+                          decoration: InputDecoration(
+                              labelText: "INTRODUCTION",
+                              labelStyle: TextStyle(
+                                  color: Color(0xff888888), fontSize: 15)),
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.fromLTRB(0, 0, 0, 30),
                         child: CountryCodePicker(
                           onChanged: (CountryCode countryCode) {
                             this.code = countryCode.code;
@@ -169,7 +183,7 @@ class _EditProfilePage extends State<EditProfile> {
                         ),
                       ),
                       Padding(
-                        padding: const EdgeInsets.fromLTRB(0, 0, 0, 0),
+                        padding: const EdgeInsets.fromLTRB(250, 0, 0, 0),
                         child: SizedBox(
                             width: 900,
                             height: 56,
@@ -193,6 +207,10 @@ class _EditProfilePage extends State<EditProfile> {
                                             "code": code,
                                             "dialCode": dialCode,
                                             "name": name,
+                                            "introduction":
+                                                introduction.text == ""
+                                                    ? myIntroduction
+                                                    : introduction.text
                                           }).catchError((onError) {
                                             print("onError");
                                           });

@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:fluro/fluro.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:vocabulary_learning_app/Home/Mylist.dart';
@@ -13,23 +15,16 @@ import 'package:vocabulary_learning_app/Screens/error_pages/page404.dart';
 import 'package:vocabulary_learning_app/Screens/list_word/list_word.dart';
 import 'package:vocabulary_learning_app/Screens/profile/editProfile.dart';
 import 'package:vocabulary_learning_app/Screens/profile/introduction.dart';
-<<<<<<< HEAD
-import 'package:vocabulary_learning_app/Screens/notification/notification_page.dart';
-=======
->>>>>>> 99df823 (commit)
 import 'package:vocabulary_learning_app/Screens/profile/profile.dart';
 import 'package:vocabulary_learning_app/Screens/testCRUD/home.dart';
 import 'package:vocabulary_learning_app/Screens/vocab_list/vocab_list.dart';
 import 'package:vocabulary_learning_app/UpdatePass/updatepass.dart';
 import 'package:vocabulary_learning_app/game/quizpage.dart';
-<<<<<<< HEAD
-import 'dart:convert';
-class AppRoutes {
-  
-=======
+
+import '../Screens/notification/notification_page.dart';
+
 
 class AppRoutes {
->>>>>>> 99df823 (commit)
   static final routeNotFoundHandler = Handler(
       handlerFunc: (BuildContext context, Map<String, List<String>> params) {
     debugPrint("Page not found.");
@@ -112,7 +107,6 @@ class AppRoutes {
     '/my/profile/introduction',
     Handler(
       handlerFunc: (context, parameters) => Introduction(),
-<<<<<<< HEAD
     )
   );
 
@@ -120,8 +114,7 @@ class AppRoutes {
     '/my/notifications',
     Handler(
       handlerFunc: (context, parameters) => NotificationPage(),
-=======
->>>>>>> 99df823 (commit)
+
     ),
   );
 
@@ -162,7 +155,6 @@ class AppRoutes {
       return ListWord(listId); // --> ListDetailPage
     }),
   );
-<<<<<<< HEAD
   static final showWordListDetail = AppRoute(
     '/wordlists-show/:encode',
     Handler(
@@ -175,8 +167,7 @@ class AppRoutes {
       }
     ),
   );
-=======
->>>>>>> 99df823 (commit)
+
 
   // static final wordListNew = AppRoute(
   //   '/wordlists/new',
@@ -255,10 +246,8 @@ class AppRoutes {
     // wordLists,
     wordListDetailOrNew,
     // wordListNew,
-<<<<<<< HEAD
     showWordListDetail,
-=======
->>>>>>> 99df823 (commit)
+
     practice,
     homeAuth,
     passwordChange,
@@ -266,11 +255,8 @@ class AppRoutes {
     todoTest,
     resetpass,
     updateProfile,
-<<<<<<< HEAD
     introduction,
     notifications,
-=======
-    introduction
->>>>>>> 99df823 (commit)
+
   ];
 }

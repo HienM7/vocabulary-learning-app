@@ -103,7 +103,7 @@ class _CoursePage extends State<CoursePage> {
             Padding(
               padding: const EdgeInsets.fromLTRB(0, 0, 0, 35),
               child: TextField(
-                controller: _tagController,
+                controller: _desController,
                 style: TextStyle(fontSize: 18, color: Colors.black),
                 decoration: InputDecoration(
                     labelText: "Description",
@@ -117,7 +117,7 @@ class _CoursePage extends State<CoursePage> {
                 alignment: AlignmentDirectional.centerEnd,
                 children: <Widget>[
                   TextField(
-                    controller: _desController,
+                    controller: _tagController,
                     style: TextStyle(fontSize: 18, color: Colors.black),
                     decoration: InputDecoration(
                         labelText: "Tag",

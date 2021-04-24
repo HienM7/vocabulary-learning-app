@@ -171,7 +171,8 @@ class _HomePageStateUser extends State<HomePageUser> {
                             SizedBox(width: screenSize.width * 0.32),
                             TextButton(
                               onPressed: () => AppRouter.router.navigateTo(
-                                  context, AppRoutes.wordListDetailOrNew.route,
+                                  context, AppRoutes.getDetailRoute(
+                                                "/wordlists", "new"),
                                   transition: TransitionType.none),
                               child: Text('Create a list',
                                   style: TextStyle(

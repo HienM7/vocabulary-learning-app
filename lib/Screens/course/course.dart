@@ -168,6 +168,7 @@ class _CoursePage extends State<CoursePage> {
       var newCourse = await firebaseinstance.add({
           "creator_id": FirebaseAuth.instance.currentUser.uid,
           "created_at": Timestamp.now(),
+          "is_public": true,
           "name": _nameController.text,
           "description": _desController.text,
           "tag": _tagController.text

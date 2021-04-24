@@ -288,7 +288,7 @@ class _MyList extends State<MyList> {
                                 TextButton(
                                   onPressed: () => AppRouter.router.navigateTo(
                                       context,
-                                      AppRoutes.wordListDetailOrNew.route,
+                                      AppRoutes.getDetailRoute("/wordlists", "new"),
                                       transition: TransitionType.none),
                                   child: Text('Create a list',
                                       style: TextStyle(

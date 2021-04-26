@@ -4,17 +4,33 @@ A Flutter progressive web app for building vocabulary.
 
 [![App Build & Deploy](https://github.com/HienM7/vocabulary-learning-app/actions/workflows/firebase_deploy.yml/badge.svg?branch=master)](https://github.com/HienM7/vocabulary-learning-app/actions/workflows/firebase_deploy.yml)
 
+[![GitHub release (latest SemVer)](https://img.shields.io/github/v/release/HienM7/vocabulary-learning-app)](#)
+
+[![MIT license](https://img.shields.io/badge/License-MIT-blue.svg)](https://lbesson.mit-license.org/)
+
 ## Demo
 
 * Live demo: [VocabLearn demo app](https://vocablearn-g3.web.app/#/)
 * Screenshots
   * Home Page (for logged-in users)
  
-  ![Home Page](https://trello-attachments.s3.amazonaws.com/6046fcc9a542f0318e02d253/6048d5ea093af035d4047374/9c5590b278a897f897edb9183e876eea/homepage.png)
+  ![Home Page](https://lh3.googleusercontent.com/Ez2pKK4exHvvqc3VlplwbBHgVAMaUjHgC-3SHSKqeGr_GN9SwLzGsiCFE7VQ29Jg0BKuZuiGfUReV00xFC_C1plNvRuyr0SRD-HsU9rb1biOyGuQa6hIPrWy6LbZsh2Hh45b3gwyi5s)
+  
+  * Profile Page
+  
+  ![Profile Page](https://lh4.googleusercontent.com/YkGS4PFEaHmk1BtcWTDM4-f5v_kbmqaIIY37ElRYogv7EuMUGI45yCK8bfaeRzj47DK2x_ITjrSbLACMGMGHywNKMDQVqCmDDSGVMvP2mGI29b29Hwj-Vx-6NvIgV4QdvvCOOCF8tIg)
   
   * Word List Page
 
-  ![Word List Page](https://trello-attachments.s3.amazonaws.com/6046fcc9a542f0318e02d253/6048d5ea093af035d4047374/044923d324a5c02db7d79b66289bc4e3/listview.png)
+  ![Word List Page](https://lh5.googleusercontent.com/dSumORsMjNbGCFfLNcRTA-sPvs5iY6Kmqdkz436132b4AFDxFENxC2J_oKOeNxDsc5Y2n6Vm-hXDHYCjduEPlb2Sv3LbpzJiwLRLygiBbpvTyjy9CKwsrW4XeSFnslR3FvkxT---bZM)
+  
+  * Quiz Game Page
+  
+  ![Quiz Game Page](https://lh4.googleusercontent.com/jsU0fs9D9hPcJZe3Uh3GQNAENrK3qRqIeOsQ4wPCLj18gRH4ytjrcJiNdu5Ba6gXqZnJF157MvoOZeKlafahntN2rX150AZ2kBi4oGerdZe7AXhf-Slakl-EF-4uKZBHvjxPkzWEl-8)
+  
+  * Notification Page
+  
+  ![Notification Page](https://lh3.googleusercontent.com/jufF9jtUtuMizRLnKTKRO05cR346OX87gbd6sZrcP8jYMv729-TTcOZOiPx5UBGLV9M5XY_QpyAFybEKbYLHkKjZXmpUGiVoM6gtdc7mNIW3p5Kkt1R473X7v8dRfSb-jxMpoDD_h_E)
 
 ## Installation and Setup
 
@@ -113,6 +129,8 @@ A Flutter progressive web app for building vocabulary.
 | `/login`  | Login page | The login page         |
 | `/signup`  | Signup page | The signup page         |
 | `/my/profile`  | Profile page | The page showing the user's profile         |
+| `/my/profile/update`  | Update Profile page | The page allowing the user to edit his/her profile         |
+| `/my/notifications`  | Notification page | The page listing all notifications of the user         |
 | `/my/lists`  | My Lists page | The page showing the user's own lists         |
 | `/my/lists/:id`  | My List Detail page | The page showing a word list of the user with details like words, meanings, etc., where `:id` is the list's id         |
 | `/wordlists`  | Word Lists page | The page showing all public lists         |
